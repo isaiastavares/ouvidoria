@@ -38,6 +38,15 @@
 
 	<repositories>
 		<repository>
+			<id>central</id>
+			<name>Central Repository</name>
+			<url>http://repo.maven.apache.org/maven2</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
 			<id>demoiselle-release</id>
 			<url>http://demoiselle.sourceforge.net/repository/release</url>
 		</repository>
