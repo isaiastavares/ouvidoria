@@ -38,12 +38,24 @@
 
 	<repositories>
 		<repository>
+			<id>maven.org</id>
+			<url>http://repo2.maven.org/maven2</url>
+		</repository>
+		<repository>
 			<id>demoiselle-release</id>
 			<url>http://demoiselle.sourceforge.net/repository/release</url>
 		</repository>
 		<repository>
+			<id>atlassian.com</id>
+			<url>https://maven.atlassian.com/maven1/maven2</url>
+		</repository>
+		<repository>
 			<id>wso2.org</id>
 			<url>http://dist.wso2.org/maven2</url>
+		</repository>
+		<repository>
+			<id>java.net</id>
+			<url>http://download.java.net/maven/2</url>
 		</repository>
 	</repositories>
 
