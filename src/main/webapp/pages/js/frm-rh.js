@@ -8,21 +8,21 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 /*
 <script type="textjavascript" src="cb.js"></script>
 <script type="textjavascript" src="frm.js"></script>
-*/ 
+*/
 
 
 // -------------------------
@@ -30,20 +30,17 @@
 // -------------------------
 
 function installReturnHandler() {
-  // TODO Under IE, installing an event handler for the document and another for an input prevents the input events from happening.
   /*
-	document.onkeydown = returnHanlder; 
-	if ( !isIE ) { 
-	  document.captureEvents( Event.KEYDOWN|Event.KEYUP ); 
-  } 
+	document.onkeydown = returnHanlder;
+	if ( !isIE ) {
+	  document.captureEvents( Event.KEYDOWN|Event.KEYUP );
+  }
 	*/
 	addEvent(document, 'keydown', returnHanlder, true);
 
 }
 
 function returnHanlder(e) {
-	// TODO FIX: under Mozilla, keydown cannot be cancelled.
- 
 	if (!e) {
 		alert('No event at returnHanlder!');
 		return true;
@@ -51,15 +48,15 @@ function returnHanlder(e) {
 
 	var source = getEventSource(e);
 	var k = getKey(e);
-	
+
 	if ( k != 13 ) return true;
-	
-	if ( 'button,submit'.indexOf(source.type) != -1) { 
+
+	if ( 'button,submit'.indexOf(source.type) != -1) {
 		return true;
 	}
 
 	var nextField = getNextInTabOrder(source);
-	
+
 	if (!nextField) {
 		//if (e.cancelable) e.preventDefault();
 		cancelEvent(e);
@@ -67,19 +64,19 @@ function returnHanlder(e) {
 	}
 
 	// alert(nextField.name);
-	
-	if ( 'submit,button'.indexOf(nextField.type) != -1) { // TODO maybe exclude the test for button ...
-		// submit, we finished all fields 
+
+	if ( 'submit,button'.indexOf(nextField.type) != -1) {
+		// submit, we finished all fields
 		//nextField.focus();
 		nextField.click();
 		return true;
 	}
 
-	// we are not done yet, send focus to next box 
+	// we are not done yet, send focus to next box
 	nextField.focus();
 	if (isTextField(nextField)) nextField.select();
 
 	cancelEvent(e);
-	return false; 
-	
+	return false;
+
 }

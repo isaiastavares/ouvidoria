@@ -1,6 +1,6 @@
 /*
  * $Id: site-common.js,v 1.1.2.1 2011/10/11 12:15:20 03323620941 Exp $
- * 
+ *
  * Common functions for the site
  * Author: Elifarley Callado Coelho Cruz
  */
@@ -20,14 +20,14 @@ var agrupamento = {
 	index: 'dwmsy',
 	items: ['Di&aacute;rio', 'Semanal', 'Mensal', 'Semestral', 'Anual'],
 	itemUnits: ['dia', 'semana', 'm&ecirc;s', 'semestre', 'ano'],
-	
+
 	fromChar: function(c) { var i = this.index.indexOf(c); return i >= 0 ? this.items[i] : 'INEXISTENTE'; },
 	fromCharAsUnit: function(c) { var i = this.index.indexOf(c); return i >= 0 ? this.itemUnits[i] : 'INEXISTENTE'; },
-	
+
 	getDateSpan: function(frm) {
-		getDateSpan(frm);	
+		getDateSpan(frm);
 	}
-	
+
 };
 
 function getDateSpan(frm) {
@@ -47,15 +47,15 @@ function getDateSpan(frm) {
 		case 'm': agr = '1M'; break;
 		default: agr = '1' + agr;
 	}
-	
+
 	var result = Date.span(frm.txt_periodo_i.value, frm.txt_periodo_f.value, agr, format, 1000, true);
-	
+
 	if (old_agr == 'w') return result.iterate(function(item, index) {return 'Semana ' + item;});
 	if (old_agr == 's') return result.iterate(function(item, index) {return item.toString().replace(/\d/, function(s) {switch(s) {case '1': return 'Primeiro Semestre'; case '2': return 'Segundo Semestre';} });});
-	
+
 	return result;
 
-}	
+}
 
 function datesAreValid(frm) {
   return frm.txt_periodo_i.value && frm.txt_periodo_f.value && isValidDate(frm.txt_periodo_i.value) && isValidDate(frm.txt_periodo_f.value) && ( convertPtBr2ISO8601DateShort(frm.txt_periodo_i.value) <= convertPtBr2ISO8601DateShort(frm.txt_periodo_f.value) ) ;
@@ -106,7 +106,7 @@ Array.prototype.indexOf = function(element) {
 };
 
 function afterPageBody() {
-	
+
 	var theForm = document.forms[0];
 
 	if (theForm) {
@@ -119,7 +119,7 @@ function afterPageBody() {
 	if (theForm) {
 		installAttributesOnForm(theForm);
 	}
-	
+
 	// installMsgTab(10, 5); // 10, 5
 
 }
@@ -127,23 +127,23 @@ function afterPageBody() {
 function installAttributesOnForm(theForm) {
 
 	// var theForm = document.forms[0];
-	
+
 	if (!theForm)
 		return;
-		
+
 	var el;
 	for(var i = theForm.elements.length - 1; i >= 0; i--) {
-    
+
     el = theForm.elements[i];
-    
+
 		elTransform = el.getAttribute(TRANSFORM_ATTRIBUTE);
 
     if (
-      el.getAttribute(DATATYPE_ATTRIBUTE) || 
+      el.getAttribute(DATATYPE_ATTRIBUTE) ||
       (el.type == 'textarea' && el.getAttribute('maxlength')) ||
       ( (DEFAULT_INPUT_TRANSFORM && DEFAULT_INPUT_TRANSFORM != 'none') || (elTransform && elTransform != 'none') )
     ) installMask(el);
-    
+
   }
 
 }
@@ -158,12 +158,12 @@ function installMask(obj) {
 }
 
 function site_doKeyPress(e) {
-  if (!textAreaMaxLength_doKeyPress(e)) return false; 
+  if (!textAreaMaxLength_doKeyPress(e)) return false;
   return fdt_doKeyPress(e);
 }
 
 function site_doBlur(e) {
-	textTransform(getEventSource(e)); // TODO Put textTransform in separate file.
+	textTransform(getEventSource(e));
   textAreaMaxLength_doBlur(e);
   return fdt_doBlur(e);
 }

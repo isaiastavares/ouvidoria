@@ -1,27 +1,27 @@
 /*
  * Sistema de Ouvidoria: um canal através do qual os usuários
  * podem encaminhar suas reclamações, elogios e sugestões.
- * 
+ *
  * Copyright (C) 2011 SERPRO
- * 
+ *
  * Este programa é software livre; você pode redistribuí-lo e/ou
  * modificá-lo sob os termos da Licença Pública Geral GNU, conforme
  * publicada pela Free Software Foundation; tanto a versão 2 da
  * Licença como (a seu critério) qualquer versão mais nova.
- * 
+ *
  * Este programa é distribuído na expectativa de ser útil, mas SEM
  * QUALQUER GARANTIA; sem mesmo a garantia implícita de
  * COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM
  * PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais
  * detalhes.
- * 
+ *
  * Você deve ter recebido uma cópia da Licença Pública Geral GNU,
  * sob o título "LICENCA.txt", junto com esse programa. Se não,
  * acesse o Portal do Software Público Brasileiro no endereço
  * http://www.softwarepublico.gov.br/ ou escreva para a Fundação do
  * Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02111-1301, USA.
- * 
+ *
  * Contatos através do seguinte endereço internet:
  * http://www.serpro.gov.br/sistemaouvidoria/
  */
@@ -51,7 +51,7 @@ import br.gov.serpro.ouvidoria.model.Perfil;
 /**
  * Objetivo: Controlar as operações sobre os objetos Acionamento, como por
  * exemplo, tratar a lista de mensagens pendentes
- * 
+ *
  * @author SERPRO
  * @version $Revision: 1.1.2.5 $, $Date: 2011/11/16 19:06:27 $
  * @version 0.1, Date: 2004/12/13
@@ -67,7 +67,6 @@ public class AcionamentoCtrl {
 	 * Construtor "default"
 	 */
 	public AcionamentoCtrl() {
-		// DO NOTHING
 	}
 
 	/**
@@ -79,7 +78,7 @@ public class AcionamentoCtrl {
 
 	/**
 	 * Método para recuperar o Acionamento a partir de um id
-	 * 
+	 *
 	 * @param id
 	 *            identificador do Acionamento
 	 */
@@ -92,10 +91,10 @@ public class AcionamentoCtrl {
 
 	/**
 	 * Método para persistir a Solução no BD
-	 * 
+	 *
 	 * @param pAcionamento
 	 *            acionamento a ser persistido
-	 * 
+	 *
 	 */
 	public void save(Acionamento pAcionamento) throws DaoException {
 		acionamentoDao.save(pAcionamento);
@@ -111,7 +110,7 @@ public class AcionamentoCtrl {
 	/**
 	 * Método para recuperar os acionamentos de uma Ouvidoria por estado
 	 * (situação).
-	 * 
+	 *
 	 * @param pOrgao
 	 *            Órgão em questão.
 	 * @param pPend
@@ -171,7 +170,7 @@ public class AcionamentoCtrl {
 	/**
 	 * Método para recuperar os acionamentos de um funcionário por estado
 	 * (situação)
-	 * 
+	 *
 	 * @param pFunc
 	 *            Funcionário
 	 * @param pPend
@@ -292,7 +291,7 @@ public class AcionamentoCtrl {
 	/**
 	 * Método para totalizar as mensagens (pendentes/em andamento/ em atraso/ am
 	 * atraso crítico) de um Funcionário
-	 * 
+	 *
 	 * @param pFunc
 	 *            Funcionário
 	 */
@@ -466,7 +465,7 @@ public class AcionamentoCtrl {
 
 	/**
 	 * Método para recuperar o acionamento a partir de um número de protocolo
-	 * 
+	 *
 	 * @param orgao
 	 *            Órgão sendo gerenciado
 	 * @param numeroProtocolo
@@ -504,7 +503,7 @@ public class AcionamentoCtrl {
 
 	/**
 	 * Método para recuperar as mensagens respondidas
-	 * 
+	 *
 	 * @param pFunc
 	 *            Funcionário
 	 * @param pDatIni
@@ -519,7 +518,7 @@ public class AcionamentoCtrl {
 	 *            Palavra Chave
 	 * @param pOrgao
 	 *            Órgão logado
-	 * 
+	 *
 	 */
 	public List listaMensagensRespondidas(final Funcionario pFunc,
 			final String pDatIni, final String pDatFim, final String pTipoMsg,
@@ -531,10 +530,10 @@ public class AcionamentoCtrl {
 		String lsFrom = "";
 		String lsWhere = "";
 
-		// Caso o funcionário logado seja um Administrador,
-		// ou se o funcionário logado tenha acesso a todo o órgão
-		// Consulta-se os acionamentos associados às localidades
-		// dos sub-órgão do órgão do contexto
+		/*  Caso o funcionário logado seja um Administrador,
+			ou se o funcionário logado tenha acesso ao órgão por completo
+			Consulta-se os acionamentos associados às localidades
+			dos sub-órgão do órgão do contexto */
 		if (pFunc.getPerfil().getId().longValue() == Perfil.ADMINISTRADOR
 				.getId().longValue()
 				|| pFunc.getNivelAtuacao() == Funcionario.NA_ORGAO) {
@@ -601,10 +600,10 @@ public class AcionamentoCtrl {
 
 	/**
 	 * Método para atualizar os estados dos acionamentos
-	 * 
+	 *
 	 * @param lstAcionamentos
 	 *            Lista de acionamentos a serem atualizados
-	 * 
+	 *
 	 */
 	public boolean atualizaEstadoAcionamentos(List lstAcionamentos) {
 
@@ -614,14 +613,14 @@ public class AcionamentoCtrl {
 
 			// Varre a lista de acionamentos atualizando o
 			// estado de cada um de acordo com os prazos
-			
+
 			for (Iterator it = lstAcionamentos.iterator(); it.hasNext();) {
 
 				ConsultaAndamento consultaAndamento = (ConsultaAndamento) it
 						.next();
 
 				Acionamento acionamento = get(consultaAndamento.getId());
-				
+
 				long idEstadoAcion = consultaAndamento.getIdEstadoAcionamento()
 						.longValue();
 				Timestamp dataExterna = consultaAndamento.getDataExterna() != null ? new Timestamp(
@@ -636,17 +635,17 @@ public class AcionamentoCtrl {
 								.getId().longValue()) {
 
 					log.debug("\n>>>> ACIONAMENTO: Pendente ou Em Andamento!!!\n\n");
-					
+
 					// acionamento PENDENTE ou EM ANDAMENTO - verificar se está
 					// em ATRASO
 					if (dataExterna != null && dataExterna.before(agora)) {
 						acionamento.setEstadoAcionamento(EstadoAcionamento.CRITICO);
 						acionamentoDao.save(acionamento);
-						
+
 					} else if (dataInterna != null && dataInterna.before(agora)) {
 						acionamento.setEstadoAcionamento(EstadoAcionamento.ATRASO);
-						acionamentoDao.save(acionamento);	
-						
+						acionamentoDao.save(acionamento);
+
 					}
 
 				} else if (idEstadoAcion == EstadoAcionamento.ATRASO.getId()

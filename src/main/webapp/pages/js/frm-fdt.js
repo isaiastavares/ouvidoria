@@ -8,15 +8,15 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 /*
@@ -24,7 +24,7 @@
 <script type="textjavascript" src="cb.js"></script>
 <script type="textjavascript" src="frm.js"></script>
 <script type="textjavascript" src="dateKit.js"></script>
-*/ 
+*/
 
 var FRM_FDT_MSGS = new Array();
 
@@ -46,15 +46,15 @@ var REGEXP_ATTRIBUTE   = 'regexp';
 var MIN_VAL_ATTRIBUTE = 'minVal';
 var MAX_VAL_ATTRIBUTE = 'maxVal';
 
-var ERROR_MSG_ATTRIBUTE = 'errorMsg'; 
+var ERROR_MSG_ATTRIBUTE = 'errorMsg';
 
 
 function fdt_doKeyPress(e) {
   var el = getEventSource(e);
   var key = getKey(e);
-  
+
   return fdt_doKeyPress_i(e, key, el);
-  
+
 }
 
 function fdt_doKeyPress_i(e, key, el) {
@@ -68,15 +68,14 @@ function fdt_doKeyPress_i(e, key, el) {
   var keyChar = String.fromCharCode(key);
 
   var dataType = el.getAttribute(DATATYPE_ATTRIBUTE);
-  
-  // TODO find correct value when cursor position is not at last character
+
   var pos = el.value.length;
   var newVal = el.value + keyChar;
 
   if ( !isPartialValidData(newVal, dataType, el) || dataType == 'mask' ) {
     cancelEvent(e);
     return false;
-  } 
+  }
 
   if ('date,time'.indexOf(dataType) < 0 ) {
     return true;
@@ -86,26 +85,26 @@ function fdt_doKeyPress_i(e, key, el) {
 
   if (dataType == 'date') {
     doDateKeyPress(el, newVal);
-  
+
   } else if (dataType == 'time') {
     doTimeKeyPress(el, newVal);
 
   } else {
-  
+
     result = testPartialMask(el, newVal, mask);
   }
-  
+
   cancelEvent(e);
   return false;
-        
+
 }
 
 function isPartialValidData(val, dataType, el) {
 
   var result;
-  
+
   switch (dataType) {
-  
+
   case 'number':
     result = isPartialNumber(val);
     break;
@@ -121,12 +120,12 @@ function isPartialValidData(val, dataType, el) {
   case 'date':
     result = isPartialDate(val);
     break;
-        
+
   case 'time':
-  
+
     result = isPartialTime(val);
     break;
-        
+
   case 'email':
     result = isPartialEmail(val);
     break;
@@ -137,17 +136,16 @@ function isPartialValidData(val, dataType, el) {
 
   case 'regexp':
     // result = (new RegExp(el.getAttribute(REGEXP_ATTRIBUTE))).test(val);
-    // TODO implement isPartialRegExp
     result = true;
     break;
 
   default:
-    result = true;        
+    result = true;
 
   }
-  
+
   return result;
-    
+
 }
 
 function fdt_doBlur(e) {
@@ -176,15 +174,13 @@ function removeErrorClass(el) {
 }
 
 function validateData(el) {
-  
+
   var dataType = el.getAttribute(DATATYPE_ATTRIBUTE);
 
   var msg = '';
-  
+
   var val = el.value;
-  
-  // TODO Get error message by calling getElementErrorMsg(), el.getAttribute(ERROR_MSG_ATTRIBUTE);
-  
+
   switch (dataType) {
   case 'number':
     if (isNaN(val))
@@ -192,7 +188,7 @@ function validateData(el) {
     else
       msg = validateMinMax(el, dataType, val);
     break;
-        
+
   case 'integer':
     if (!isInteger(val))
       msg = getElementErrorMsg(el, 'INVALID_INTEGER', val);
@@ -210,7 +206,7 @@ function validateData(el) {
     else
       msg = validateMinMax(el, dataType, val);
     break;
-        
+
   case 'time':
     if (!isValidTime(val))
       msg = getElementErrorMsg(el, 'INVALID_TIME', val);
@@ -226,7 +222,7 @@ function validateData(el) {
     if (!ValidateCGCCPF.isValidCGC(val)) msg = getElementErrorMsg(el, 'INVALID_CGC', val);
     break;
 
-  case 'cpf': // TODO
+  case 'cpf':
     if (!ValidateCGCCPF.isValidCPF(val)) msg = getElementErrorMsg(el, 'INVALID_CPF', val);
     break;
 
@@ -287,7 +283,7 @@ function cast(val, dataType) {
   case 'cgc':
     return parseInt(val.toString().replace(/\D/, ''));
 
-  case 'cpf': // TODO
+  case 'cpf':
     return parseInt(val.toString().replace(/\D/, ''));
 
   default:
@@ -304,25 +300,25 @@ function testMask(val, mask) {
 function testPartialMask(el, val, mask) {
 
   var result = testMask(val, mask.substring(0, val.length));
-  
+
   if (!result) return false;
-   
+
   var nextMaskChar;
   var autoPad = '';
   var count = 200;
   var pos = val.length;
-  
-  while ( 
-  (count-- > 0) && 
-  (nextMaskChar = mask.charAt(pos++)) && 
+
+  while (
+  (count-- > 0) &&
+  (nextMaskChar = mask.charAt(pos++)) &&
   !isMaskChar(nextMaskChar) ) {
     autoPad += nextMaskChar;
   }
-      
+
   el.value = val + autoPad;
-  
+
   return result;
-  
+
 }
 
 function mask2regexp(mask) {
@@ -337,7 +333,7 @@ function isMaskChar(c) {
 function validateMask(el) {
   // xxx called twice. Why ?
   var val = el.value;
-  
+
   var newVal = applyMask(val,  el.getAttribute(DATATYPE_ATTRIBUTE));
 
   if (newVal != val) {

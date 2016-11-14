@@ -8,15 +8,15 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 var CURRENT_YEAR = (new Date()).getFullYear().toString();
@@ -28,7 +28,7 @@ var timeSeparator = ':';
 Date.DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
 
 /**
- * Get/sets the array of names of the days of a week, starting "Sunday". Static property. 
+ * Get/sets the array of names of the days of a week, starting "Sunday". Static property.
  */
 // Date.dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 Date.dayNames = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
@@ -69,16 +69,6 @@ Date.prototype.getFirstWeekDayInMonth = function() {
 // (0 - 5)
 Date.prototype.getMonthWeek = function() {
   return Math.floor( (this.getDate() - 1 + this.getFirstWeekDayInMonth()) / 7 );
-}
-
-// Week in year (0 - 52)
-Date.prototype.getYearWeek = function() {
-  return '## TODO ##';// TODO
-}
-
-// 0 - 365
-Date.prototype.getYearDay = function() {
-  return '## TODO ##';// TODO
 }
 
 // (0 - 1)
@@ -148,7 +138,7 @@ Date.prototype.getMonthName = function() {
  * @return Array
  */
 Date.stepCount = function(startDate, endDate, step) {
-  var a = Date.span(startDate, endDate, step, 's'); 
+  var a = Date.span(startDate, endDate, step, 's');
   return a ? a.length : 0;
 };
 
@@ -165,21 +155,21 @@ Date.stepCount = function(startDate, endDate, step) {
  * @return Array
  */
 Date.span = function(startDate, endDate, step, format, limit, closedEnd) {
-  
+
   if (!startDate || !endDate) return null;
 
   if (!isDate(startDate)) startDate = Date.fromPtBr(startDate);
   if (!isDate(endDate)) endDate = Date.fromPtBr(endDate);
-  
+
   var endDateInt = endDate.getTime();
-  
+
   var stepUnit = step.charAt(step.length - 1);
   var unitIndex = 'smhdwMSy'.indexOf(stepUnit);
   if ( unitIndex < 0) return null;
 
   step = parseInt(step);
   if (isNaN(step) || step <= 0) return null;
-  
+
   if (!format) {
     format = ["hh:mm:ss tt", "h:mm tt", "yyyy-MM-dd hh tt", "yyyy-MM-dd", "yyyy-MM-dd (w)", "yyyy-MM-dd", "yyyy-MM-dd"][unitIndex];
   }
@@ -191,7 +181,7 @@ Date.span = function(startDate, endDate, step, format, limit, closedEnd) {
   while (i.getTime() <= endDateInt && (limit == -1 || limit-- > 0)) {
     lastDateInt = i.getTime();
     result.push(i.toString(format));
-    
+
     switch (stepUnit) {
       case 's': i.addSeconds(step); break;
       case 'm': i.addMinutes(step); break;
@@ -203,16 +193,16 @@ Date.span = function(startDate, endDate, step, format, limit, closedEnd) {
       case 'y': i.addYears(step); break;
       default: break;
     }
-    
+
   }
 
   if (closedEnd && lastDateInt < endDateInt) { //  && i.getTime() > endDateInt
     var endDateStr = endDate.toString(format);
     if (result.length && result[result.length - 1] != endDateStr) result.push(endDateStr);
   }
-  
+
   return result;
-  
+
 };
 
 /**
@@ -228,7 +218,7 @@ Date.prototype.addYears = function(n) {
 }
 
 /**
- * Adds specified months to the Date object. The 
+ * Adds specified months to the Date object. The
  *
  * @syntax dateObj.addMonths(noOfMonths);
  * @param  noOfMonths   Number of months to add.
@@ -330,7 +320,7 @@ Date.prototype.toString = function(s) {
   if (!s) return this.toUTCString();
 
   var self = this;
-  return s.replace(/hh|h|HH|H|mm|m|ss|s|yyyy|yy|S|ww|w|aaa|a|dddd|ddd|dd|d|MMMM|MMM|MM|M|tt/g, 
+  return s.replace(/hh|h|HH|H|mm|m|ss|s|yyyy|yy|S|ww|w|aaa|a|dddd|ddd|dd|d|MMMM|MMM|MM|M|tt/g,
     function(s) {
       switch (s) {
         case "hh":
@@ -355,7 +345,7 @@ Date.prototype.toString = function(s) {
           return self.getFullYear().toString().substring(2, 4);
         case "S":
           return self.getSemester() + 1;
-        case "ww": 
+        case "ww":
           // See http://www.techonthenet.com/oracle/functions/to_char.htm
           // See http://sunsite.mff.cuni.cz/MIRRORS/ftp.mysql.com/doc/en/Date_and_time_functions.html
           return self.getYearWeek() + 1;
@@ -386,13 +376,13 @@ Date.prototype.toString = function(s) {
       }
     }
   );
-  
+
 }
 
 ///Utility
 
 /**
- * Returns string representation of instance in a convenient format, 
+ * Returns string representation of instance in a convenient format,
  * e.g. "Tuesday, 17 December, 2002".
  *
  * @syntax dateObj.toLongDateString();
@@ -446,7 +436,7 @@ Date.easter = function(y) { // Gregorian
 Date.fromISO8601 = function(dateStr) {
   var parts = dateStr.toString().split(/\D+/);
   if (!parts || parts.length < 1) return null;
-  
+
   switch (parts.length) {
     case 1: return new Date(parts[0], 0);
     case 2: return new Date(parts[0], parts[1]);
@@ -456,7 +446,7 @@ Date.fromISO8601 = function(dateStr) {
     case 6: return new Date(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5]);
     default: return null;
   }
-  
+
 };
 
 Date.fromPtBr = function(dateStr) {
@@ -477,9 +467,9 @@ Date.normalizeYear = function(y) {
 Date.normalizedPtBr = function (dt) {
 
   if (!dt) return null;
-  
+
   var parts = dt.toString().split(/\D+/);
-  
+
   if (!parts || parts.length != 3) {
     return null;
   }
@@ -495,32 +485,32 @@ Date.normalizedPtBr = function (dt) {
   if (tempDate.length == 1) parts[0] = '0' + tempDate;
 
   return parts;
-  
+
 };
 
 /**
- * 
+ *
  * old name: ddMMyyyy2yyyyMMdd
  */
 function convertPtBr2ISO8601DateShort(dt, outSep) {
-  
+
   if (arguments.length < 2) outSep = '-';
-  
+
   return Date.normalizedPtBr(dt).reverse().join(outSep);
-  
+
 }
 
 /**
  * Old name: yyyyMMdd2ddMMyyyy
  */
 function convertISO8601DateShort2ptBr(dt, outSep) {
-  
+
   // inSep = '';
-  
+
   if (!dt) return '';
-  
+
   if (arguments.length < 2) outSep = dateSeparator;
-  
+
   var len = dt.length;
   if (len >= 8) return dt.toString().replace(/(\d{4})\D?(\d{2})\D?(\d{2})/g, '$3' + outSep + '$2' + outSep + '$1');
 
@@ -534,11 +524,11 @@ function convertISO8601DateShort2ptBr(dt, outSep) {
 
   if (len > 0)
     result += outSep + dt.substring(0, 4);
-  
+
   // alert(result);
-  
+
   return result;
-  
+
 }
 
 /**
@@ -547,8 +537,8 @@ function convertISO8601DateShort2ptBr(dt, outSep) {
 function ISO8601DateTime2ptBrDateTime(date) {
   date = date.toString().trim();
   var  p = date.indexOf(' ');
-  return convertISO8601DateShort2ptBr(date.substring(0, p)) + date.substring(p); 
-  
+  return convertISO8601DateShort2ptBr(date.substring(0, p)) + date.substring(p);
+
 }
 
 /**
@@ -634,19 +624,19 @@ function isPartialDate(sDate) {
     else
       sDate += dateSeparator;
   case 3:
-    if (sDate.charAt(1) == dateSeparator) 
+    if (sDate.charAt(1) == dateSeparator)
       sDate += dateSeparator + '2000';
     else
       sDate += '01' + dateSeparator + '2000';
     break;
 
   case 4:
-    
+
     if (sDate.charAt(3) == dateSeparator) {
       sDate += '2000';
       break;
     }
-      
+
     if (sDate.charAt(2) == dateSeparator) {
       if (sDate.charAt(3) == '0')
         sDate += '1';
@@ -665,7 +655,7 @@ function isPartialDate(sDate) {
       sDate += '2000';
       break;
     }
-    
+
   case 6:
 
     if (sDate.charAt(3) == dateSeparator) {
@@ -699,14 +689,14 @@ function isPartialDate(sDate) {
       sDate += '0';
     else
       sDate += '000';
-      
+
     break;
 
   case 8:
 
     if (sDate.charAt(4) == dateSeparator) {
       sDate += '0';
-      
+
     } else if (sDate.charAt(5) == dateSeparator) {
       // sDate += '00';
       // will 2-digit years be valid ?
@@ -816,7 +806,7 @@ function isPartialTime(sTime) {
   if (sTime.length > 5) return false;
 
   var lastChar = sTime.charAt(sTime.length - 1);
-  
+
   switch (sTime.length) {
 
   case 0:
@@ -830,7 +820,7 @@ function isPartialTime(sTime) {
     else
       sTime += timeSeparator;
   case 3:
-    if (sTime.charAt(1) == timeSeparator) 
+    if (sTime.charAt(1) == timeSeparator)
       sTime += timeSeparator + '00';
     else
       sTime += '00' + timeSeparator + '00';
@@ -838,12 +828,12 @@ function isPartialTime(sTime) {
     break;
 
   case 4:
-    
+
     if (sTime.charAt(3) == timeSeparator) {
       sTime += '00';
       break;
     }
-      
+
     if (sTime.charAt(2) == timeSeparator) {
       if (sTime.charAt(3) == '0')
         sTime += '1';
@@ -856,7 +846,7 @@ function isPartialTime(sTime) {
   01:5:
   01:05
   */
-  
+
      // Allows only hh:mm
     if (sTime.charAt(2) != timeSeparator) {
       return false;
@@ -865,7 +855,7 @@ function isPartialTime(sTime) {
       break;
 
     }
-    
+
     if (sTime.charAt(3) == timeSeparator) {
       sTime += '00';
       break;
@@ -877,7 +867,7 @@ function isPartialTime(sTime) {
       sTime += '00';
       break;
     }
-    
+
   case 6:
   /*
   1:4:30
@@ -907,7 +897,7 @@ function isPartialTime(sTime) {
 
     if (sTime.charAt(5) == timeSeparator)
       sTime = sTime.substring(0, 6) + '0' + sTime.charAt(6);
-      
+
     break;
 
   case 8:

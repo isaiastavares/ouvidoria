@@ -1,27 +1,27 @@
 /*
  * Sistema de Ouvidoria: um canal através do qual os usuários
  * podem encaminhar suas reclamações, elogios e sugestões.
- * 
+ *
  * Copyright (C) 2011 SERPRO
- * 
+ *
  * Este programa é software livre; você pode redistribuí-lo e/ou
  * modificá-lo sob os termos da Licença Pública Geral GNU, conforme
  * publicada pela Free Software Foundation; tanto a versão 2 da
  * Licença como (a seu critério) qualquer versão mais nova.
- * 
+ *
  * Este programa é distribuído na expectativa de ser útil, mas SEM
  * QUALQUER GARANTIA; sem mesmo a garantia implícita de
  * COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM
  * PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais
  * detalhes.
- * 
+ *
  * Você deve ter recebido uma cópia da Licença Pública Geral GNU,
  * sob o título "LICENCA.txt", junto com esse programa. Se não,
  * acesse o Portal do Software Público Brasileiro no endereço
  * http://www.softwarepublico.gov.br/ ou escreva para a Fundação do
  * Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02111-1301, USA.
- * 
+ *
  * Contatos através do seguinte endereço internet:
  * http://www.serpro.gov.br/sistemaouvidoria/
  */
@@ -46,9 +46,9 @@ import br.gov.serpro.ouvidoria.util.date.DateKit;
 
 /**
  * BoletimCtrl
- * 
+ *
  * Objetivo: Oferecer Serviços de CRUD para Boletim
- * 
+ *
  * @author SERPRO
  * @version $Revision: 1.1.2.4 $, $Date: 2011/10/21 18:53:46 $
  * @version 0.1, Date: 2005/02/01
@@ -58,12 +58,12 @@ public class BoletimCtrl {
 	private Dao defaultDao;
 
 	private Dao parametrosGeraisDao;
-	
+
 	private DaoFactory daoFactory;
 
 	/**
 	 * Construtor recebendo objeto Dao
-	 * 
+	 *
 	 * @param daoFactory
 	 */
 	public BoletimCtrl(final DaoFactory daoFactory) {
@@ -74,7 +74,7 @@ public class BoletimCtrl {
 
 	/**
 	 * Retorna um boletim pelo seu ID
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 * @throws DaoException
@@ -108,7 +108,7 @@ public class BoletimCtrl {
 
 	/**
 	 * Salva um boletim no banco
-	 * 
+	 *
 	 * @param object
 	 * @throws DaoException
 	 */
@@ -150,10 +150,10 @@ public class BoletimCtrl {
 				.concat("/boletins");
 
 		String images = caminho.concat("/images");
-		
+
 		//Obtem o nome da aplicação
 		String nomeApp = Utilitario.obterContextoAplicacao(daoFactory);
-		
+
 		new File(images).mkdirs();
 		final String url = domain.concat("/").concat(nomeApp).concat("/")
 				.concat(orgao.getConfiguracoes().getNomeDiretorioOrgao())
@@ -195,7 +195,7 @@ public class BoletimCtrl {
 
 	/**
 	 * Insere um boletim no banco
-	 * 
+	 *
 	 * @param orgao
 	 * @param funcionario
 	 * @param nome
@@ -240,7 +240,7 @@ public class BoletimCtrl {
 
 	/**
 	 * Public um boletim no banco
-	 * 
+	 *
 	 * @param id
 	 * @param publicar
 	 * @throws DaoException
@@ -255,10 +255,9 @@ public class BoletimCtrl {
 
 	/**
 	 * Retorna a lista de boletins do Órgão
-	 * 
+	 *
 	 * @param orgao
-	 * @param somentePublicados,
-	 *            se null retorna todos
+	 * @param somentePublicados, se null retorna all
 	 * @return
 	 * @throws DaoException
 	 */

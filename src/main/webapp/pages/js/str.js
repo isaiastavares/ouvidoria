@@ -11,15 +11,15 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 // ------------------------------------------
@@ -30,23 +30,23 @@ function isDigit(c) {
   return !!c && ('0' <= c) && (c <= '9') && c.length == 1;
 }
 String.prototype.isDigit = function() { return isDigit(this); };
-  
+
 function isLetter(c) {
   if (!c) return false;
   return ( ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') ) && c.length == 1;
 }
 String.prototype.isLetter = function() { return isLetter(this); };
-  
+
 function isAlpha(val) {
   if (!val) return false;
-  
+
   val = val.toString();
   for (var i = val.length - 1; i >= 0; i--) {
     if (!isLetter(val.charAt(i))) return false;
   }
-  
+
   return true;
-  
+
 }
 String.prototype.isAlpha = function() { return isAlpha(this); };
 
@@ -58,7 +58,7 @@ String.prototype.isInteger = function() { return isInteger(this); };
 function isPartialNumber(val) {
   val = val.toString();
   if (val.length == 1) val += '0';
-  
+
   return !isNaN(val) && val == val.trim();
 }
 String.prototype.isPartialNumber = function() { return isPartialNumber(this); };
@@ -67,7 +67,7 @@ function isPartialInteger(val) {
   val = val.toString();
   if (val.endsWith('.')) return false;
   if (val.length == 1) val += '0';
-  
+
   return !isNaN(val) && parseInt(val) == parseFloat(val) && val == val.trim();
 }
 String.prototype.isPartialInteger = function() { return isPartialInteger(this); };
@@ -87,15 +87,15 @@ function isPartialEmail(email) {
   var len = email.length;
   var lastChar = email[len - 1];
 
-  if (lastChar == '@') 
+  if (lastChar == '@')
     email += 'a.org';
 
-  else if (lastChar == '.') 
+  else if (lastChar == '.')
     email += 'org';
 
-  else if (email.indexOf('@') == -1) 
+  else if (email.indexOf('@') == -1)
     email += '@a.org';
-  
+
   return RegExp.emailAddress.test(email);
 
 }
@@ -105,7 +105,7 @@ function startsWith(src, s, caseSensitive) {
 
   if (!caseSensitive) {
     s = s.toLowerCase();
-  }  
+  }
 
   var tSrc = caseSensitive ? src : src.toLowerCase();
   var p = tSrc.indexOf(s);
@@ -119,7 +119,7 @@ function endsWith(src, s, caseSensitive) {
 
   if (!caseSensitive) {
     s = s.toLowerCase();
-  }  
+  }
 
   var tSrc = caseSensitive ? src : src.toLowerCase();
   var p = tSrc.lastIndexOf(s);
@@ -134,26 +134,26 @@ String.prototype.containsAny = function(testStr) {
   if (!testStr) {
     return false;
   }
-  
+
   var src;
   var comp;
-    
+
   if (this.length < testStr.length) {
     src = this;
-    comp = testStr;  
+    comp = testStr;
   } else {
     src = testStr;
-    comp = this;  
+    comp = this;
   }
-  
+
   for (var i = src.length - 1; i >= 0; i--) {
-    
+
     if (comp.indexOf(src.charAt(i)) >= 0) {
       return true;
     }
-    
+
   }
-  
+
   return false;
 
 };
@@ -165,7 +165,7 @@ String.prototype.containsAny = function(testStr) {
  * @return  Boolean
  */
 String.prototype.toBoolean = function() {
- 
+
   switch(this.toString().toLowerCase()) {
 
     case "true":
@@ -174,7 +174,7 @@ String.prototype.toBoolean = function() {
     case "t":
     case "v":
       return true;
-    
+
     case "false":
     case "falso":
     case "falsch":
@@ -183,9 +183,9 @@ String.prototype.toBoolean = function() {
 
     default:
       return parseInt(this) > 0;
-      
+
   }
- 
+
 };
 
 // ------------------------------------------
@@ -214,7 +214,7 @@ String.prototype.entityify = function () {
  * param = {domain: 'valvion.com', media: 'http://media.{domain}/'};
  * url = "{media}logo.gif".supplant(param);
  * produces a url containing "http://media.valvion.com/logo.gif".
- * 
+ *
  * @syntax  stringObj.supplant(param);
  * @return  String
  */
@@ -259,7 +259,7 @@ String.prototype.quoteAlt = (isNS4) ? function () {
  * Returns instance as valid string enclosed by double-quotes.
  *
  * Existing linefeed, carriage return, double-quote, and forward-slash characters
- * are appropriately replaced by their quoted-pair equivalents so that expression 
+ * are appropriately replaced by their quoted-pair equivalents so that expression
  * occupies a single line and can be evaluated.
  *
  * @syntax  stringObj.quote();
@@ -282,7 +282,7 @@ String.prototype.quote = function() {
 /**
  * Returns string wrapped inside a HTML tag with specified tagname and attributes.
  *
- * @syntax   stringObj.tag(tagname[, attributes]); 
+ * @syntax   stringObj.tag(tagname[, attributes]);
  * @param    tagname     HTML tagname.
  * @param    attributes  Optional.
  * @return   String      Returns string of form "<tagname attributes(if any)>string</tagname>".
@@ -292,7 +292,7 @@ String.prototype.tag = function(t,a) {
 };
 
 /**
- * Creates a hypertext link with common event handlers. Overrides fairly useless link method. 
+ * Creates a hypertext link with common event handlers. Overrides fairly useless link method.
  *
  * @syntax   stringObj.link([hyperlink][,onclickHandler][,onmouseoverHandler][,onmouseoutHandler]);
  * @param    hyperlink            Hypertext link string.
@@ -328,7 +328,7 @@ String.prototype.toTitleCase = function() {
  *
  * @syntax   stringObj.insertAt(insertStr, index)
  * @param    insertStr   String to insert.
- * @param    index       Index position to insert string at. 
+ * @param    index       Index position to insert string at.
  * @return   String
  */
 String.prototype.insertAt = function(s, p) {
@@ -350,15 +350,15 @@ String.prototype.replaceAt = function(s, p) {
 function insertAt(src, c, pos) {
   var len = src.length;
   if (!pos) pos = len;
-  
+
   if (pos == 0) return c + src;
-  
+
   if (pos == len) return src + c;
-  
+
   if (pos > len) return src + ' '.replicate(pos - len - 1) + c;
-  
+
   if (pos > 0) return src.substring(0, pos) + c + src.substring(pos);
-  
+
 }
 
 // ------------------------------------------
@@ -381,22 +381,22 @@ function replicate_old(src, n) {
   return s;
 }
 function replicate(n, s) {
- 
+
   if (arguments.length < 2 || s == undefined) s = ' ';
-  
+
   if (n < 3) {
     if (n == 2) return s + s;
     if (n == 1) return s;
     if (n == 0) return '';
     return replicate(-n, reverse(s));
   }
-  
+
   if (n & 1) {
     n = (n - 1) >> 1;
     var halfResult = replicate(n, s);
     return s + halfResult + halfResult;
   }
-  
+
   n = n >> 1;
   var halfResult = replicate(n, s);
   return halfResult + halfResult;
@@ -414,7 +414,6 @@ String.prototype.replicate = function(n) { return replicate(n, this); };
  * @return   String
  */
 String.prototype.padLeft = function(n, c) {
-  // TODO handle case when c.length != 1
   if (n < 0) return this.padRight(-n, c);
   var delta = n - this.length;
   if (delta == 0) return this;
@@ -431,7 +430,6 @@ String.prototype.padLeft = function(n, c) {
  * @return   String
  */
 String.prototype.padRight = function(n, c) {
-  // TODO handle case when c.length != 1
   if (n < 0) return this.padLeft(-n, c);
   var delta = n - this.length;
   if (delta == 0) return this;
@@ -454,7 +452,6 @@ function divByTwo(n) {
  */
 String.prototype.padSides = function(n, c) {
 
-  // TODO handle case when c.length != 1
   if (n < 0) return this.padLeft(-n, c);
   var delta = n - this.length;
   if (delta == 0) return this;
@@ -471,7 +468,7 @@ String.prototype.padSides = function(n, c) {
     return this.substring(-left, this.length() + right);
   }
 
-  if (left <= 0) { // right > 0 
+  if (left <= 0) { // right > 0
     return s.substring(-left) + replicate(right, c);
   }
 
@@ -535,59 +532,59 @@ String.prototype.chopRight = function(n) {
 };
 
 function sortLetterThenNumber(a, b) {
-  
+
   if (a == b) return 0;
   a = a.toString();
   b = b.toString();
 
   var src, s, comp, c, m, sn, cn;
     var result = 0;
-    
+
   if (a.length < b.length) {
     src = a;
-    comp = b;  
+    comp = b;
     m = 1;
   } else {
     src = b;
     comp = a;
-    m = -1;  
+    m = -1;
   }
-  
+
   for (var i = 0; i < src.length; i++) {
-    
+
     s = src.charAt(i);
     c = comp.charAt(i);
-    
+
     if (s == c) continue;
-    
-    sn = !isNaN(s);    
-    cn = !isNaN(c);    
-    
+
+    sn = !isNaN(s);
+    cn = !isNaN(c);
+
     if (sn && !cn) {
       result = 1;
       break;
     }
-    
+
     if (!sn && cn) {
       result = -1;
       break;
     }
-    
+
     /*
     if (sn && cn) {
       result = -1;
       break;
     }
     */
-    
+
     result = s.toLowerCase() > c.toLowerCase() ? 1 : -1;
-    break;  
-    
+    break;
+
   }
-  
+
   return result * m;
 
-} 
+}
 
 function CVSKit(cvsInfo) {
 
@@ -600,14 +597,14 @@ function CVSKit(cvsInfo) {
     p2 = cvsInfo.indexOf('$', p + 1);
     revision = p2 >= 0 ? cvsInfo.substring(p + 9, p2).trim() : '';
   }
-  
+
   p = cvsInfo.indexOf('Date:');
   if (p >= 0) {
     p2 = cvsInfo.indexOf('$', p + 1);
     date = p2 >= 0 ? cvsInfo.substring(p + 5, p2).trim() : '';
   }
 
-  date = yyyyMMddWithTime2ddMMyyyyWithTime(date); 
+  date = yyyyMMddWithTime2ddMMyyyyWithTime(date);
 
   this.getRevision = function() {
     return revision;
