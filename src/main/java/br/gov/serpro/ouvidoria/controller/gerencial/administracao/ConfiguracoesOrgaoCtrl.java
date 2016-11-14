@@ -1,27 +1,27 @@
 /*
  * Sistema de Ouvidoria: um canal através do qual os usuários
  * podem encaminhar suas reclamações, elogios e sugestões.
- * 
+ *
  * Copyright (C) 2011 SERPRO
- * 
+ *
  * Este programa é software livre; você pode redistribuí-lo e/ou
  * modificá-lo sob os termos da Licença Pública Geral GNU, conforme
  * publicada pela Free Software Foundation; tanto a versão 2 da
  * Licença como (a seu critério) qualquer versão mais nova.
- * 
+ *
  * Este programa é distribuído na expectativa de ser útil, mas SEM
  * QUALQUER GARANTIA; sem mesmo a garantia implícita de
  * COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM
  * PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais
  * detalhes.
- * 
+ *
  * Você deve ter recebido uma cópia da Licença Pública Geral GNU,
  * sob o título "LICENCA.txt", junto com esse programa. Se não,
  * acesse o Portal do Software Público Brasileiro no endereço
  * http://www.softwarepublico.gov.br/ ou escreva para a Fundação do
  * Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02111-1301, USA.
- * 
+ *
  * Contatos através do seguinte endereço internet:
  * http://www.serpro.gov.br/sistemaouvidoria/
  */
@@ -53,9 +53,9 @@ import br.gov.serpro.ouvidoria.util.Constants;
 import br.gov.serpro.ouvidoria.util.Utilitario;
 
 /**
- * 
+ *
  * Objetivo: Funcionalidades CRUD de Configurações do Órgão
- * 
+ *
  * @author SERPRO
  * @version $Revision: 1.1.2.3 $, $Date: 2011/10/18 17:55:14 $
  * @version 0.1, Date: 2005/01/05
@@ -76,7 +76,7 @@ public class ConfiguracoesOrgaoCtrl {
 
     /**
      * Construtor recebendo objeto Dao
-     * 
+     *
      * @param daoFactory
      */
     public ConfiguracoesOrgaoCtrl(final DaoFactory daoFactory) {
@@ -165,25 +165,25 @@ public class ConfiguracoesOrgaoCtrl {
             throws DaoException {
 
         ConfiguracoesOrgao configuracoesOrgao = new ConfiguracoesOrgao();
-        
+
         /*Campos para envio de notificacao*/
         configuracoesOrgao
         	.setNotificacaoEmail(notificacaoEmail);
-        
+
         configuracoesOrgao
     	.setHoraEnvioNotificacao(horaEnvioNotificacao);
-        
+
         configuracoesOrgao
     	.setTextoNotificacaoPendencia(textoNotificacaoPendencia);
-        
+
         configuracoesOrgao
     	.setTextoNotificacaoAtraso(textoNotificacaoAtraso);
-        
+
         configuracoesOrgao
     	.setTextoNotificacaoAtrasoCritico(textoNotificacaoAtrasoCritico);
-        
+
         /*Fim Campos para envio de notificacao*/
-        
+
         configuracoesOrgao
                 .setPermiteMsgDigitalizadaAcionamento(permiteMsgDigitalizadaAcionamento);
         configuracoesOrgao
@@ -329,21 +329,21 @@ public class ConfiguracoesOrgaoCtrl {
         /*Campos para envio de notificacao*/
         configuracoesOrgao
         	.setNotificacaoEmail(notificacaoEmail);
-        
+
         configuracoesOrgao
     	.setHoraEnvioNotificacao(horaEnvioNotificacao);
-        
+
         configuracoesOrgao
     	.setTextoNotificacaoPendencia(textoNotificacaoPendencia);
-        
+
         configuracoesOrgao
     	.setTextoNotificacaoAtraso(textoNotificacaoAtraso);
-        
+
         configuracoesOrgao
     	.setTextoNotificacaoAtrasoCritico(textoNotificacaoAtrasoCritico);
-        
+
         /*Fim campos para envio de notificação*/
-        
+
         configuracoesOrgao
                 .setPermiteMsgDigitalizadaAcionamento(permiteMsgDigitalizadaAcionamento);
         configuracoesOrgao
@@ -614,36 +614,38 @@ public class ConfiguracoesOrgaoCtrl {
 
         String temp = null;
 
-        try {
-            String enc = Utilitario.encrypt(Constants.DES_KEY, orgao.getId()
-                    .toString());
+        String enc = Utilitario.encrypt(Constants.DES_KEY, orgao.getId()
+                .toString());
+        File indexInternet = new File(caminho);
+        indexInternet.mkdirs();
 
-            File indexInternet = new File(caminho);
-            indexInternet.mkdirs();
-            BufferedOutputStream out = new BufferedOutputStream(
-                    new FileOutputStream(caminho + "/index.html"));
+        try (BufferedOutputStream out = new BufferedOutputStream(
+                new FileOutputStream(caminho + "/index.html"))) {
             temp = "<html><head><meta http-equiv=\"refresh\" content=\"0; URL=../../ouvidoriainterna/MainInternet.do?osessionid="
                     .concat(enc).concat("\"></head></html>");
             out.write(temp.getBytes());
             out.flush();
             out.close();
-
-            File indexIntranet = new File(caminho + "/intranet/");
-            indexIntranet.mkdirs();
-            out = new BufferedOutputStream(new FileOutputStream(caminho
-                    + "/intranet/index.html"));
-            temp = "<html><head><meta http-equiv=\"refresh\" content=\"0; URL=../../../ouvidoriainterna/MainIntranet.do?osessionid="
-                    .concat(enc).concat("\"></head></html>");
-            out.write(temp.getBytes());
-            out.flush();
-            out.close();
-
         } catch (IOException ie) {
             if (Constants.DEBUG) {
                 ie.printStackTrace(System.out);
             }
         }
 
+        File indexIntranet = new File(caminho + "/intranet/");
+        indexIntranet.mkdirs();
+        try (BufferedOutputStream outIntranet = new BufferedOutputStream(new FileOutputStream(caminho
+                + "/intranet/index.html"));) {
+            temp = "<html><head><meta http-equiv=\"refresh\" content=\"0; URL=../../../ouvidoriainterna/MainIntranet.do?osessionid="
+                    .concat(enc).concat("\"></head></html>");
+            outIntranet.write(temp.getBytes());
+            outIntranet.flush();
+            outIntranet.close();
+        } catch (IOException ie) {
+            if (Constants.DEBUG) {
+                ie.printStackTrace(System.out);
+            }
+        }
     }
 
     private void uploadArquivo(FormFile arquivo, String nomeDiretorioOrgao)
@@ -653,28 +655,25 @@ public class ConfiguracoesOrgaoCtrl {
         caminho += this.getParametrosGerais().getDiretorioContextoAplicacao();
         caminho += nomeDiretorioOrgao + "/images/";
 
-        try {
-            File f = new File(caminho);
-            f.mkdirs();
-
-            FileOutputStream fos = new FileOutputStream(caminho
-                    + arquivo.getFileName());
+        File f = new File(caminho);
+        f.mkdirs();
+        try (FileOutputStream fos = new FileOutputStream(caminho
+                + arquivo.getFileName())) {
             fos.write(arquivo.getFileData());
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
-    public List listarDiretoriosCores(final String realPath) {
+    public List<String> listarDiretoriosCores(final String realPath) {
         String caminho = realPath.concat("/pages/estilos");
         File arquivo = new File(caminho);
         File[] listaFiles = arquivo.listFiles();
-        List listaDiretorios = null;
+        List<String> listaDiretorios = null;
 
         if (listaFiles != null && listaFiles.length > 0) {
 
-            listaDiretorios = new ArrayList();
+            listaDiretorios = new ArrayList<String>();
 
             try {
                 for (int i = 0; i < listaFiles.length; i++) {

@@ -1,27 +1,27 @@
 /*
  * Sistema de Ouvidoria: um canal através do qual os usuários
  * podem encaminhar suas reclamações, elogios e sugestões.
- * 
+ *
  * Copyright (C) 2011 SERPRO
- * 
+ *
  * Este programa é software livre; você pode redistribuí-lo e/ou
  * modificá-lo sob os termos da Licença Pública Geral GNU, conforme
  * publicada pela Free Software Foundation; tanto a versão 2 da
  * Licença como (a seu critério) qualquer versão mais nova.
- * 
+ *
  * Este programa é distribuído na expectativa de ser útil, mas SEM
  * QUALQUER GARANTIA; sem mesmo a garantia implícita de
  * COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM
  * PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais
  * detalhes.
- * 
+ *
  * Você deve ter recebido uma cópia da Licença Pública Geral GNU,
  * sob o título "LICENCA.txt", junto com esse programa. Se não,
  * acesse o Portal do Software Público Brasileiro no endereço
  * http://www.softwarepublico.gov.br/ ou escreva para a Fundação do
  * Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02111-1301, USA.
- * 
+ *
  * Contatos através do seguinte endereço internet:
  * http://www.serpro.gov.br/sistemaouvidoria/
  */
@@ -53,24 +53,24 @@ import br.gov.serpro.ouvidoria.util.Constants;
 
 /**
  * Objetivo: Cadastrar o acionamento
- * 
+ *
  * @author SERPRO
  * @version $Revision: 1.1.2.4 $, $Date: 2011/10/18 17:57:04 $
  * @version 0.1, 2004/12/07
- * 
+ *
  */
 public class CadastrarAcionamentoAction extends ActionSupport {
 
 	/**
 	 * Método de execução da ação. Realiza dois forwards: um em caso de sucesso
 	 * e outro em caso de falha
-	 * 
+	 *
 	 * @param mapping
 	 * @param form
 	 *            ActionForm, caso necessário
 	 * @param request
 	 * @param response
-	 * 
+	 *
 	 */
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -299,7 +299,7 @@ public class CadastrarAcionamentoAction extends ActionSupport {
 			if (caminho.lastIndexOf("/") < caminho.length()-1){
 				caminho += "/";
 			}
-			
+
 			caminho += Constants.DIR_ANEXOS;
 			caminho += this.getOrgao(request).getConfiguracoes()
 					.getNomeDiretorioOrgao()
@@ -309,14 +309,11 @@ public class CadastrarAcionamentoAction extends ActionSupport {
 					&& (arquivoAnexo.getFileName().length() > 0)) {
 				/* Salvamento de arquivos anexos */
 
-				try {
-					File f = new File(caminho);
-					f.mkdirs();
-
-					FileOutputStream fos = new FileOutputStream(caminho
-							+ strArquivoAnexo);
+				File f = new File(caminho);
+				f.mkdirs();
+				try (FileOutputStream fos = new FileOutputStream(caminho
+						+ strArquivoAnexo)) {
 					fos.write(arquivoAnexo.getFileData());
-
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 					throw (new FileNotFoundException(
@@ -329,14 +326,12 @@ public class CadastrarAcionamentoAction extends ActionSupport {
 
 			if ((mensagemDigitalizada != null)
 					&& (mensagemDigitalizada.getFileName().length() > 0)) {
-				try {
-					File f = new File(caminho);
-					f.mkdirs();
+				File f = new File(caminho);
+				f.mkdirs();
 
-					FileOutputStream fos = new FileOutputStream(caminho
-							+ strMensagemDigitalizada);
+				try (FileOutputStream fos = new FileOutputStream(caminho
+						+ strMensagemDigitalizada)) {
 					fos.write(mensagemDigitalizada.getFileData());
-
 				} catch (FileNotFoundException e) {
 					throw (new FileNotFoundException(
 							"Erro ao tentar anexar Mensagem Digitalizada."

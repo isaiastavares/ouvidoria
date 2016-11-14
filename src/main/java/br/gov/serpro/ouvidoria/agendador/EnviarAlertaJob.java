@@ -68,7 +68,7 @@ public class EnviarAlertaJob implements Job {
 	public static final String ID_ORGAO = "idOrgao";
 	public static final String URL = "url";
 	final DaoFactory daoFactory = new HibernateDaoFactory();
-	protected String url;
+	protected String enderecoUrl;
 
 	/**
 	 * Quartz requires a public empty constructor so that the scheduler can
@@ -98,7 +98,7 @@ public class EnviarAlertaJob implements Job {
 
 			JobDataMap data = context.getJobDetail().getJobDataMap();
 			String id = data.getString(ID_ORGAO);
-			url = data.getString(URL);
+			enderecoUrl = data.getString(URL);
 
 			OrgaoCtrl orgaoCtrl = new OrgaoCtrl(daoFactory);
 			Orgao orgao = orgaoCtrl.get(id);
@@ -300,7 +300,7 @@ public class EnviarAlertaJob implements Job {
 
 	private String urlDetalhamento(Acionamento acionamento, Orgao orgao) {
 
-		String lsEnderecoUrl = url;
+		String lsEnderecoUrl = enderecoUrl;
 
 		String enc = Utilitario.encrypt(Constants.DES_KEY, orgao.getId()
 				.toString());

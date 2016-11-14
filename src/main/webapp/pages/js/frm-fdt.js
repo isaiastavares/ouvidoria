@@ -91,7 +91,7 @@ function fdt_doKeyPress_i(e, key, el) {
 
   } else {
 
-    result = testPartialMask(el, newVal, mask);
+    var result = testPartialMask(el, newVal, mask);
   }
 
   cancelEvent(e);

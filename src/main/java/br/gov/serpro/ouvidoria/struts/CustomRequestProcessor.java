@@ -65,7 +65,7 @@ import br.gov.serpro.ouvidoria.util.Constants;
 public class CustomRequestProcessor extends RequestProcessor {
 
 	protected final DaoFactory daoFactory = new HibernateDaoFactory();
-	protected Logger log = null;
+	protected Logger logger = null;
 
 	public void process(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -481,11 +481,11 @@ public class CustomRequestProcessor extends RequestProcessor {
 
 	protected Logger getLog() {
 
-		if (this.log == null) {
-			this.log = Logger
+		if (this.logger == null) {
+			this.logger = Logger
 					.getLogger("<------ Processador de Requisições ------> ");
 		}
-		return this.log;
+		return this.logger;
 	}
 
 }

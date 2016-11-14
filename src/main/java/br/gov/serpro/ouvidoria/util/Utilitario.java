@@ -1,27 +1,27 @@
 /*
  * Sistema de Ouvidoria: um canal através do qual os usuários
  * podem encaminhar suas reclamações, elogios e sugestões.
- * 
+ *
  * Copyright (C) 2011 SERPRO
- * 
+ *
  * Este programa é software livre; você pode redistribuí-lo e/ou
  * modificá-lo sob os termos da Licença Pública Geral GNU, conforme
  * publicada pela Free Software Foundation; tanto a versão 2 da
  * Licença como (a seu critério) qualquer versão mais nova.
- * 
+ *
  * Este programa é distribuído na expectativa de ser útil, mas SEM
  * QUALQUER GARANTIA; sem mesmo a garantia implícita de
  * COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM
  * PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais
  * detalhes.
- * 
+ *
  * Você deve ter recebido uma cópia da Licença Pública Geral GNU,
  * sob o título "LICENCA.txt", junto com esse programa. Se não,
  * acesse o Portal do Software Público Brasileiro no endereço
  * http://www.softwarepublico.gov.br/ ou escreva para a Fundação do
  * Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02111-1301, USA.
- * 
+ *
  * Contatos através do seguinte endereço internet:
  * http://www.serpro.gov.br/sistemaouvidoria/
  */
@@ -53,7 +53,7 @@ import br.gov.serpro.ouvidoria.dao.DaoFactory;
 import br.gov.serpro.ouvidoria.model.ParametrosGerais;
 
 /**
- * 
+ *
  * @author SERPRO
  * @version $Revision: 1.1.2.3 $, $Date: 2011/10/20 15:30:35 $
  * @version 0.1, Date: 2005/01/28
@@ -61,27 +61,26 @@ import br.gov.serpro.ouvidoria.model.ParametrosGerais;
 public final class Utilitario {
 
     private Utilitario() {
-        // DO NOTHING
     }
 
     /**
      * Este método auxiliar retorna o número de milisegundos em uma quantidade
      * de dias.
-     * 
+     *
      * @param numDias
      *            número de dias
      * @return número de milisegundos em numDias dias
      */
     public static long converterDiaMilisegundos(int numDias) {
-	
-        return ((long)(numDias)) * 86400000;    	
+
+        return ((long)(numDias)) * 86400000;
 
    }
 
     /**
      * Este método auxiliar retorna o número de milisegundos de uma quantidade
      * de minutos.
-     * 
+     *
      * @param numMinutos
      *            número de minutos
      * @return número de milisegundos em numMinutos minutos
@@ -103,7 +102,7 @@ public final class Utilitario {
     /**
      * Este método é responsável por gerar uma string randômica composta por
      * números ou letras (maiúsculas e minúsculas).
-     * 
+     *
      * @param tamanho
      *            O tamanho da string randômica a ser gerada.
      * @return Retorna uma String randômica de tamanho 'tamanho'.
@@ -125,7 +124,7 @@ public final class Utilitario {
     /**
      * Este método é responsável por gerar uma string randômica composta por
      * números.
-     * 
+     *
      * @param tamanho
      *            O tamanho da string randômica a ser gerada.
      * @return Retorna uma String randômica de tamanho 'tamanho'.
@@ -145,7 +144,7 @@ public final class Utilitario {
 
     /**
      * Este método é responsável por validar um e-mail
-     * 
+     *
      * @param e
      *            O e-mail a ser validado
      * @return Retorna true se o e-mail é válido, false caso contrário
@@ -184,7 +183,7 @@ public final class Utilitario {
 
     /**
      * Este método é responsável por validar um cpf
-     * 
+     *
      * @param cpf
      *            O cpf a ser validado
      * @return Retorna true se o cpf é válido, false caso contrário
@@ -236,7 +235,7 @@ public final class Utilitario {
 
     /**
      * Este método é responsável por enviar email.
-     * 
+     *
      * @param pServidorSMTP
      * @param pDe
      * @param pPara
@@ -244,7 +243,7 @@ public final class Utilitario {
      * @param pBcc
      * @param pAssunto
      * @param pTexto
-     * 
+     *
      * @return true se o email for enviado, false caso contrário.
      */
     public static boolean enviarEmail(final String pServidorSMTP, final String pDe,
@@ -306,7 +305,7 @@ public final class Utilitario {
 
     /**
      * Converte um Array de Byte em uma String de Hex
-     * 
+     *
      * @param Array
      *            de Bytes
      * @return String Hex
@@ -326,7 +325,7 @@ public final class Utilitario {
 
     /**
      * Converte uma String Hex em um Array de Byte
-     * 
+     *
      * @param String
      *            Hex
      * @return Array de Bytes
@@ -352,18 +351,17 @@ public final class Utilitario {
 
     /**
      * Criptografa uma String com o algoritimo DES
-     * 
+     *
      * @param key
      * @param data
      * @return String criptografada
      */
     public static String encrypt(final String key, final String data) {
 
-        SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), "DES");
+        SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), "AES");
 
         try {
-
-            Cipher cipher = Cipher.getInstance("DES");
+        	Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
             cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
 
             return byteToHex(cipher.doFinal(data.getBytes()));
@@ -380,27 +378,24 @@ public final class Utilitario {
         } catch (BadPaddingException e) {
             throw new RuntimeException("Cipher Error: ", e);
         }
-
     }
 
     /**
      * Descriptografa uma String com o algoritimo DES
-     * 
+     *
      * @param key
      * @param data
      * @return String descriptografada
      */
     public static byte[] decrypt(final String key, final String data) {
 
-        SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), "DES");
+        SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), "AES");
 
         try {
-
-            Cipher cipher = Cipher.getInstance("DES");
+        	Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
             cipher.init(Cipher.DECRYPT_MODE, skeySpec);
 
             return cipher.doFinal(hexToByte(data));
-
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Cipher Error", e);
         } catch (NoSuchPaddingException e) {
@@ -419,7 +414,7 @@ public final class Utilitario {
 
     /**
      * Retorna o Texto substituindo <code>\n ou \r por <br/></code>
-     * 
+     *
      * @param texto
      * @return texto formatado
      */
@@ -427,13 +422,13 @@ public final class Utilitario {
         if (texto == null) {
             return null;
         }
-        
-        return texto.replaceAll("\r?\n", "<br/>"); 
+
+        return texto.replaceAll("\r?\n", "<br/>");
     }
 
     /**
      * Retorna o Texto substituindo <code>"<" por &lt; e ">" por &gt;</code>
-     * 
+     *
      * @param texto
      * @return texto formatado
      */
@@ -441,17 +436,17 @@ public final class Utilitario {
         if (texto == null) {
             return null;
         }
-        
+
         return texto.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
     }
 
-    
+
     /**
      * Trata plic na String para que o SQL não retorne erro
-     * 
+     *
      * @param texto
      *            Texto aser tratado
-     *  
+     *
      */
     public static String trataPlic(final String texto) {
         String textoRetorno = "";
@@ -463,24 +458,24 @@ public final class Utilitario {
 
         return textoRetorno;
     }
-    
+
     /**
      * Trata aspas na String para não dar erro na exibição da msg
-     * 
+     *
      * @param texto
      *            Texto a ser tratado
-     *  
+     *
      */
     public static String trataAspas(final String texto) {
         String textoRetorno = "";
 
-        if (texto != null) {        	
-            textoRetorno = texto.replaceAll("\"", "'");            
+        if (texto != null) {
+            textoRetorno = texto.replaceAll("\"", "'");
         }
 
         return textoRetorno;
     }
-    
+
     /**
      * Método que retorna o diretório raiz da aplicação
      * @param daoFactory Fonte de conexão
@@ -489,7 +484,7 @@ public final class Utilitario {
      */
     public static String obterDiretorioRaiz(DaoFactory daoFactory) throws DaoException{
     	String dirRaiz = null;
-    	
+
     	//Obtem os parâmetros gerais para poder pegar o caminho absoluto das imagens
 		ParametrosGeraisCtrl ctrlParam = new ParametrosGeraisCtrl(
                 daoFactory);
@@ -503,10 +498,10 @@ public final class Utilitario {
         } else {
         	dirRaiz = "";
         }
-        
+
         return dirRaiz;
     }
-    
+
     /**
      * Método que retorno o nome do contexto sem barras
      * @param daoFactory Fonte de conexão
@@ -524,10 +519,10 @@ public final class Utilitario {
 
 		int barraAnterior = caminho.lastIndexOf("/");
 		contexto = caminho.substring(barraAnterior+1);
-		
+
     	return contexto;
     }
-    
+
     /**
      * Método que retorna o domínio de uma aplicação até a porta, sem barra no fim
      * @param request
@@ -539,5 +534,5 @@ public final class Utilitario {
 						.concat(String.valueOf(request.getServerPort()));
     	return domain;
     }
-    
+
 }

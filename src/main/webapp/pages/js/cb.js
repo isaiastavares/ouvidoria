@@ -8,15 +8,15 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 /*
@@ -101,7 +101,7 @@ function subClass() {
 function superTest() {
   return "superTest";
 }
-  
+
 function subTest() {
   return "subTest";
 }
@@ -111,14 +111,14 @@ function subTest() {
 
   alert(newClass.subtest()); // yields "subTest"
   alert(newClass.supertest()); // yields "superTest"
- 
+
 //-->
 </script>
 */
 
 /*
 
- Getter and setter examples: 
+ Getter and setter examples:
  o = {a: 7, get b() {return this.a+1; }, set c(x) {this.a = x/2}, testFunc: function(param) {alert(param)} };
  alert(o.b) -> 8
  o.c = 10
@@ -132,7 +132,7 @@ function subTest() {
 
 */
 
-var isDOM = !!document.getElementById; 
+var isDOM = !!document.getElementById;
 var isIE4 = document.all && !isDOM;
 var isNS4 = !!document.layers;
 var isDyn = isDOM || isIE4 || isNS4;
@@ -144,7 +144,7 @@ var isGecko = !isIE;
 // 'is' example object found at http://www.crockford.com/javascript/jsmin.html
 // ----
 var is = {
-    dom:     !!document.getElementById, 
+    dom:     !!document.getElementById,
     ns4:     !!document.layers,
     ie:      navigator.appName == 'Microsoft Internet Explorer',
     java:    navigator.javaEnabled(),
@@ -153,7 +153,7 @@ var is = {
     version: parseFloat(navigator.appVersion.substr(21)) ||
              parseFloat(navigator.appVersion),
     win:     navigator.platform == 'Win32'
-}   
+}
 is.mac = is.ua.indexOf('mac') >= 0;
 is.ie4 = document.all && !is.dom;
 is.dyn = is.dom || is.ie4 || is.ns4;
@@ -176,7 +176,7 @@ function dumpAttributes(obj) {
     if (!val) continue;
     result += i + "=" + val + ";";
   }
-  
+
   return result + "]";
 }
 
@@ -197,11 +197,11 @@ function myDump(aMessage, clear) {
 
 function preloadImages(images) {
   // alert(dumpAttributes(Arguments));
-  for (i = 1; i < arguments.length; i++) {
+  for (var i = 1; i < arguments.length; i++) {
     images[i] = new Image();
     images[i].src = arguments[i];
   }
-  
+
 }
 
 /*
@@ -226,7 +226,7 @@ for (var j = 0; j < tableData.length; j++) {
    txtNode = document.createTextNode(tableData[j].epsilon);
    tdElem.appendChild(txtNode);
    trElem.appendChild(tdElem);
-   
+
    docFragment.appendChild(trElem);
 }
 myNewtbody.appendChild(docFragment);
@@ -249,7 +249,7 @@ if (!document.URLUnencoded) document.URLUnencoded = getDocURLUnencoded();
 
 function getSty(id) {
   return isNS4 ? getRef(id) : getRef(id).style;
-} 
+}
 
 function getRef(id) {
 
@@ -258,14 +258,14 @@ function getRef(id) {
   if (isDOM) {
     result = document.getElementById(id);
     if (!result) result = getElementByName(id);
-    
+
   } else {
     result = isIE4 ? document.all[id] : document.layers[id];
-  
+
   }
-  
+
   return result;
-  
+
 }
 document.getRef = getRef;
 
@@ -308,7 +308,7 @@ function isObject(a) {
 
 function isUndefined(a) {
   return typeof a == 'undefined';
-} 
+}
 
 function isNull(a) {
   return typeof a == 'object' && !a;
@@ -331,9 +331,9 @@ function isBoolean(a) {
 }
 
 function isEmpty(o) {
-  
+
   var i, v;
-  
+
   if (isObject(o)) {
     for (i in o) {
       v = o[i];
@@ -342,9 +342,9 @@ function isEmpty(o) {
       }
     }
   }
-  
+
   return true;
-  
+
 }
 
 function isFunction(a) {
@@ -374,7 +374,7 @@ if (!Array.prototype.shift) { // if this method does not exist..
 }
 
 if (!Array.prototype.unshift) { // if this method does not exist..
-  
+
   Array.prototype.unshift = function() {
     this.reverse();
 
@@ -385,7 +385,7 @@ if (!Array.prototype.unshift) { // if this method does not exist..
     this.reverse();
     return this.length;
   };
-  
+
 }
 
 // ------------------------------------------
@@ -450,7 +450,7 @@ function addEvent(obj, eventType, aFunction, isCapture) {
 }
 
 function removeEvent(obj, eventType, aFunction, isCapture) {
-    
+
   if (obj.removeEventListener) {
     obj.removeEventListener(eventType, aFunction, isCapture);
     return true;

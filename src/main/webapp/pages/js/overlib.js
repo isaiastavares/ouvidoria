@@ -109,19 +109,19 @@ var CLOSEWEIGHT		=	73;
 // Main background color (the large area)
 // Usually a bright color (white, yellow etc)
 if (typeof ol_fgcolor == 'undefined') { var ol_fgcolor = "#CCCCFF";}
-	
+
 // Border color and color of caption
 // Usually a dark color (black, brown etc)
 if (typeof ol_bgcolor == 'undefined') { var ol_bgcolor = "#333399";}
-	
+
 // Text color
 // Usually a dark color
 if (typeof ol_textcolor == 'undefined') { var ol_textcolor = "#000000";}
-	
+
 // Color of the caption text
 // Usually a bright color
 if (typeof ol_capcolor == 'undefined') { var ol_capcolor = "#FFFFFF";}
-	
+
 // Color of "Close" when using Sticky
 // Usually a semi-bright color
 if (typeof ol_closecolor == 'undefined') { var ol_closecolor = "#9999FF";}
@@ -158,7 +158,7 @@ if (typeof ol_border == 'undefined') { var ol_border = "1";}
 // How many pixels to the right/left of the cursor to show the popup
 // Values between 3 and 12 are best
 if (typeof ol_offsetx == 'undefined') { var ol_offsetx = 10;}
-	
+
 // How many pixels to the below the cursor to show the popup
 // Values between 3 and 12 are best
 if (typeof ol_offsety == 'undefined') { var ol_offsety = 10;}
@@ -494,7 +494,7 @@ if ( (ns4) || (ie4) || (ns6)) {
 } else {
 	overlib = no_overlib;
 	nd = no_overlib;
-	ver3fix = true;
+	var ver3fix = true;
 }
 
 
@@ -513,7 +513,7 @@ function no_overlib() {
 // overlib(arg0, ..., argN)
 // Loads parameters into global runtime variables.
 function overlib() {
-	
+
 	// Load defaults to runtime.
 	o3_text = ol_text;
 	o3_cap = ol_cap;
@@ -559,7 +559,7 @@ function overlib() {
 	o3_hauto = ol_hauto;
 	o3_vauto = ol_vauto;
 	o3_closeclick = ol_closeclick;
-	
+
 	o3_css = ol_css;
 	o3_fgclass = ol_fgclass;
 	o3_bgclass = ol_bgclass;
@@ -581,7 +581,7 @@ function overlib() {
 	o3_closedecoration = ol_closedecoration;
 	o3_closestyle = ol_closestyle;
 	o3_closeweight = ol_closeweight;
-	
+
 
 	// Special for frame support, over must be reset...
 	if ( (ns4) || (ie4) || (ns6) ) {
@@ -590,14 +590,14 @@ function overlib() {
 		if (ie4) over = o3_frame.overDiv.style
 		if (ns6) over = o3_frame.document.getElementById("overDiv");
 	}
-	
-	
+
+
 	// What the next argument is expected to be.
 	var parsemode = -1;
-	
+
 	var ar = arguments;
 
-	for (i = 0; i < ar.length; i++) {
+	for (var i = 0; i < ar.length; i++) {
 
 		if (parsemode < 0) {
 			// Arg is maintext, unless INARRAY
@@ -707,7 +707,7 @@ function nd() {
 			o3_removecounter++;
 		}
 	}
-	
+
 	return true;
 }
 
@@ -772,16 +772,16 @@ function overlib350() {
 			}
 		}
 	}
-	
+
 	// We want it to stick!
 	if (o3_sticky) {
 		o3_showingsticky = 1;
 		o3_removecounter = 0;
 	}
-	
+
 	// Write layer
 	layerWrite(layerhtml);
-	
+
 	// Prepare status bar
 	if (o3_autostatus > 0) {
 		o3_status = o3_text;
@@ -794,7 +794,7 @@ function overlib350() {
 	o3_allowmove = 0;
 
 	// Initiate a timer for timeout
-	if (o3_timeout > 0) {          
+	if (o3_timeout > 0) {
 		if (o3_timerid > 0) clearTimeout(o3_timerid);
 		o3_timerid = setTimeout("cClick()", o3_timeout);
 	}
@@ -802,7 +802,7 @@ function overlib350() {
 	// Show layer
 	disp(o3_status);
 
-	// Stickies should stay where they are.	
+	// Stickies should stay where they are.
 	if (o3_sticky) {
 		o3_allowmove = 0;
 		return false;
@@ -819,6 +819,7 @@ function overlib350() {
 
 // Makes simple table without caption
 function ol_content_simple(text) {
+	var txt = "";
 	if (o3_css == CSSCLASS) txt = "<TABLE WIDTH="+o3_width+" BORDER=0 CELLPADDING="+o3_border+" CELLSPACING=0 class=\""+o3_bgclass+"\"><TR><TD><TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=0 class=\""+o3_fgclass+"\"><TR><TD VALIGN=TOP><FONT class=\""+o3_textfontclass+"\">"+text+"</FONT></TD></TR></TABLE></TD></TR></TABLE>";
 	if (o3_css == CSSSTYLE) txt = "<TABLE WIDTH="+o3_width+" BORDER=0 CELLPADDING="+o3_border+" CELLSPACING=0 style=\"background-color: "+o3_bgcolor+"; height: "+o3_height+o3_heightunit+";\"><TR><TD><TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=0 style=\"color: "+o3_fgcolor+"; background-color: "+o3_fgcolor+"; height: "+o3_height+o3_heightunit+";\"><TR><TD VALIGN=TOP><FONT style=\"font-family: "+o3_textfont+"; color: "+o3_textcolor+"; font-size: "+o3_textsize+o3_textsizeunit+"; text-decoration: "+o3_textdecoration+"; font-weight: "+o3_textweight+"; font-style:"+o3_textstyle+"\">"+text+"</FONT></TD></TR></TABLE></TD></TR></TABLE>";
 	if (o3_css == CSSOFF) txt = "<TABLE WIDTH="+o3_width+" BORDER=0 CELLPADDING="+o3_border+" CELLSPACING=0 "+o3_bgcolor+" "+o3_height+"><TR><TD><TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=0 "+o3_fgcolor+" "+o3_fgbackground+" "+o3_height+"><TR><TD VALIGN=TOP><FONT FACE=\""+o3_textfont+"\" COLOR=\""+o3_textcolor+"\" SIZE=\""+o3_textsize+"\">"+text+"</FONT></TD></TR></TABLE></TD></TR></TABLE>";
@@ -832,9 +833,9 @@ function ol_content_simple(text) {
 
 // Makes table with caption and optional close link
 function ol_content_caption(text, title, close) {
-	
-	closing = "";
-	closeevent = "onMouseOver";
+
+	var closing = "";
+	var closeevent = "onMouseOver";
 
 	if (o3_closeclick == 1) closeevent = "onClick";
 	if (o3_capicon != "") o3_capicon = "<IMG SRC=\""+o3_capicon+"\"> ";
@@ -907,7 +908,7 @@ function disp(statustext) {
 // Decides where we want the popup.
 function placeLayer() {
 	var placeX, placeY;
-	
+
 	// HORIZONTAL PLACEMENT
 	if (o3_fixx > -1) {
 		// Fixed position
@@ -917,7 +918,7 @@ function placeLayer() {
 		if (ie4) iwidth = o3_frame.document.body.clientWidth;
 		if (ns4) iwidth = o3_frame.innerWidth; // was screwed in mozilla, fixed now?
 		if (ns6) iwidth = o3_frame.outerWidth;
-		
+
 		// If HAUTO, decide what to use.
 		if (o3_hauto == 1) {
 			if ( (o3_x - winoffset) > ((eval(iwidth)) / 2)) {
@@ -926,7 +927,7 @@ function placeLayer() {
 				o3_hpos = RIGHT;
 			}
 		}
-		
+
 		// From mouse
 		if (o3_hpos == CENTER) { // Center
 			placeX = o3_x+o3_offsetx-(o3_width/2);
@@ -942,7 +943,7 @@ function placeLayer() {
 			placeX = o3_x-o3_offsetx-o3_width;
 			if (placeX < winoffset) placeX = winoffset;
 		}
-	
+
 		// Snapping!
 		if (o3_snapx > 1) {
 			var snapping = placeX % o3_snapx;
@@ -956,8 +957,8 @@ function placeLayer() {
 		}
 	}
 
-	
-	
+
+
 	// VERTICAL PLACEMENT
 	if (o3_fixy > -1) {
 		// Fixed position
@@ -997,19 +998,19 @@ function placeLayer() {
 		// Snapping!
 		if (o3_snapy > 1) {
 			var snapping = placeY % o3_snapy;
-			
+
 			if (o3_aboveheight > 0 && o3_vpos == ABOVE) {
 				placeY = placeY - (o3_snapy + snapping);
 			} else {
 				placeY = placeY + (o3_snapy - snapping);
 			}
-			
+
 			if (placeY < scrolloffset) placeY = scrolloffset;
 		}
 	}
 
 
-	// Actually move the object.	
+	// Actually move the object.
 	repositionTo(over, placeX, placeY);
 }
 
@@ -1019,7 +1020,7 @@ function mouseMove(e) {
 	if ( (ns4) || (ns6) ) {o3_x=e.pageX; o3_y=e.pageY;}
 	if (ie4) {o3_x=event.x; o3_y=event.y;}
 	if (ie5) {o3_x=event.x+o3_frame.document.body.scrollLeft; o3_y=event.y+o3_frame.document.body.scrollTop;}
-	
+
 	if (o3_allowmove == 1) {
 		placeLayer();
 	}
@@ -1029,13 +1030,13 @@ function mouseMove(e) {
 function cClick() {
 	hideObject(over);
 	o3_showingsticky = 0;
-	
+
 	return false;
 }
 
 
 // Makes sure target frame has overLIB
-function compatibleframe(frameid) {        
+function compatibleframe(frameid) {
 	if (ns4) {
 		if (typeof frameid.document.overDiv =='undefined') return false;
 	} else if (ie4) {
@@ -1057,7 +1058,7 @@ function compatibleframe(frameid) {
 // Writes to a layer
 function layerWrite(txt) {
 	txt += "\n";
-	
+
         if (ns4) {
                 var lyr = o3_frame.document.overDiv.document
 
@@ -1089,7 +1090,7 @@ function hideObject(obj) {
         if (ns4) obj.visibility = "hide";
         else if (ie4) obj.visibility = "hidden";
 	else if (ns6) obj.style.visibility = "hidden";
-        
+
 	if (o3_timerid > 0) clearTimeout(o3_timerid);
 	if (o3_delayid > 0) clearTimeout(o3_delayid);
 	o3_timerid = 0;
@@ -1156,7 +1157,7 @@ function vpos_convert(d) {
 			d = CENTER;
 		}
 	}
-	
+
 	return d;
 }
 

@@ -1,12 +1,14 @@
 
-<!--
 function DataHoje() {
 	var now = new Date();
+	var Mes = "";
+	var Day = "";
+	var Year = 0;
 	var mName = now.getMonth() + 1;
 	var dName = now.getDay() + 1;
 	var dayNr = now.getDate();
 	var yearNr=now.getYear();
-	
+
 	if(mName==1) Mes = "janeiro";
 	if(mName==2) Mes = "fevereiro";
 	if(mName==3) Mes = "mar&ccedil;o";
@@ -19,7 +21,7 @@ function DataHoje() {
 	if(mName==10) Mes = "outubro";
 	if(mName==11) Mes = "novembro";
 	if(mName==12) Mes = "dezembro";
-	
+
 	if(dName==1) Day = "Domingo";
 	if(dName==2) Day = "Segunda";
 	if(dName==3) Day = "Ter&ccedil;a";
@@ -31,7 +33,7 @@ function DataHoje() {
 	else Year = yearNr;
 
 	return DataHoje =(" " + Day + ", " + dayNr + " de " + Mes + " de " + Year);
-}	
+}
 
 //---------- DeseditarValor ----------
 function DeseditarValor (txtNum) {
@@ -67,7 +69,7 @@ function CriticarData (objTxtData) {
       d = txtData.substring(0, 2)*1;
       m = txtData.substring(2, 4)*1;
       a = txtData.substring(4, txtData.length)*1;
-      fimDias = "  312831303130313130313031";
+      var fimDias = "  312831303130313130313031";
       f1 = (  (m > 0) && (m < 13) && (d > 0)  );
       f2 = ( d
              <=
@@ -94,11 +96,11 @@ function CriticarData (objTxtData) {
 //}
 
 function FormataData(obj) {
-    vr = obj.value;
+    var vr = obj.value;
 	vr = vr.replace( ".", "" );
 	vr = vr.replace( "/", "" );
 	vr = vr.replace( "/", "" );
-	tam = vr.length + 1;
+	var tam = vr.length + 1;
 	if ( tam > 2 && tam < 5 )
 		{obj.value = vr.substr( 0, tam - 2  ) + '/' + vr.substr( tam - 2, tam )};
 	if ( tam >= 5 && tam <= 10 )

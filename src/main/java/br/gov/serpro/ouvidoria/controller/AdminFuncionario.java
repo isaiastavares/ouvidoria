@@ -1,27 +1,27 @@
 /*
  * Sistema de Ouvidoria: um canal através do qual os usuários
  * podem encaminhar suas reclamações, elogios e sugestões.
- * 
+ *
  * Copyright (C) 2011 SERPRO
- * 
+ *
  * Este programa é software livre; você pode redistribuí-lo e/ou
  * modificá-lo sob os termos da Licença Pública Geral GNU, conforme
  * publicada pela Free Software Foundation; tanto a versão 2 da
  * Licença como (a seu critério) qualquer versão mais nova.
- * 
+ *
  * Este programa é distribuído na expectativa de ser útil, mas SEM
  * QUALQUER GARANTIA; sem mesmo a garantia implícita de
  * COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM
  * PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais
  * detalhes.
- * 
+ *
  * Você deve ter recebido uma cópia da Licença Pública Geral GNU,
  * sob o título "LICENCA.txt", junto com esse programa. Se não,
  * acesse o Portal do Software Público Brasileiro no endereço
  * http://www.softwarepublico.gov.br/ ou escreva para a Fundação do
  * Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02111-1301, USA.
- * 
+ *
  * Contatos através do seguinte endereço internet:
  * http://www.serpro.gov.br/sistemaouvidoria/
  */
@@ -52,7 +52,7 @@ public class AdminFuncionario {
 
 	/**
 	 * Obtém a entidade à partir do ID recebido como parâmetro
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 * @throws DaoException
@@ -65,7 +65,7 @@ public class AdminFuncionario {
 	}
 
 	/**
-	 * Salva a entidade à partir das informações recebidas como parâmetro. 
+	 * Salva a entidade à partir das informações recebidas como parâmetro.
 	 * @param id
 	 * @param nome
 	 * @param login
@@ -108,7 +108,7 @@ public class AdminFuncionario {
 
 	/**
 	 * Obtém uma lista de objetos da entidade
-	 * 
+	 *
 	 * @return
 	 */
 	public List list() throws DaoException {
@@ -116,12 +116,12 @@ public class AdminFuncionario {
 	}
 
 	public Funcionario find(final Long id) throws DaoException {
-
 		Session session = HibernateSessionFactory.getFactory().getSession();
 		try {
 
 			List lista = session.createQuery(
-					"from Funcionario as func where func.funcExt = " + id)
+					"from Funcionario as func where func.funcExt = ?")
+					.setLong(1, id.longValue())
 					.list();
 			if (lista != null && !lista.isEmpty()) {
 				return (Funcionario) lista.get(0);
