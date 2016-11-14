@@ -1,27 +1,27 @@
 /*
  * Sistema de Ouvidoria: um canal através do qual os usuários
  * podem encaminhar suas reclamações, elogios e sugestões.
- * 
+ *
  * Copyright (C) 2011 SERPRO
- * 
+ *
  * Este programa é software livre; você pode redistribuí-lo e/ou
  * modificá-lo sob os termos da Licença Pública Geral GNU, conforme
  * publicada pela Free Software Foundation; tanto a versão 2 da
  * Licença como (a seu critério) qualquer versão mais nova.
- * 
+ *
  * Este programa é distribuído na expectativa de ser útil, mas SEM
  * QUALQUER GARANTIA; sem mesmo a garantia implícita de
  * COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM
  * PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais
  * detalhes.
- * 
+ *
  * Você deve ter recebido uma cópia da Licença Pública Geral GNU,
  * sob o título "LICENCA.txt", junto com esse programa. Se não,
  * acesse o Portal do Software Público Brasileiro no endereço
  * http://www.softwarepublico.gov.br/ ou escreva para a Fundação do
  * Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02111-1301, USA.
- * 
+ *
  * Contatos através do seguinte endereço internet:
  * http://www.serpro.gov.br/sistemaouvidoria/
  */
@@ -48,7 +48,7 @@ import br.gov.serpro.ouvidoria.util.Utilitario;
 
 /**
  * Objetivo: Funcionalidades CRUD de órgão
- * 
+ *
  * @author SERPRO
  * @version $Revision: 1.1.2.4 $, $Date: 2011/10/19 18:18:09 $
  * @version 0.1, Date: 2005/01/03
@@ -63,12 +63,11 @@ public class OrgaoCtrl {
 	 * Construtor default
 	 */
 	public OrgaoCtrl() {
-		// Construtor default
 	}
 
 	/**
 	 * Construtor recebendo objeto Dao
-	 * 
+	 *
 	 * @param daoFactory
 	 */
 	public OrgaoCtrl(final DaoFactory daoFactory) {
@@ -78,7 +77,7 @@ public class OrgaoCtrl {
 
 	/**
 	 * Obtém a entidade à partir do ID recebido como parâmetro
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 * @throws DaoException
@@ -100,7 +99,7 @@ public class OrgaoCtrl {
 
 	/**
 	 * Obtém a entidade à partir do ID da Sessão recebido como parâmetro
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 * @throws DaoException
@@ -137,7 +136,7 @@ public class OrgaoCtrl {
 
 	/**
 	 * Obtém uma lista de objetos da entidade à partir do parâmetro
-	 * 
+	 *
 	 * @return
 	 */
 	public List list() throws DaoException {
@@ -166,7 +165,7 @@ public class OrgaoCtrl {
 	/**
 	 * Insere a entidade no banco utilizando as informações recebidas como
 	 * parâmetro
-	 * 
+	 *
 	 * @param descricao
 	 * @param gestorResponsavel
 	 * @param codigoPaisTelefoneResponsavel
@@ -234,7 +233,7 @@ public class OrgaoCtrl {
 	/**
 	 * Atualiza a entidade no banco utilizando as informações recebidas como
 	 * parâmetro
-	 * 
+	 *
 	 * @param id
 	 * @param descricao
 	 * @param gestorResponsavel
@@ -292,7 +291,7 @@ public class OrgaoCtrl {
 	 * Recupera lista de meios de envio de resposta do órgão. Método utilizado
 	 * no JSP de configuração do órgão para permitir a visualização dinâmica das
 	 * alterações
-	 * 
+	 *
 	 * @param idOrgao
 	 * @return
 	 */

@@ -58,7 +58,7 @@ import br.gov.serpro.ouvidoria.model.Perfil;
  */
 public class AcionamentoCtrl {
 
-	private final Log log = LogFactory.getLog(HibernateDao.class);
+	private static final Log LOG = LogFactory.getLog(HibernateDao.class);
 
 	/** campo para datasource */
 	private Dao acionamentoDao;
@@ -634,7 +634,7 @@ public class AcionamentoCtrl {
 						|| idEstadoAcion == EstadoAcionamento.EM_ANDAMENTO
 								.getId().longValue()) {
 
-					log.debug("\n>>>> ACIONAMENTO: Pendente ou Em Andamento!!!\n\n");
+					LOG.debug("\n>>>> ACIONAMENTO: Pendente ou Em Andamento!!!\n\n");
 
 					// acionamento PENDENTE ou EM ANDAMENTO - verificar se está
 					// em ATRASO
@@ -651,7 +651,7 @@ public class AcionamentoCtrl {
 				} else if (idEstadoAcion == EstadoAcionamento.ATRASO.getId()
 						.longValue()) {
 
-					log.debug("\n>>>> ACIONAMENTO: Atraso!!!\n\n");
+					LOG.debug("\n>>>> ACIONAMENTO: Atraso!!!\n\n");
 
 					// acionamento em ATRASO
 					if (dataExterna != null && dataExterna.before(agora)) {
@@ -666,7 +666,7 @@ public class AcionamentoCtrl {
 				} else if (idEstadoAcion == EstadoAcionamento.CRITICO.getId()
 						.longValue()) {
 
-					log.debug("\n>>>> ACIONAMENTO: Crítico!!!\n\n");
+					LOG.debug("\n>>>> ACIONAMENTO: Crítico!!!\n\n");
 
 					// acionamento em atraso CRÍTICO
 					if (dataInterna != null && dataInterna.after(agora)) {
@@ -683,9 +683,9 @@ public class AcionamentoCtrl {
 
 			return result;
 		} catch (Exception e) {
-			log.error("EXCEÇÂO: " + e.getMessage());
-			log.error(e.getStackTrace().toString());
-			log.error("\n\n");
+			LOG.error("EXCEÇÂO: " + e.getMessage());
+			LOG.error(e.getStackTrace().toString());
+			LOG.error("\n\n");
 			e.printStackTrace();
 			return false;
 		}

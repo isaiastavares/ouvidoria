@@ -1,27 +1,27 @@
 /*
  * Sistema de Ouvidoria: um canal através do qual os usuários
  * podem encaminhar suas reclamações, elogios e sugestões.
- * 
+ *
  * Copyright (C) 2011 SERPRO
- * 
+ *
  * Este programa é software livre; você pode redistribuí-lo e/ou
  * modificá-lo sob os termos da Licença Pública Geral GNU, conforme
  * publicada pela Free Software Foundation; tanto a versão 2 da
  * Licença como (a seu critério) qualquer versão mais nova.
- * 
+ *
  * Este programa é distribuído na expectativa de ser útil, mas SEM
  * QUALQUER GARANTIA; sem mesmo a garantia implícita de
  * COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM
  * PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais
  * detalhes.
- * 
+ *
  * Você deve ter recebido uma cópia da Licença Pública Geral GNU,
  * sob o título "LICENCA.txt", junto com esse programa. Se não,
  * acesse o Portal do Software Público Brasileiro no endereço
  * http://www.softwarepublico.gov.br/ ou escreva para a Fundação do
  * Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02111-1301, USA.
- * 
+ *
  * Contatos através do seguinte endereço internet:
  * http://www.serpro.gov.br/sistemaouvidoria/
  */
@@ -46,9 +46,9 @@ import br.gov.serpro.ouvidoria.util.Constants;
 import br.gov.serpro.ouvidoria.util.HibernateSessionFactory;
 
 /**
- * 
+ *
  * Objetivo: Implementar a interface Dao para o Hibernate.
- * 
+ *
  * @author SERPRO
  * @version $Revision: 1.1.2.3 $, $Date: 2011/10/19 20:36:56 $
  * @version 0.1, Date: 2004/12/27
@@ -57,15 +57,15 @@ public class HibernateDao implements Dao {
 
 	private static final long serialVersionUID = 1L;
 
-	private final Log log = LogFactory.getLog(HibernateDao.class);
+	private static final Log LOG = LogFactory.getLog(HibernateDao.class);
 
 	private Class clazz;
 
 	/**
 	 * Construtor do HibernateDao.
-	 * 
+	 *
 	 * Pega uma sessão usando o HibernateSessionFactory.
-	 * 
+	 *
 	 * @see br.gov.serpro.ouvidoria.util.HibernateSessionFactory
 	 */
 	public HibernateDao(Class clazz) {
@@ -74,7 +74,7 @@ public class HibernateDao implements Dao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see br.gov.serpro.ouvidoria.dao.Dao#save(br.gov.serpro.ouvidoria.model.Identifiable)
 	 */
 	public void save(Identifiable object) throws DaoException {
@@ -98,10 +98,10 @@ public class HibernateDao implements Dao {
 				System.out.println(e.getMessage());
 				trans.rollback();
 			} catch (HibernateException e1) {
-				log.error(e1);
+				LOG.error(e1);
 			}
 
-			log.error(e);
+			LOG.error(e);
 			String errorMessage = e.getMessage();
 			if (e.getCause() != null && e.getCause().getMessage() != null) {
 				errorMessage = e.getCause().getMessage();
@@ -114,7 +114,7 @@ public class HibernateDao implements Dao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see br.gov.serpro.ouvidoria.dao.Dao#delete(br.gov.serpro.ouvidoria.model.Identifiable)
 	 */
 	public void delete(Identifiable object) throws DaoException {
@@ -139,7 +139,7 @@ public class HibernateDao implements Dao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see br.gov.serpro.ouvidoria.dao.Dao#delete(java.lang.Long)
 	 */
 	public void delete(Long id) throws DaoException {
@@ -153,7 +153,7 @@ public class HibernateDao implements Dao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see br.gov.serpro.ouvidoria.dao.Dao#get(java.lang.Long)
 	 */
 	public Object get(Long id) throws DaoException {
@@ -180,7 +180,7 @@ public class HibernateDao implements Dao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see br.gov.serpro.ouvidoria.dao.Dao#find(java.lang.Object)
 	 */
 	public List find(Object[] criteria) throws DaoException {
@@ -210,7 +210,7 @@ public class HibernateDao implements Dao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see br.gov.serpro.ouvidoria.dao.Dao#list()
 	 */
 	public List list() throws DaoException {
@@ -234,7 +234,7 @@ public class HibernateDao implements Dao {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see br.gov.serpro.ouvidoria.dao.Dao#query(java.lang.String)
 	 */
 	public List query(String textoHql) throws DaoException {
@@ -245,12 +245,12 @@ public class HibernateDao implements Dao {
 	 * Executa uma consulta, especificando a quantidade máxima de registros a
 	 * ser devolvida e a posição do registro a partir de onde o restante será
 	 * obtido.
-	 * 
+	 *
 	 * IMPORTANTE: a posição do registro inicial deve ser maior ou igual a zero
 	 * (posRegistroInicial >= 0) e a quantidade máxima de registros a ser
 	 * devolvida deve ser maior que zero (maxRegistros > 0); caso contrário,
 	 * esses argumentos não terão efeito sobre a query.
-	 * 
+	 *
 	 * @param textoHql
 	 *            texto da query em formato HQL (Hibernate).
 	 * @param posRegistroInicial
@@ -310,12 +310,12 @@ public class HibernateDao implements Dao {
 	 * Executa uma consulta, especificando a quantidade máxima de registros a
 	 * ser devolvida e a posição do registro a partir de onde o restante será
 	 * obtido.
-	 * 
+	 *
 	 * IMPORTANTE: a posição do registro inicial deve ser maior ou igual a zero
 	 * (posRegistroInicial >= 0) e a quantidade máxima de registros a ser
 	 * devolvida deve ser maior que zero (maxRegistros > 0); caso contrário,
 	 * esses argumentos não terão efeito sobre a query.
-	 * 
+	 *
 	 * @param query
 	 *            query do Hibernate.
 	 * @param posRegistroInicial

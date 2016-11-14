@@ -1,27 +1,27 @@
 /*
  * Sistema de Ouvidoria: um canal através do qual os usuários
  * podem encaminhar suas reclamações, elogios e sugestões.
- * 
+ *
  * Copyright (C) 2011 SERPRO
- * 
+ *
  * Este programa é software livre; você pode redistribuí-lo e/ou
  * modificá-lo sob os termos da Licença Pública Geral GNU, conforme
  * publicada pela Free Software Foundation; tanto a versão 2 da
  * Licença como (a seu critério) qualquer versão mais nova.
- * 
+ *
  * Este programa é distribuído na expectativa de ser útil, mas SEM
  * QUALQUER GARANTIA; sem mesmo a garantia implícita de
  * COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM
  * PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais
  * detalhes.
- * 
+ *
  * Você deve ter recebido uma cópia da Licença Pública Geral GNU,
  * sob o título "LICENCA.txt", junto com esse programa. Se não,
  * acesse o Portal do Software Público Brasileiro no endereço
  * http://www.softwarepublico.gov.br/ ou escreva para a Fundação do
  * Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02111-1301, USA.
- * 
+ *
  * Contatos através do seguinte endereço internet:
  * http://www.serpro.gov.br/sistemaouvidoria/
  */
@@ -59,12 +59,12 @@ import br.gov.serpro.ouvidoria.util.Utilitario;
  * <p>
  * This is just a simple job that gets fired off many times by example 1
  * </p>
- * 
+ *
  * @author Bill Kratzer
  */
 public class EnviarAlertaJob implements Job {
 
-	private static Log _log = LogFactory.getLog(EnviarAlertaJob.class);
+	private static final Log LOG = LogFactory.getLog(EnviarAlertaJob.class);
 	public static final String ID_ORGAO = "idOrgao";
 	public static final String URL = "url";
 	final DaoFactory daoFactory = new HibernateDaoFactory();
@@ -83,7 +83,7 @@ public class EnviarAlertaJob implements Job {
 	 * <code>{@link org.quartz.Trigger}</code> fires that is associated with the
 	 * <code>Job</code>.
 	 * </p>
-	 * 
+	 *
 	 * @throws JobExecutionException
 	 *             if there is an exception while executing the job.
 	 */
@@ -91,7 +91,7 @@ public class EnviarAlertaJob implements Job {
 			throws JobExecutionException {
 
 		String jobName = context.getJobDetail().getFullName();
-		_log.info("\n\nExecutando JOB: " + jobName + " em " + new Date()
+		LOG.info("\n\nExecutando JOB: " + jobName + " em " + new Date()
 				+ "\n\n");
 
 		try {
@@ -104,15 +104,15 @@ public class EnviarAlertaJob implements Job {
 			Orgao orgao = orgaoCtrl.get(id);
 
 			this.enviarAlertaViaEmail(orgao, EstadoAcionamento.PENDENTE);
-			_log.info("\nEnviadas Notificacoes sobre Acionamentos Pendentes - "
+			LOG.info("\nEnviadas Notificacoes sobre Acionamentos Pendentes - "
 					+ new Date() + "\n");
 
 			this.enviarAlertaViaEmail(orgao, EstadoAcionamento.ATRASO);
-			_log.info("\nEnviadas Notificacoes sobre Acionamentos em Atraso - enviado "
+			LOG.info("\nEnviadas Notificacoes sobre Acionamentos em Atraso - enviado "
 					+ new Date() + "\n");
 
 			this.enviarAlertaViaEmail(orgao, EstadoAcionamento.CRITICO);
-			_log.info("\nEnviadas Notificacoes sobre Acionamentos em Atraso Crítico - enviado "
+			LOG.info("\nEnviadas Notificacoes sobre Acionamentos em Atraso Crítico - enviado "
 					+ new Date() + "\n");
 
 		} catch (Exception e) {
@@ -260,19 +260,19 @@ public class EnviarAlertaJob implements Job {
 
 				lsTexto += orgao.getConfiguracoes().getUrlSuporteUsuario();
 
-				_log.info("\n\nURL :" + enderecoUrlAcionamento + "\n");
-				_log.info("\nNumero protocolo :" + numeroProtocolo + "\n");
-				_log.info("\n>>>Responsavel :" + nomeFuncionarioResponsavel
+				LOG.info("\n\nURL :" + enderecoUrlAcionamento + "\n");
+				LOG.info("\nNumero protocolo :" + numeroProtocolo + "\n");
+				LOG.info("\n>>>Responsavel :" + nomeFuncionarioResponsavel
 						+ "\n");
-				_log.info("\n>>>Email de Destino :" + lsPara + "\n");
-				_log.info("\n>>>EstadoAcionamento :" + estadoAcionamento
+				LOG.info("\n>>>Email de Destino :" + lsPara + "\n");
+				LOG.info("\n>>>EstadoAcionamento :" + estadoAcionamento
 						+ "\n\n");
 
 				/* Eviar nota de alerta */
 				Utilitario.enviarEmail(lsServidorSMTP, lsDe, lsPara, "", "",
 						lsAssunto, lsTexto);
 
-				_log.info("\n>>>Enviado email para responsável pelo protocolo :"
+				LOG.info("\n>>>Enviado email para responsável pelo protocolo :"
 						+ numeroProtocolo + "\n");
 
 				acionamento = null;
