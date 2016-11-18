@@ -67,6 +67,7 @@ public class AcionamentoCtrl {
 	 * Construtor "default"
 	 */
 	public AcionamentoCtrl() {
+		// Do nothing
 	}
 
 	/**

@@ -65,8 +65,13 @@ import br.gov.serpro.ouvidoria.util.Utilitario;
 public class EnviarAlertaJob implements Job {
 
 	private static final Log LOG = LogFactory.getLog(EnviarAlertaJob.class);
+
+	private static final String BG_COLOR_FFFFFF = "	 <td bgcolor='#FFFFFF'>";
+	private static final String TARGET_BLANK = "' target='_blank'>";
+
 	public static final String ID_ORGAO = "idOrgao";
 	public static final String URL = "url";
+
 	final DaoFactory daoFactory = new HibernateDaoFactory();
 	protected String enderecoUrl;
 
@@ -75,6 +80,7 @@ public class EnviarAlertaJob implements Job {
 	 * instantiate the class whenever it needs.
 	 */
 	public EnviarAlertaJob() {
+		// Do nothing
 	}
 
 	/**
@@ -231,23 +237,23 @@ public class EnviarAlertaJob implements Job {
 				lsTexto += "</tr>";
 
 				lsTexto += "<tr style=' color: #0000FF; font-family:Verdana; font-size:10pt; font-weight:bold ;text-decoration: none;'>";
-				lsTexto += "	 <td bgcolor='#FFFFFF'>";
+				lsTexto += BG_COLOR_FFFFFF;
 				lsTexto += "<a href='" + enderecoUrlAcionamento
-						+ "' target='_blank'>" + estadoAcionamento + "</a>";
+						+ TARGET_BLANK + estadoAcionamento + "</a>";
 				lsTexto += "     </td>";
 
-				lsTexto += "	 <td bgcolor='#FFFFFF'>" + "    	<a href='"
-						+ enderecoUrlAcionamento + "' target='_blank'>"
+				lsTexto += BG_COLOR_FFFFFF + "    	<a href='"
+						+ enderecoUrlAcionamento + TARGET_BLANK
 						+ assunto + "</a></td>";
-				lsTexto += "	 <td bgcolor='#FFFFFF'>" + "         <a href='"
+				lsTexto += BG_COLOR_FFFFFF + "         <a href='"
 						+ urlDetalhamento(acionamento, orgao)
-						+ "' target='_blank'>" + numeroProtocolo + "</a>"
+						+ TARGET_BLANK + numeroProtocolo + "</a>"
 						+ "      </td>";
-				lsTexto += "	 <td bgcolor='#FFFFFF'>" + "			<a href='"
-						+ enderecoUrlAcionamento + "' target='_blank'>"
+				lsTexto += BG_COLOR_FFFFFF + "			<a href='"
+						+ enderecoUrlAcionamento + TARGET_BLANK
 						+ dataFormatada + "</a>" + "       </td>";
-				lsTexto += "	 <td bgcolor='#FFFFFF'>" + "			<a href='"
-						+ enderecoUrlAcionamento + "' target='_blank'>"
+				lsTexto += BG_COLOR_FFFFFF + "			<a href='"
+						+ enderecoUrlAcionamento + TARGET_BLANK
 						+ nomeFuncionarioResponsavel + "</a>" + "       </td>";
 				lsTexto += "</tr>";
 

@@ -52,7 +52,10 @@ import br.gov.serpro.ouvidoria.util.Constants;
  */
 public class LoginAction extends DispatchActionSupport {
 
-    public ActionForward sessaoExpirada(ActionMapping mapping, ActionForm form,
+    private static final String ERROR = "error";
+	private static final String LOGIN_ERROR = "login.error";
+
+	public ActionForward sessaoExpirada(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
@@ -100,16 +103,16 @@ public class LoginAction extends DispatchActionSupport {
 
         if ((login == null) || (login.trim().length() <= 0)) {
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "login.error"));
+                    LOGIN_ERROR));
             saveErrors(request, errors);
-            return mapping.findForward("error");
+            return mapping.findForward(ERROR);
         }
 
         if ((senha == null) || (senha.trim().length() <= 0)) {
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "login.error"));
+                    LOGIN_ERROR));
             saveErrors(request, errors);
-            return mapping.findForward("error");
+            return mapping.findForward(ERROR);
         }
 
         LoginCtrl ctrlLogin = new LoginCtrl(getDaoFactory());
@@ -124,28 +127,28 @@ public class LoginAction extends DispatchActionSupport {
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                     "senha.bloqueada"));
             saveErrors(request, errors);
-            return mapping.findForward("error");
+            return mapping.findForward(ERROR);
 
         } else if (tentativaSenha == 2) {
 
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                     "senha.alerta.bloqueio"));
             saveErrors(request, errors);
-            return mapping.findForward("error");
+            return mapping.findForward(ERROR);
 
         } else if (tentativaSenha == 3) {
 
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                     "senha.error"));
             saveErrors(request, errors);
-            return mapping.findForward("error");
+            return mapping.findForward(ERROR);
 
         } else if (funcionario == null) {
 
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "login.error"));
+                    LOGIN_ERROR));
             saveErrors(request, errors);
-            return mapping.findForward("error");
+            return mapping.findForward(ERROR);
         }
 
         request.getSession(true).setAttribute(Constants.PA_FUNCIONARIO,

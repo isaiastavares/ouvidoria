@@ -1,27 +1,27 @@
 /*
  * Sistema de Ouvidoria: um canal através do qual os usuários
  * podem encaminhar suas reclamações, elogios e sugestões.
- * 
+ *
  * Copyright (C) 2011 SERPRO
- * 
+ *
  * Este programa é software livre; você pode redistribuí-lo e/ou
  * modificá-lo sob os termos da Licença Pública Geral GNU, conforme
  * publicada pela Free Software Foundation; tanto a versão 2 da
  * Licença como (a seu critério) qualquer versão mais nova.
- * 
+ *
  * Este programa é distribuído na expectativa de ser útil, mas SEM
  * QUALQUER GARANTIA; sem mesmo a garantia implícita de
  * COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM
  * PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais
  * detalhes.
- * 
+ *
  * Você deve ter recebido uma cópia da Licença Pública Geral GNU,
  * sob o título "LICENCA.txt", junto com esse programa. Se não,
  * acesse o Portal do Software Público Brasileiro no endereço
  * http://www.softwarepublico.gov.br/ ou escreva para a Fundação do
  * Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02111-1301, USA.
- * 
+ *
  * Contatos através do seguinte endereço internet:
  * http://www.serpro.gov.br/sistemaouvidoria/
  */
@@ -40,12 +40,14 @@ import br.gov.serpro.ouvidoria.util.Utilitario;
 /**
  * Objetivo: Controlar as operações sobre os objetos relacionados à parte de
  * envio da resposta de um acionamento por email.
- * 
+ *
  * @author SERPRO
  * @version $Revision: 1.1.2.6 $, $Date: 2011/11/10 12:40:51 $
  * @version 0.1, Date: 2004/12/20
  */
 public class EnviarEmailCtrl {
+
+	private static final String BR_BR = "<br><br>";
 
 	/** atributo para datasource do acionamento */
 	/* Requerido */
@@ -57,7 +59,7 @@ public class EnviarEmailCtrl {
 
 	/**
 	 * Construtor recebendo objeto Dao
-	 * 
+	 *
 	 * @param daoFactory
 	 */
 	public EnviarEmailCtrl(final DaoFactory daoFactory) {
@@ -67,7 +69,7 @@ public class EnviarEmailCtrl {
 
 	/**
 	 * Método para recuperar um acionamento a partir de um id
-	 * 
+	 *
 	 * @param id
 	 *            identificador do acionamento
 	 */
@@ -80,7 +82,7 @@ public class EnviarEmailCtrl {
 
 	/**
 	 * Método para salvar um acionamento
-	 * 
+	 *
 	 * @param pAcionamento
 	 *            acionamento a ser salvo
 	 */
@@ -91,7 +93,7 @@ public class EnviarEmailCtrl {
 
 	/**
 	 * Este método é responsável por enviar email.
-	 * 
+	 *
 	 * @param pAcionamento
 	 *            acionamento cuja resposta será enviada do email.
 	 * @param pOrgao
@@ -121,17 +123,17 @@ public class EnviarEmailCtrl {
 				+ pOrgao.getConfiguracoes().getNomeExibicaoOrgao();
 
 		lsTexto = pOrgao.getConfiguracoes().getTextoApresentacaoResposta()
-				+ "<br><br>";
+				+ BR_BR;
 
 		lsTexto = lsTexto + "Resposta referente ao acionamento de "
 				+ "protocolo n\u00FAmero: <b>" + pAcionamento.getNumeroProtocolo()
 				+ "</b><br><br>";
 
 		lsTexto = lsTexto + "<br><b>Sua Mensagem</b><br>"
-				+ pAcionamento.getMensagem().getTexto() + "<br><br>";
+				+ pAcionamento.getMensagem().getTexto() + BR_BR;
 
 		lsTexto = lsTexto + "<b>Resposta da Ouvidoria</b><br>"
-				+ pAcionamento.getRespostaAcionamento().getTexto() + "<br><br>";
+				+ pAcionamento.getRespostaAcionamento().getTexto() + BR_BR;
 
 		lsTexto = lsTexto + "<b>Avalie a sua resposta no link:</b><br>"
 				+ "<a href='"

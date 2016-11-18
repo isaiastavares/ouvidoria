@@ -68,6 +68,7 @@ public class RedirecionarMensagemCtrl {
 	 *
 	 */
 	public RedirecionarMensagemCtrl() {
+		// Do nothing
 	}
 
 	/**

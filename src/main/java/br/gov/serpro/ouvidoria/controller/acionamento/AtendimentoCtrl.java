@@ -52,6 +52,7 @@ public class AtendimentoCtrl {
      * Construtor "default"
      */
     public AtendimentoCtrl() {
+    	// Do nothing
     }
 
     /**

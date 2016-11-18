@@ -52,6 +52,10 @@ import br.gov.serpro.ouvidoria.dao.hibernate.HibernateDaoFactory;
  */
 public class Orgao extends Instituicao {
 
+	private static final String INATIVO_STRING = "Inativo";
+
+	private static final String ATIVO_STRING = "Ativo";
+
 	private static final long serialVersionUID = 1L;
 
 	public static String ATIVO = "A";
@@ -370,7 +374,7 @@ public class Orgao extends Instituicao {
 					assunto = (Assunto) iter2.next();
 					if ((!listaAssunto.contains(assunto))
 							&& (assunto.getSituacao().compareToIgnoreCase(
-									"Ativo") == 0)) {
+									ATIVO_STRING) == 0)) {
 						listaAssunto.add(assunto);
 					}
 				}
@@ -467,12 +471,12 @@ public class Orgao extends Instituicao {
 			iter = listaAssuntoOrgao.iterator();
 			while (iter.hasNext()) {
 				assunto = (Assunto) iter.next();
-				if (situacao.equalsIgnoreCase("Ativo"))
-					if (assunto.getSituacao() == "Ativo")
+				if (situacao.equalsIgnoreCase(ATIVO_STRING))
+					if (assunto.getSituacao() == ATIVO_STRING)
 						listaAssunto.add(assunto);
 
-				if (situacao.equalsIgnoreCase("Inativo"))
-					if (assunto.getSituacao() == "Inativo")
+				if (situacao.equalsIgnoreCase(INATIVO_STRING))
+					if (assunto.getSituacao() == INATIVO_STRING)
 						listaAssunto.add(assunto);
 
 				if (situacao.equalsIgnoreCase("Ambos"))
@@ -494,12 +498,12 @@ public class Orgao extends Instituicao {
 					assunto = (Assunto) iter2.next();
 					if (!listaAssunto.contains(assunto)) {
 
-						if (situacao.equalsIgnoreCase("Ativo"))
-							if (assunto.getSituacao() == "Ativo")
+						if (situacao.equalsIgnoreCase(ATIVO_STRING))
+							if (assunto.getSituacao() == ATIVO_STRING)
 								listaAssunto.add(assunto);
 
-						if (situacao.equalsIgnoreCase("Inativo"))
-							if (assunto.getSituacao() == "Inativo")
+						if (situacao.equalsIgnoreCase(INATIVO_STRING))
+							if (assunto.getSituacao() == INATIVO_STRING)
 								listaAssunto.add(assunto);
 
 						if (situacao.equalsIgnoreCase("Ambos"))
@@ -553,8 +557,8 @@ public class Orgao extends Instituicao {
 
 	public String getSituacao() {
 		if (this.statusOrgao.compareTo(Orgao.ATIVO) == 0)
-			return "Ativo";
-		return "Inativo";
+			return ATIVO_STRING;
+		return INATIVO_STRING;
 	}
 
 	/**

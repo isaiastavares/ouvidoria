@@ -1,27 +1,27 @@
 /*
  * Sistema de Ouvidoria: um canal através do qual os usuários
  * podem encaminhar suas reclamações, elogios e sugestões.
- * 
+ *
  * Copyright (C) 2011 SERPRO
- * 
+ *
  * Este programa é software livre; você pode redistribuí-lo e/ou
  * modificá-lo sob os termos da Licença Pública Geral GNU, conforme
  * publicada pela Free Software Foundation; tanto a versão 2 da
  * Licença como (a seu critério) qualquer versão mais nova.
- * 
+ *
  * Este programa é distribuído na expectativa de ser útil, mas SEM
  * QUALQUER GARANTIA; sem mesmo a garantia implícita de
  * COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM
  * PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais
  * detalhes.
- * 
+ *
  * Você deve ter recebido uma cópia da Licença Pública Geral GNU,
  * sob o título "LICENCA.txt", junto com esse programa. Se não,
  * acesse o Portal do Software Público Brasileiro no endereço
  * http://www.softwarepublico.gov.br/ ou escreva para a Fundação do
  * Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02111-1301, USA.
- * 
+ *
  * Contatos através do seguinte endereço internet:
  * http://www.serpro.gov.br/sistemaouvidoria/
  */
@@ -41,14 +41,18 @@ import br.gov.serpro.ouvidoria.model.SubOrgao;
 
 /**
  * SubOrgaoCtrl
- * 
+ *
  * Objetivo: Funcionalidades CRUD de Sub-Órgão
- * 
+ *
  * @author SERPRO
  * @version $Revision: 1.1.2.3 $, $Date: 2011/10/19 18:18:09 $
  * @version 0.1, Date: 2004/12/27
  */
 public class SubOrgaoCtrl {
+
+	private static final String ORGAO_NÃO_PODE_SER_NULO = "Orgao não pode ser nulo.";
+
+	private static final String ID_DO_OBJETO_NÃO_PODE_SER_NULO = "ID do Objeto não pode ser nulo.";
 
 	private Dao orgaoDao;
 
@@ -56,7 +60,7 @@ public class SubOrgaoCtrl {
 
 	/**
 	 * Construtor recebendo objeto Dao
-	 * 
+	 *
 	 * @param daoFactory
 	 */
 	public SubOrgaoCtrl(final DaoFactory daoFactory) {
@@ -66,32 +70,32 @@ public class SubOrgaoCtrl {
 
 	/**
 	 * Obtém a entidade à partir do ID recebido como parâmetro
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 * @throws DaoException
 	 */
 	public SubOrgao get(final Long id) throws DaoException {
 		if (id == null) {
-			throw new DaoException("ID do Objeto não pode ser nulo.");
+			throw new DaoException(ID_DO_OBJETO_NÃO_PODE_SER_NULO);
 		}
 		return (SubOrgao) subOrgaoDao.get(id);
 	}
 
 	/**
 	 * Salva a entidade recebida como parâmetro
-	 * 
+	 *
 	 * @param subOrgao
 	 * @throws DaoException
 	 */
 	public void save(Orgao orgao, final SubOrgao subOrgao) throws DaoException {
 
 		if (orgao == null) {
-			throw new DaoException("Orgao não pode ser nulo.");
+			throw new DaoException(ORGAO_NÃO_PODE_SER_NULO);
 		}
 
 		if (subOrgao == null) {
-			throw new DaoException("Orgao não pode ser nulo.");
+			throw new DaoException(ORGAO_NÃO_PODE_SER_NULO);
 		}
 
 		subOrgaoDao.save(subOrgao);
@@ -105,7 +109,7 @@ public class SubOrgaoCtrl {
 	/**
 	 * Insere a entidade no banco utilizando as informações recebidas como
 	 * parâmetro
-	 * 
+	 *
 	 * @param orgao
 	 * @param descricao
 	 * @param dataInicioVigencia
@@ -139,7 +143,7 @@ public class SubOrgaoCtrl {
 	/**
 	 * Atualiza a entidade no banco utilizando as informações recebidas como
 	 * parâmetro
-	 * 
+	 *
 	 * @param orgao
 	 * @param id
 	 * @param descricao
@@ -152,11 +156,11 @@ public class SubOrgaoCtrl {
 			throws DaoException {
 
 		if (orgao == null) {
-			throw new DaoException("Orgao não pode ser nulo.");
+			throw new DaoException(ORGAO_NÃO_PODE_SER_NULO);
 		}
 
 		if (id == null) {
-			throw new DaoException("ID do Objeto não pode ser nulo.");
+			throw new DaoException(ID_DO_OBJETO_NÃO_PODE_SER_NULO);
 		}
 
 		SubOrgao subOrgao = get(new Long(id));
@@ -169,7 +173,7 @@ public class SubOrgaoCtrl {
 	/**
 	 * Deleta a entidade do banco à partir das informações recebidas como
 	 * parâmetro
-	 * 
+	 *
 	 * @param id
 	 * @param dataFimVigencia
 	 * @throws DaoException
@@ -178,11 +182,11 @@ public class SubOrgaoCtrl {
 			final Timestamp dataFimVigencia) throws DaoException {
 
 		if (orgao == null) {
-			throw new DaoException("Orgao não pode ser nulo.");
+			throw new DaoException(ORGAO_NÃO_PODE_SER_NULO);
 		}
 
 		if (id == null) {
-			throw new DaoException("ID do Objeto não pode ser nulo.");
+			throw new DaoException(ID_DO_OBJETO_NÃO_PODE_SER_NULO);
 		}
 
 		SubOrgao subOrgao = get(new Long(id));
@@ -192,7 +196,7 @@ public class SubOrgaoCtrl {
 
 	/**
 	 * Obtém uma lista de objetos da entidade à partir do parâmetro
-	 * 
+	 *
 	 * @param orgao
 	 * @return
 	 * @throws DaoException
@@ -222,7 +226,7 @@ public class SubOrgaoCtrl {
 
 	/**
 	 * Obtém uma lista de todos os sub-órgãos de um determinado órgão.
-	 * 
+	 *
 	 * @param orgao
 	 * @return
 	 * @throws DaoException

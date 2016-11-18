@@ -1,27 +1,27 @@
 /*
  * Sistema de Ouvidoria: um canal através do qual os usuários
  * podem encaminhar suas reclamações, elogios e sugestões.
- * 
+ *
  * Copyright (C) 2011 SERPRO
- * 
+ *
  * Este programa é software livre; você pode redistribuí-lo e/ou
  * modificá-lo sob os termos da Licença Pública Geral GNU, conforme
  * publicada pela Free Software Foundation; tanto a versão 2 da
  * Licença como (a seu critério) qualquer versão mais nova.
- * 
+ *
  * Este programa é distribuído na expectativa de ser útil, mas SEM
  * QUALQUER GARANTIA; sem mesmo a garantia implícita de
  * COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM
  * PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais
  * detalhes.
- * 
+ *
  * Você deve ter recebido uma cópia da Licença Pública Geral GNU,
  * sob o título "LICENCA.txt", junto com esse programa. Se não,
  * acesse o Portal do Software Público Brasileiro no endereço
  * http://www.softwarepublico.gov.br/ ou escreva para a Fundação do
  * Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02111-1301, USA.
- * 
+ *
  * Contatos através do seguinte endereço internet:
  * http://www.serpro.gov.br/sistemaouvidoria/
  */
@@ -44,14 +44,18 @@ import br.gov.serpro.ouvidoria.util.Utilitario;
 
 /**
  * CtrlRecuperarCodigoAcesso
- * 
+ *
  * Objetivo: Recuperar Código de Acesso
- * 
+ *
  * @author SERPRO
  * @version $Revision: 1.1.2.3 $, $Date: 2011/10/18 17:55:13 $
  * @version 0.1, Date: 2004/12/03
  */
 public class RecuperarCodigoAcessoCtrl {
+
+	private static final String B_BR_BR = "</b><br><br>";
+
+	private static final String CIDADÃO = "cidadão";
 
 	private Dao acionamentoDao;
 
@@ -203,7 +207,7 @@ public class RecuperarCodigoAcessoCtrl {
 	public boolean enviarCodigoAcessoViaEmail(Orgao orgao,
 			Integer numeroProtocolo) throws DaoException {
 		Acionamento acionamento = this.getAcionamento(numeroProtocolo);
-		
+
 			String codigoAcesso = this.getCodigoAcesso(numeroProtocolo);
 
 			String lsServidorSMTP = "";
@@ -250,13 +254,13 @@ public class RecuperarCodigoAcessoCtrl {
 			} else if (acionamento.getAcionador().getSexo().equals("M")){
 				lsTopo = "Prezado";
 				if (acionamento.getAcionador().checarAcionadorAnonimo()) {
-					lsNome = "cidadão";
+					lsNome = CIDADÃO;
 				}
-				
+
 			} else{
 				lsTopo = "Prezado(a)";
 				if (acionamento.getAcionador().checarAcionadorAnonimo()) {
-					lsNome = "cidadão";
+					lsNome = CIDADÃO;
 				}
 			}
 
@@ -267,8 +271,8 @@ public class RecuperarCodigoAcessoCtrl {
 					+ "</b>,<br><br>"
 					+ "Estamos enviando o código de acesso e número de protocolo "
 					+ "para consulta da resposta do seu acionamento.<br><br>"
-					+ "Protocolo:<b>"+ numeroProtocolo +"</b><br><br>"
-					+ "Código de acesso: <b>" + codigoAcesso + "</b><br><br>"
+					+ "Protocolo:<b>"+ numeroProtocolo +B_BR_BR
+					+ "Código de acesso: <b>" + codigoAcesso + B_BR_BR
 					+ "Atenciosamente,<br><br>" + "Ouvidoria - <b>"
 					+ orgao.getDescricao() + "</b><br>"
 					+ orgao.getConfiguracoes().getUrlSuporteUsuario();
@@ -278,12 +282,12 @@ public class RecuperarCodigoAcessoCtrl {
 			return Utilitario.enviarEmail(lsServidorSMTP, lsDe, lsPara, "", "",
 					lsAssunto, lsTexto);
 		}
-	
+
 	public boolean enviarProtocoloViaEmail(Orgao orgao,
 			Integer numeroProtocolo) throws DaoException {
-			
+
 			Acionamento acionamento = this.getAcionamento(numeroProtocolo);
-		
+
 			String lsServidorSMTP = "";
 			String lsDe = "";
 			String lsPara = "";
@@ -293,7 +297,7 @@ public class RecuperarCodigoAcessoCtrl {
 			String lsTexto = "";
 
 			List listaParametrosGerais = parametrosGeraisDao.list();
-			
+
 			if (listaParametrosGerais != null)
 				lsServidorSMTP = ((ParametrosGerais) listaParametrosGerais
 						.get(0)).getServidorSMTP();
@@ -329,7 +333,7 @@ public class RecuperarCodigoAcessoCtrl {
 			} else {
 				lsTopo = "Prezado";
 				if (acionamento.getAcionador().checarAcionadorAnonimo()) {
-					lsNome = "cidadão";
+					lsNome = CIDADÃO;
 				}
 			}
 
@@ -340,7 +344,7 @@ public class RecuperarCodigoAcessoCtrl {
 					+ "</b>,<br><br>"
 					+ "Estamos enviando o número de Protocolo "
 					+ "para consulta da resposta do seu acionamento.<br><br>"
-					+ "Protocolo: <b>" + numeroProtocolo + "</b><br><br>"
+					+ "Protocolo: <b>" + numeroProtocolo + B_BR_BR
 					+ "Atenciosamente,<br><br>" + "Ouvidoria - <b>"
 					+ orgao.getDescricao() + "</b><br>"
 					+ orgao.getConfiguracoes().getUrlSuporteUsuario();

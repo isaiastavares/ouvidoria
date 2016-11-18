@@ -55,19 +55,22 @@ import br.gov.serpro.ouvidoria.util.Utilitario;
 public class CertificadoDigitalAction extends ActionSupport {
 
 
-    public ActionForward execute(ActionMapping mapping, ActionForm form,
+    private static final String ERROR = "error";
+	private static final String JAVAX_SERVLET_REQUEST_X509_CERTIFICATE = "javax.servlet.request.X509Certificate";
+
+	public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
         //imprimir informações de DEBUG
         if (Constants.DEBUG) {
             X509Certificate[] certs = (X509Certificate[]) request
-                    .getAttribute("javax.servlet.request.X509Certificate");
+                    .getAttribute(JAVAX_SERVLET_REQUEST_X509_CERTIFICATE);
             if (certs != null) {
                 for (int i = 0; i < certs.length; i++) {
                     X509Certificate cert = certs[i];
                     request.getSession().setAttribute(
-                            "javax.servlet.request.X509Certificate", cert);
+                            JAVAX_SERVLET_REQUEST_X509_CERTIFICATE, cert);
                     String nm = cert.getSubjectDN().getName();
                     String[] nms = nm.split(",");
                     for (int j = 0; j < nms.length; j++) {
@@ -83,13 +86,13 @@ public class CertificadoDigitalAction extends ActionSupport {
         ActionMessages errors = new ActionMessages();
 
         X509Certificate[] certs = (X509Certificate[]) request
-                .getAttribute("javax.servlet.request.X509Certificate");
+                .getAttribute(JAVAX_SERVLET_REQUEST_X509_CERTIFICATE);
 
         if (certs == null) {
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                     "certificadoDigital.error"));
             saveErrors(request, errors);
-            return mapping.findForward("error");
+            return mapping.findForward(ERROR);
         }
 
         String login = CertificadoDigitalCtrl.getLogin(certs);
@@ -98,7 +101,7 @@ public class CertificadoDigitalAction extends ActionSupport {
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                     "certificadoDigital.invalido.error"));
             saveErrors(request, errors);
-            return mapping.findForward("error");
+            return mapping.findForward(ERROR);
         }
 
         FuncionarioCtrl funcCtrl = new FuncionarioCtrl(getDaoFactory());
@@ -110,7 +113,7 @@ public class CertificadoDigitalAction extends ActionSupport {
                     "certificadoDigital.recuperarFuncionario.error", "\""
                             + login + "\""));
             saveErrors(request, errors);
-            return mapping.findForward("error");
+            return mapping.findForward(ERROR);
         }
 
         request.getSession(true).setAttribute(Constants.PA_FUNCIONARIO,

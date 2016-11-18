@@ -64,6 +64,8 @@ import br.gov.serpro.ouvidoria.util.Constants;
  */
 public class CustomRequestProcessor extends RequestProcessor {
 
+	private static final String IMAGES = "/images/";
+	private static final String POSSUI_PESQUISA = "possuiPesquisa";
 	protected final DaoFactory daoFactory = new HibernateDaoFactory();
 	protected Logger logger = null;
 
@@ -79,8 +81,8 @@ public class CustomRequestProcessor extends RequestProcessor {
 		boolean flagPesquisa = false;
 
 		// se houverem dados de pesquisa na sessao entao starta o flag
-		if (session.getAttribute("possuiPesquisa") != null) {
-			if (session.getAttribute("possuiPesquisa").equals("sim")) {
+		if (session.getAttribute(POSSUI_PESQUISA) != null) {
+			if (session.getAttribute(POSSUI_PESQUISA).equals("sim")) {
 				flagPesquisa = true;
 			}
 		}
@@ -122,7 +124,7 @@ public class CustomRequestProcessor extends RequestProcessor {
 				// caso saia da tela, então a sessao é limpa
 				limpaSessao(request, session);
 				break;
-			case 1:
+			default:
 				break;
 			}
 		}
@@ -255,23 +257,23 @@ public class CustomRequestProcessor extends RequestProcessor {
 				+ request.getContextPath() + "/";
 
 		layoutBean.setImagem3(dominio +
-				orgao.getConfiguracoes().getNomeDiretorioOrgao() + "/images/"
+				orgao.getConfiguracoes().getNomeDiretorioOrgao() + IMAGES
 				+ orgao.getConfiguracoes().getImagem3());
 
 		layoutBean.setImagem4(dominio +
-				orgao.getConfiguracoes().getNomeDiretorioOrgao() + "/images/"
+				orgao.getConfiguracoes().getNomeDiretorioOrgao() + IMAGES
 				+ orgao.getConfiguracoes().getImagem4());
 
 		layoutBean.setImagem5(dominio +
-				orgao.getConfiguracoes().getNomeDiretorioOrgao() + "/images/"
+				orgao.getConfiguracoes().getNomeDiretorioOrgao() + IMAGES
 				+ orgao.getConfiguracoes().getImagem5());
 
 		layoutBean.setImagemBanner(dominio +
-				orgao.getConfiguracoes().getNomeDiretorioOrgao() + "/images/"
+				orgao.getConfiguracoes().getNomeDiretorioOrgao() + IMAGES
 				+ orgao.getConfiguracoes().getImagemBanner());
 
 		layoutBean.setImagemLogo(dominio +
-				orgao.getConfiguracoes().getNomeDiretorioOrgao() + "/images/"
+				orgao.getConfiguracoes().getNomeDiretorioOrgao() + IMAGES
 				+ orgao.getConfiguracoes().getImagemLogo());
 
 		layoutBean.setDescricaoImagem3(orgao.getConfiguracoes()
@@ -325,7 +327,7 @@ public class CustomRequestProcessor extends RequestProcessor {
 		session.removeAttribute("txtTitulo");
 		session.removeAttribute("ordenacao");
 		session.removeAttribute("txtProtocolo");
-		session.removeAttribute("possuiPesquisa");
+		session.removeAttribute(POSSUI_PESQUISA);
 
 	}
 

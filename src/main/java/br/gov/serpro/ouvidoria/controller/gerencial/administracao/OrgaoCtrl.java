@@ -63,6 +63,7 @@ public class OrgaoCtrl {
 	 * Construtor default
 	 */
 	public OrgaoCtrl() {
+		// Do nothing
 	}
 
 	/**

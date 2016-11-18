@@ -52,7 +52,11 @@ public class ReclassificarMensagemCtrl {
 
     private Dao assuntoDao;
 
+    /**
+     * Construtor default
+     */
     public ReclassificarMensagemCtrl() {
+    	// Do nothing
     }
 
     public ReclassificarMensagemCtrl(final DaoFactory daoFactory) {

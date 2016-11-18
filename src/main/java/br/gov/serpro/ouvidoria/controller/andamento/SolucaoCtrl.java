@@ -57,6 +57,7 @@ public class SolucaoCtrl {
      * Construtor "default"
      */
     public SolucaoCtrl() {
+    	// Do nothing
     }
 
     /**

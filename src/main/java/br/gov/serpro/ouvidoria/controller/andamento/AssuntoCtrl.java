@@ -50,6 +50,7 @@ public class AssuntoCtrl {
      * Construtor "default"
      */
     public AssuntoCtrl() {
+    	// Do nothing
     }
 
     /**

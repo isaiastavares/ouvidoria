@@ -1,27 +1,27 @@
 /*
  * Sistema de Ouvidoria: um canal através do qual os usuários
  * podem encaminhar suas reclamações, elogios e sugestões.
- * 
+ *
  * Copyright (C) 2011 SERPRO
- * 
+ *
  * Este programa é software livre; você pode redistribuí-lo e/ou
  * modificá-lo sob os termos da Licença Pública Geral GNU, conforme
  * publicada pela Free Software Foundation; tanto a versão 2 da
  * Licença como (a seu critério) qualquer versão mais nova.
- * 
+ *
  * Este programa é distribuído na expectativa de ser útil, mas SEM
  * QUALQUER GARANTIA; sem mesmo a garantia implícita de
  * COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM
  * PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais
  * detalhes.
- * 
+ *
  * Você deve ter recebido uma cópia da Licença Pública Geral GNU,
  * sob o título "LICENCA.txt", junto com esse programa. Se não,
  * acesse o Portal do Software Público Brasileiro no endereço
  * http://www.softwarepublico.gov.br/ ou escreva para a Fundação do
  * Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02111-1301, USA.
- * 
+ *
  * Contatos através do seguinte endereço internet:
  * http://www.serpro.gov.br/sistemaouvidoria/
  */
@@ -41,18 +41,24 @@ import br.gov.serpro.ouvidoria.util.Utilitario;
 
 /**
  * Persistir e consultar objetos da classe Ajuda
- * 
+ *
  * @author SERPRO
  * @version $Revision: 1.1.2.3 $, $Date: 2011/10/19 18:18:09 $
  * @version 0.1, Date: 2004/12/13
  */
 public class AjudaCtrl {
 
+	private static final String SELECT_A_FROM_AJUDA_AS_A = " select a from Ajuda as a ";
+	private static final String ORDER_BY_A_DESCRICAO = " order by a.descricao ";
+	private static final String AND_A_FUNCIONALIDADE_IN_ELEMENTS_F_LISTA_FUNCIONALIDADE_AND_F_ID = " and a.funcionalidade in elements(f.listaFuncionalidade) and f.id = ";
+	private static final String AND_A_GRUPO = " and a.grupo = ";
+	private static final String WHERE_A_TIPO_IN = " where a.tipo in ('";
+	private static final String FUNCIONARIO_AS_F = " , Funcionario as f ";
 	private Dao ajudaDao;
 
 	/**
 	 * Construtor recebendo objeto Dao
-	 * 
+	 *
 	 * @param daoFactory
 	 */
 	public AjudaCtrl(final DaoFactory daoFactory) {
@@ -61,7 +67,7 @@ public class AjudaCtrl {
 
 	/**
 	 * Obtém a entidade à partir do ID recebido como parâmetro
-	 * 
+	 *
 	 * @param id
 	 * @return objeto da classe Ajuda
 	 * @throws DaoException
@@ -82,7 +88,7 @@ public class AjudaCtrl {
 
 	/**
 	 * Método para consultar ajuda de uma determinada funcionalidade
-	 * 
+	 *
 	 * @param funcionario
 	 * @param tipo
 	 * @return
@@ -96,21 +102,21 @@ public class AjudaCtrl {
 		sql.append(" Select a from Ajuda as a ");
 
 		if (funcionario != null) {
-			sql.append(" , Funcionario as f ");
+			sql.append(FUNCIONARIO_AS_F);
 		}
 
-		sql.append(" where a.tipo in ('" + Ajuda.TIPO_AMBOS + "','" + tipo
+		sql.append(WHERE_A_TIPO_IN + Ajuda.TIPO_AMBOS + "','" + tipo
 				+ "')");
 
 		if (funcionario == null) {
-			sql.append(" and a.grupo = " + Ajuda.GRUPO_GERAL);
+			sql.append(AND_A_GRUPO + Ajuda.GRUPO_GERAL);
 		} else {
-			sql.append(" and a.funcionalidade in elements(f.listaFuncionalidade) and f.id = "
+			sql.append(AND_A_FUNCIONALIDADE_IN_ELEMENTS_F_LISTA_FUNCIONALIDADE_AND_F_ID
 					+ funcionario.getId());
 		}
 
 		if (tipo.equals(Ajuda.TIPO_INDICE)) {
-			sql.append(" order by a.descricao ");
+			sql.append(ORDER_BY_A_DESCRICAO);
 		} else {
 			sql.append(" order by a.ordem ");
 		}
@@ -120,7 +126,7 @@ public class AjudaCtrl {
 
 	/**
 	 * Método para montar a árvore de conteúdo de ajuda
-	 * 
+	 *
 	 * @param funcionario
 	 * @return
 	 * @throws DaoException
@@ -130,25 +136,25 @@ public class AjudaCtrl {
 
 		StringBuffer sql = new StringBuffer();
 
-		sql.append(" select a from Ajuda as a ");
+		sql.append(SELECT_A_FROM_AJUDA_AS_A);
 
 		if (funcionario != null) {
-			sql.append(" , Funcionario as f ");
+			sql.append(FUNCIONARIO_AS_F);
 		}
 
 		sql.append(" where a.ajudaPai is null ");
 
 		if (funcionario == null) {
-			sql.append(" and a.grupo = " + Ajuda.GRUPO_GERAL);
+			sql.append(AND_A_GRUPO + Ajuda.GRUPO_GERAL);
 		} else {
-			sql.append(" and a.funcionalidade in elements(f.listaFuncionalidade) and f.id = "
+			sql.append(AND_A_FUNCIONALIDADE_IN_ELEMENTS_F_LISTA_FUNCIONALIDADE_AND_F_ID
 					+ funcionario.getId());
 		}
 
 		sql.append(" and a.tipo in ('" + Ajuda.TIPO_AMBOS + "','"
 				+ Ajuda.TIPO_CONTEUDO + "' )");
 
-		sql.append(" order by a.descricao ");
+		sql.append(ORDER_BY_A_DESCRICAO);
 
 		List lstAjudaRaiz = ajudaDao.query(sql.toString());
 
@@ -169,7 +175,7 @@ public class AjudaCtrl {
 
 	/**
 	 * Recupera conteúdo da ajuda para uma funcionalidade
-	 * 
+	 *
 	 * @param funcionalidade
 	 * @param funcionario
 	 * @return
@@ -184,24 +190,24 @@ public class AjudaCtrl {
 
 		StringBuffer sql = new StringBuffer();
 
-		sql.append(" select a from Ajuda as a ");
+		sql.append(SELECT_A_FROM_AJUDA_AS_A);
 
 		if (funcionario != null) {
-			sql.append(" , Funcionario as f ");
+			sql.append(FUNCIONARIO_AS_F);
 		}
 
-		sql.append(" where a.tipo in ('" + Ajuda.TIPO_AMBOS + "','"
+		sql.append(WHERE_A_TIPO_IN + Ajuda.TIPO_AMBOS + "','"
 				+ Ajuda.TIPO_CONTEUDO + "' )");
 
 		if (funcionario == null) {
-			sql.append(" and a.grupo = " + Ajuda.GRUPO_GERAL);
+			sql.append(AND_A_GRUPO + Ajuda.GRUPO_GERAL);
 		} else {
-			sql.append(" and a.funcionalidade in elements(f.listaFuncionalidade) and f.id = "
+			sql.append(AND_A_FUNCIONALIDADE_IN_ELEMENTS_F_LISTA_FUNCIONALIDADE_AND_F_ID
 					+ funcionario.getId());
 		}
 
 		sql.append(" and a.funcionalidade.id = " + funcionalidade.getId());
-		sql.append(" order by a.descricao ");
+		sql.append(ORDER_BY_A_DESCRICAO);
 
 		List lstAjuda = ajudaDao.query(sql.toString());
 
@@ -214,7 +220,7 @@ public class AjudaCtrl {
 
 	/**
 	 * Consulta ajuda a partir de texto informado
-	 * 
+	 *
 	 * @param funcionario
 	 * @param texto
 	 * @return
@@ -225,26 +231,26 @@ public class AjudaCtrl {
 
 		StringBuffer sql = new StringBuffer();
 
-		sql.append(" select a from Ajuda as a ");
+		sql.append(SELECT_A_FROM_AJUDA_AS_A);
 
 		if (funcionario != null) {
-			sql.append(" , Funcionario as f ");
+			sql.append(FUNCIONARIO_AS_F);
 		}
 
-		sql.append(" where a.tipo in ('" + Ajuda.TIPO_AMBOS + "','"
+		sql.append(WHERE_A_TIPO_IN + Ajuda.TIPO_AMBOS + "','"
 				+ Ajuda.TIPO_CONTEUDO + "' )");
 
 		if (funcionario == null) {
-			sql.append(" and a.grupo = " + Ajuda.GRUPO_GERAL);
+			sql.append(AND_A_GRUPO + Ajuda.GRUPO_GERAL);
 		} else {
-			sql.append(" and a.funcionalidade in elements(f.listaFuncionalidade) and f.id = "
+			sql.append(AND_A_FUNCIONALIDADE_IN_ELEMENTS_F_LISTA_FUNCIONALIDADE_AND_F_ID
 					+ funcionario.getId());
 		}
 
 		sql.append(" and a.descricao LIKE '%" + Utilitario.trataPlic(texto)
 				+ "%'");
 
-		sql.append(" order by a.descricao ");
+		sql.append(ORDER_BY_A_DESCRICAO);
 
 		return ajudaDao.query(sql.toString());
 	}

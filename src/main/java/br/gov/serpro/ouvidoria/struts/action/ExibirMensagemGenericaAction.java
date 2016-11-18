@@ -59,7 +59,15 @@ import br.gov.serpro.ouvidoria.util.Constants;
  */
 public class ExibirMensagemGenericaAction extends ActionSupport {
 
-    public ActionForward execute(ActionMapping mapping, ActionForm form,
+    private static final String FONT_A_BR = "</font></a><br>";
+	private static final String HREF = " href='..";
+	private static final String A_TABINDEX = "<a tabindex=";
+	private static final String TRECHO_HTML_SISTEMA_OUVIDORIA = "<a tabindex=2 title='Sistema Ouvidoria' href='../Main.do' target='conteudo'>&nbsp;<font class='mapaSiteNiv1'><img src='images/bullet1a.gif'>&nbsp;Sistema Ouvidoria</font></a><br>";
+	private static final String TRECHO_HTML_TOPICOS_AJUDA = "<a tabindex=2 title='Tópicos da Ajuda' href='../Ajuda.do' target='conteudo'>&nbsp;<font class='mapaSiteNiv1'><img src='images/bullet1a.gif'>&nbsp;Tópicos de Ajuda</font></a><br>";
+	private static final String TITLE = " title='";
+	private static final String TRECHO_HTML_OUTROS_CANAIS_DE_COMUNICACAO = "<a tabindex=3 title='Outros Canais de Comunicação' href='../ExibirMensagemGenerica.do?titulo=Outros Canais de Comunicação&tela=CanaisComunicacao' target='conteudo'>&nbsp;<font class='mapaSiteNiv2'><img src='images/bullet1b.gif'>&nbsp;Outros Canais de Comunicação</font></a><br>";
+
+	public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
@@ -128,7 +136,7 @@ public class ExibirMensagemGenericaAction extends ActionSupport {
 
         if (request.getParameter("tela").compareToIgnoreCase("FaleOuvidoria") == 0) {
             texto += "<a tabindex=2 title='Acionamento' href='../acionamento/EnviarMensagemWeb.do' target='conteudo'>&nbsp;<font class='mapaSiteNiv2'><img src='images/bullet1b.gif'>&nbsp;Acionamento</font></a></label><br>";
-            texto += "<a tabindex=3 title='Outros Canais de Comunicação' href='../ExibirMensagemGenerica.do?titulo=Outros Canais de Comunicação&tela=CanaisComunicacao' target='conteudo'>&nbsp;<font class='mapaSiteNiv2'><img src='images/bullet1b.gif'>&nbsp;Outros Canais de Comunicação</font></a><br>";
+            texto += TRECHO_HTML_OUTROS_CANAIS_DE_COMUNICACAO;
         }
 
         if (request.getParameter("funcionalidade") != null) {
@@ -157,7 +165,7 @@ public class ExibirMensagemGenericaAction extends ActionSupport {
                 funcionalidade = (Funcionalidade) iter.next();
                 texto += "<font class='mapaSiteNiv2'><img src='images/bullet1b.gif'>&nbsp;<a tabindex="
                         + i
-                        + " title='"
+                        + TITLE
                         + funcionalidade.getDescricao()
                         + "' href='.."
                         + funcionalidade.getPath()
@@ -169,26 +177,26 @@ public class ExibirMensagemGenericaAction extends ActionSupport {
         }
 
         if (request.getParameter("tela").compareToIgnoreCase("AjudaInternet") == 0) {
-            texto += "<a tabindex=2 title='Tópicos da Ajuda' href='../Ajuda.do' target='conteudo'>&nbsp;<font class='mapaSiteNiv1'><img src='images/bullet1a.gif'>&nbsp;Tópicos de Ajuda</font></a><br>";
+            texto += TRECHO_HTML_TOPICOS_AJUDA;
             texto += "<a tabindex=3 title='Mapa do Site' href='../ExibirMensagemGenerica.do?titulo=Mapa do Site&tela=MapaSiteInternet' target='conteudo'>&nbsp;<font class='mapaSiteNiv1'><img src='images/bullet1a.gif'>&nbsp;Mapa do Site</font></a><br>";
         }
 
         if (request.getParameter("tela").compareToIgnoreCase("AjudaIntranet") == 0) {
-            texto += "<a tabindex=2 title='Tópicos da Ajuda' href='../Ajuda.do' target='conteudo'>&nbsp;<font class='mapaSiteNiv1'><img src='images/bullet1a.gif'>&nbsp;Tópicos de Ajuda</font></a><br>";
+            texto += TRECHO_HTML_TOPICOS_AJUDA;
             texto += "<a tabindex=3 title='Mapa do Site' href='../ExibirMensagemGenerica.do?titulo=Mapa do Site&tela=MapaSiteIntranet' target='conteudo'>&nbsp;<font class='mapaSiteNiv1'><img src='images/bullet1a.gif'>&nbsp;Mapa do Site</font></a><br>";
         }
 
         if (request.getParameter("tela").compareToIgnoreCase("AjudaLogado") == 0) {
-            texto += "<a tabindex=2 title='Tópicos da Ajuda' href='../Ajuda.do' target='conteudo'>&nbsp;<font class='mapaSiteNiv1'><img src='images/bullet1a.gif'>&nbsp;Tópicos de Ajuda</font></a><br>";
+            texto += TRECHO_HTML_TOPICOS_AJUDA;
             texto += "<a tabindex=3 title='Mapa do Site' href='../ExibirMensagemGenerica.do?titulo=Mapa do Site&tela=MapaSiteLogado' target='conteudo'>&nbsp;<font class='mapaSiteNiv1'><img src='images/bullet1a.gif'>&nbsp;Mapa do Site</font></a><br>";
         }
         
         if (request.getParameter("tela")
                 .compareToIgnoreCase("MapaSiteInternet") == 0) {
-            texto += "<a tabindex=2 title='Sistema Ouvidoria' href='../Main.do' target='conteudo'>&nbsp;<font class='mapaSiteNiv1'><img src='images/bullet1a.gif'>&nbsp;Sistema Ouvidoria</font></a><br>";
+            texto += TRECHO_HTML_SISTEMA_OUVIDORIA;
             texto += "<a tabindex=3 title='Fale com a Ouvidoria' href='../acionamento/EnviarMensagemWeb.do' target='conteudo'>&nbsp;<font class='mapaSiteNiv1Pai'><img src='images/bullet1a.gif'>&nbsp;Fale com a Ouvidoria</font></a><br>";
             texto += "<a tabindex=3 title='Acionamento' href='../acionamento/EnviarMensagemWeb.do' target='conteudo'>&nbsp;<font class='mapaSiteNiv2'><img src='images/bullet1b.gif'>&nbsp;Acionamento</font></a><br>";
-            texto += "<a tabindex=3 title='Outros Canais de Comunicação' href='../ExibirMensagemGenerica.do?titulo=Outros Canais de Comunicação&tela=CanaisComunicacao' target='conteudo'>&nbsp;<font class='mapaSiteNiv2'><img src='images/bullet1b.gif'>&nbsp;Outros Canais de Comunicação</font></a><br>";
+            texto += TRECHO_HTML_OUTROS_CANAIS_DE_COMUNICACAO;
             texto += "<a tabindex=4 title='Consulte sua Resposta' href='../andamento/ConsultarResposta.do' target='conteudo'>&nbsp;<font class='mapaSiteNiv1'><img src='images/bullet1a.gif'>&nbsp;Consulte sua Resposta</font></a><br>";
             texto += "<a tabindex=5 title='Informações da Ouvidoria' href='../ExibirMensagemGenerica.do?titulo=Informações da Ouvidoria&tela=InformacoesOuvidoria' target='conteudo'>&nbsp;<font class='mapaSiteNiv1Pai'><img src='images/bullet1a.gif'>&nbsp;Informações da Ouvidoria</font></a><br>";
             texto += "<a tabindex=6 title='Legislação' href='../ExibirMensagemGenerica.do?titulo=Legislação&tela=Legislacao' target='conteudo'>&nbsp;<font class='mapaSiteNiv2'><img src='images/bullet1b.gif'>&nbsp;Legislação</font></a><br>";
@@ -202,10 +210,10 @@ public class ExibirMensagemGenericaAction extends ActionSupport {
 
         if (request.getParameter("tela")
                 .compareToIgnoreCase("MapaSiteIntranet") == 0) {
-            texto += "<a tabindex=2 title='Sistema Ouvidoria' href='../Main.do' target='conteudo'>&nbsp;<font class='mapaSiteNiv1'><img src='images/bullet1a.gif'>&nbsp;Sistema Ouvidoria</font></a><br>";
+            texto += TRECHO_HTML_SISTEMA_OUVIDORIA;
             texto += "<a tabindex=3 title='Fale com a Ouvidoria' href='../acionamento/EnviarMensagemWeb.do' target='conteudo'>&nbsp;<font class='mapaSiteNiv1'><img src='images/bullet1a.gif'>&nbsp;Fale com a Ouvidoria</font></a><br>";
             texto += "<a tabindex=3 title='Acionamento' href='../acionamento/EnviarMensagemWeb.do' target='conteudo'>&nbsp;<font class='mapaSiteNiv2'><img src='images/bullet1b.gif'>&nbsp;Acionamento</font></a><br>";
-            texto += "<a tabindex=3 title='Outros Canais de Comunicação' href='../ExibirMensagemGenerica.do?titulo=Outros Canais de Comunicação&tela=CanaisComunicacao' target='conteudo'>&nbsp;<font class='mapaSiteNiv2'><img src='images/bullet1b.gif'>&nbsp;Outros Canais de Comunicação</font></a><br>";
+            texto += TRECHO_HTML_OUTROS_CANAIS_DE_COMUNICACAO;
             texto += "<a tabindex=4 title='Consulte sua Resposta' href='../andamento/ConsultarResposta.do' target='conteudo'>&nbsp;<font class='mapaSiteNiv1'><img src='images/bullet1a.gif'>&nbsp;Consulte sua Resposta</font></a><br>";
             texto += "<a tabindex=5 title='Informações da Ouvidoria' href='../ExibirMensagemGenerica.do?titulo=Informações da Ouvidoria&tela=InformacoesOuvidoria' target='conteudo'>&nbsp;<font class='mapaSiteNiv1Pai'><img src='images/bullet1a.gif'>&nbsp;Informações da Ouvidoria</font></a><br>";
             texto += "<a tabindex=6 title='Legislação' href='../ExibirMensagemGenerica.do?titulo=Legislação&tela=Legislacao' target='conteudo'>&nbsp;<font class='mapaSiteNiv2'><img src='images/bullet1b.gif'>&nbsp;Legislação</font></a><br>";
@@ -249,49 +257,49 @@ public class ExibirMensagemGenericaAction extends ActionSupport {
 
             iter = lista.iterator();
 
-            texto += "<a tabindex=2 title='Sistema Ouvidoria' href='../Main.do' target='conteudo'>&nbsp;<font class='mapaSiteNiv1'><img src='images/bullet1a.gif'>&nbsp;Sistema Ouvidoria</font></a><br>";
+            texto += TRECHO_HTML_SISTEMA_OUVIDORIA;
             int i = 3;
             while (iter.hasNext()) {
                 funcionalidade = (Funcionalidade) iter.next();
 
                 if (funcionalidade.getListaSubItemMenu(funcionario).size() > 0) {
-                    texto += "<a tabindex=" + i + " title='"
+                    texto += A_TABINDEX + i + TITLE
                             + funcionalidade.getDescricao()
                             + "'"
-                            + " href='.."
+                            + HREF
                             + funcionalidade.getPath()
                             + "'"
                             + " target='conteudo'>&nbsp;<font class='mapaSiteNiv1Pai'><img src='images/bullet1a.gif'>&nbsp;"
                             + funcionalidade.getDescricao()
-                            + "</font></a><br>";
+                            + FONT_A_BR;
                     i++;
                     listaSubItem = funcionalidade
                             .getListaSubItemMenu(funcionario);
                     iter2 = listaSubItem.iterator();
                     while (iter2.hasNext()) {
                         funcionalidadeSub = (Funcionalidade) iter2.next();
-                        texto += "<a tabindex=" + i + " title='"
+                        texto += A_TABINDEX + i + TITLE
                                 + funcionalidadeSub.getDescricao()
                                 + "'"
-                                + " href='.."
+                                + HREF
                                 + funcionalidadeSub.getPath()
                                 + "'"
                                 + " target='conteudo'>&nbsp;<font class='mapaSiteNiv2'><img src='images/bullet1b.gif'>&nbsp;"
                                 + funcionalidadeSub.getDescricao()
-                                + "</font></a><br>";
+                                + FONT_A_BR;
                         i++;
 
                     }
                 } else {
-                    texto += "<a tabindex=" + i + " title='"
+                    texto += A_TABINDEX + i + TITLE
                             + funcionalidade.getDescricao()
                             + "'"
-                            + " href='.."
+                            + HREF
                             + funcionalidade.getPath()
                             + "'"
                             + " target='conteudo'>&nbsp;<font class='mapaSiteNiv1'><img src='images/bullet1a.gif'>&nbsp;"
                             + funcionalidade.getDescricao()
-                            + "</font></a><br>";
+                            + FONT_A_BR;
                     i++;
                 }
             }
