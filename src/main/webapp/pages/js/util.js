@@ -1,11 +1,9 @@
-<!-- //
-
 	function setFocusById(id) {
 		try {
 			document.getElementById(id).focus();
 		} catch(e) {}
 	}
-	
+
 	function novaJanela( mypage, myname, w,h, scroll, resize, LeftPosition, TopPosition) {
 		var settings = 'height='+h+',width='+w+',top='+TopPosition+',left='+LeftPosition+',scrollbars='+scroll+',resizable='+resize+'';
 		var win = window.open(mypage,myname,settings);
@@ -18,17 +16,17 @@
 
 	function abreConfirmacao(callBack) {
 		var baseHref = location.protocol + "//" + location.host + location.pathname;
-		novaJanela( baseHref + "../../../pages/Confirma.jsp?action=" + callBack, "Confirma", 350, 170, 0, 0, 300, 200 ); 
+		novaJanela( baseHref + "../../../pages/Confirma.jsp?action=" + callBack, "Confirma", 350, 170, 0, 0, 300, 200 );
 	}
 
 	function abreAlerta(texto) {
-		var baseHref = location.protocol + "//" + location.host + location.pathname;		
-		return novaJanela( baseHref + "../../../pages/Alerta.jsp?error=" + texto, "Erro", 450, 180, 0, 0, 300, 200 ); 
+		var baseHref = location.protocol + "//" + location.host + location.pathname;
+		return novaJanela( baseHref + "../../../pages/Alerta.jsp?error=" + texto, "Erro", 450, 180, 0, 0, 300, 200 );
 	}
 
 	function abreAlertaGeral(titulo, texto) {
-		var baseHref = location.protocol + "//" + location.host + location.pathname;		
-		novaJanela( baseHref + "../../../pages/AlertaGeral.jsp?titulo=" + titulo + "&texto=" + texto, "Erro", 450, 180, 0, 0, 300, 200 ); 
+		var baseHref = location.protocol + "//" + location.host + location.pathname;
+		novaJanela( baseHref + "../../../pages/AlertaGeral.jsp?titulo=" + titulo + "&texto=" + texto, "Erro", 450, 180, 0, 0, 300, 200 );
 	}
 
 	function montaHtmlImpressaoIndicadores(baseHref, esquemaCores, htmlContent) {
@@ -48,10 +46,10 @@
 		html += htmlContent;
 		html += '</body>';
 		html += '</html>';
-		
-		return html;		
+
+		return html;
 	}
-	
+
 	function formataErro(campo) {
 		var str;
 		str  = '<li tabindex="3">';
@@ -61,19 +59,19 @@
 	}
 
 	function validaHora(hora) {
-		if( hora.indexOf(":") < 0 ) return false;	
-		return /^([01]?[0-9]|[2][0-3])(:[0-5][0-9])?$/.test(hora); 
+		if( hora.indexOf(":") < 0 ) return false;
+		return /^([01]?[0-9]|[2][0-3])(:[0-5][0-9])?$/.test(hora);
 	}
-	
-	
+
+
 	function isInteger(s){
 		var i;
-	    for (i = 0; i < s.length; i++){   
+	    for (i = 0; i < s.length; i++){
 	        var c = s.charAt(i);
 	        if (((c < "0") || (c > "9"))) return false;
 	    }
 	    return true;
-	}	
+	}
 
 	function y2k(number) {
 		return ( number < 1000) ? number + 1900 : number;
@@ -101,7 +99,7 @@
     	    return false;
 	    }
 	}
-	
+
 	function validaRetornandoData( myDate, myHour ){
 
 		if ( !validaData(myDate) ){
@@ -118,7 +116,7 @@
 		var hour  = myHour.substring(0,myHour.indexOf(':'));
 		var minute = myHour.substring(myHour.indexOf(':')+1,myHour.length);
 
-		return new Date(year,month-1,date,hour,minute);	
+		return new Date(year,month-1,date,hour,minute);
 	}
 
 	function validaRetornandoDataHora( myDate, myHour, label ) {
@@ -131,7 +129,7 @@
 		if ( !validaHora(myHour) ){
 			msgError += formataErro( "Hora de " + label + " invalida, use o formato hh:mm" );
 		}
-		
+
 		if (msgError != null) {
 			return msgError;
 		}
@@ -142,7 +140,7 @@
 		var hour  = myHour.substring(0,myHour.indexOf(':'));
 		var minute = myHour.substring(myHour.indexOf(':')+1,myHour.length);
 
-		return new Date(year,month-1,date,hour,minute);	
+		return new Date(year,month-1,date,hour,minute);
 	}
 
 
@@ -152,7 +150,7 @@
         var mes  = date.getMonth() + 1;
 	    var ano  = date.getFullYear();
 
-		return (dia<10?("0"+dia):dia) + sep + (mes<10?"0"+mes:mes) + sep + ano;	
+		return (dia<10?("0"+dia):dia) + sep + (mes<10?"0"+mes:mes) + sep + ano;
 	}
 
 	function validaDataMaior( myDate, myHour ){
@@ -167,15 +165,15 @@
 
 		var now = new Date();
 		var hoje = new Date(y2k(now.getYear()),now.getMonth(),now.getDate(), now.getHours(), now.getMinutes());
-		
+
 		var date  = myDate.substring(0,2);
         var month = myDate.substring(3,5);
 	    var year  = myDate.substring(6,10);
 		var hour = myHour.substring(0,myHour.indexOf(':'));
 		var minute = myHour.substring(myHour.indexOf(':')+1,myHour.length);
-		
-		var test = new Date(year,month-1,date,hour,minute);	
-		
+
+		var test = new Date(year,month-1,date,hour,minute);
+
 		if (test < hoje){
 			return false;
 		} else {
@@ -183,49 +181,49 @@
 		}
 
 	}
-	
-	function validaCPF(cpf){ 
-		var i; 
-		var c = cpf.substr(0,9); 
-		var dv = cpf.substr(9,2); 
-		var d1 = 0; 
-	
+
+	function validaCPF(cpf){
+		var i;
+		var c = cpf.substr(0,9);
+		var dv = cpf.substr(9,2);
+		var d1 = 0;
+
 		if (cpf.length != 11){
 			return false;
 		}
-		
-		for (i = 0; i < 9; i++){ 
-			d1 += c.charAt(i)*(10-i); 
-		} 
-	
-		if (d1 == 0){ 
-			return false; 
-		} 
-	
-		d1 = 11 - (d1 % 11); 
-	
-		if (d1 > 9) d1 = 0; 
-	
-		if (dv.charAt(0) != d1) { 
-			return false; 
-		} 
-	
-		d1 *= 2; 
-	
-		for (i = 0; i < 9; i++){ 
-			d1 += c.charAt(i)*(11-i); 
-		} 
-	
-		d1 = 11 - (d1 % 11); 
-	
-		if (d1 > 9) d1 = 0; 
-	
-		if (dv.charAt(1) != d1){ 
-			return false; 
-		} 
-		return true; 
-	} 
-	
+
+		for (i = 0; i < 9; i++){
+			d1 += c.charAt(i)*(10-i);
+		}
+
+		if (d1 == 0){
+			return false;
+		}
+
+		d1 = 11 - (d1 % 11);
+
+		if (d1 > 9) d1 = 0;
+
+		if (dv.charAt(0) != d1) {
+			return false;
+		}
+
+		d1 *= 2;
+
+		for (i = 0; i < 9; i++){
+			d1 += c.charAt(i)*(11-i);
+		}
+
+		d1 = 11 - (d1 % 11);
+
+		if (d1 > 9) d1 = 0;
+
+		if (dv.charAt(1) != d1){
+			return false;
+		}
+		return true;
+	}
+
 
 	function limpaCampoEmBranco(item)
 	{
@@ -233,12 +231,12 @@
 	 	var item_length = item.value.length;
 		var item_length_minus_1 = item.value.length - 1;
 		var temConteudo = false;
-	
+
 		// Verifica se foi informado algo no campo
-		for (index = 0; index < item_length; index++)
+		for (var index = 0; index < item_length; index++)
 		{
 			//alert('index: ' + index + ' - char:' + item.value.charCodeAt(index) + '*');
-			
+
 			if ((item.value.charCodeAt(index) != 32) &&
 				(item.value.charCodeAt(index) != 13) &&
 				(item.value.charCodeAt(index) !=  9)  &&
@@ -246,23 +244,23 @@
 				temConteudo = true;
 			}
 		}
-		
+
 		if (temConteudo == false) {
 			item.value = '';
-		}	
+		}
 	}
-	
+
 	function isAlfaNumerico(s){
 		var i;
-	  
-	  for (i = 0; i < s.length; i++){   
+
+	  for (i = 0; i < s.length; i++){
 	  	var c = s.charAt(i);
 	    if (c < "0") return false;
 	    if ((c > "9") && (c < "A")) return false;
 	    if ((c > "Z") && (c < "a")) return false;
 	    if (c > "z") return false;
 	  }
-	  
+
 	  return true;
 	}
 
@@ -273,12 +271,12 @@
 	   var w        = "";
 	   var dvcalc   = "";
 	   var Flagerro = false;
-	   
+
 	   var txtcpfcgcdev = "";
-	
+
 	   txtcpfcgcdev = AlinharTirarBrancos(obj.value);
 	   txtcpfcgcdev = DeseditarCPFCGC(txtcpfcgcdev);
-	   
+
 	   if ((txtcpfcgcdev.length != 11)&&(txtcpfcgcdev.length != 14)) {
 		  obj.focus();
 	      return false;
@@ -297,22 +295,22 @@
 	         	return false;
 	         }
 	      }
-	   } //Fim do else ... 
+	   } //Fim do else ...
 	   if (DVCPFCGC != dvcalc) {
 		  //obj.value ="";
 	      return false;
 	   }
 
 	   return true;
-	
+
 	}
-	
+
 	//----------------------------------------
 	function DeseditarCPFCGC(aCPF_CGC) {
 	   var s  = "";
 	   var p1 = 0;
 	   var p2 = 0;
-	
+
 	   s = aCPF_CGC;
 	   p1 = -2;
 	   p2 = p1;
@@ -327,22 +325,22 @@
 	     }
 	   }
 	   return s;
-	} 
-		
+	}
+
 	//----------------------------------
 	function CalcDVMod112aInf (Valor) {
 	   var DV = "";
-	   for (k = 1; k <= 2; k++) {
+	   for (var k = 1; k <= 2; k++) {
 	      var Tam = Valor.length;
 	      var Soma = 0;
 	      var Mult = 1;
-	      for (i = Tam-1; i >= 0; i--) {
+	      for (var i = Tam-1; i >= 0; i--) {
 	          Mult = Mult + 1;
 	          Soma = Soma + (parseInt(Valor.substring(i, i+1)*1) * Mult);
 	      }
-	      Quo = parseInt(Soma / 11);
-	      Resto = (Soma - (Quo * 11));
-	      NovoDv = 0;
+	      var Quo = parseInt(Soma / 11);
+	      var Resto = (Soma - (Quo * 11));
+	      var NovoDv = 0;
 	      if (Resto > 1) {
 	         NovoDv = (11 - Resto);
 	      }
@@ -352,7 +350,7 @@
 	   }
 	   return DV
 	}
-	
+
 	//------------------------------------------------------------------------------
 	function CalcDvMod11(Valor) {
 	  var dv    = ""; //' String 'DV calculado (dois d?gitos)
@@ -373,20 +371,20 @@
 	      Soma = Soma + (parseInt(Valor.substring(i, i+1)*1) * Mult);
 	      if (Mult == 9) {
 	         Mult = 1;
-	      }   
+	      }
 	    }
 	    Quo   = parseInt(Soma / 11);
 	    Resto = Soma - (Quo * 11);
 	    Nov   = 0;
-	
+
 	    if (Resto > 1) {
 	      Nov = (11 - Resto);
 	    }
 	    dv = dv + Nov
 	    Valor = Valor + Nov;
-	  } 
+	  }
 	  return dv;
-	}	
+	}
 
 	function AlinharTirarBrancos(area) {
 	   var Linha  = ""; //'As String
@@ -414,26 +412,26 @@
 	            flagbr = 1;
 	         }
 	      }
-	   } 
+	   }
 	   return Linha;
 	}
-	
+
 	function textCounter(field, countfield, maxlimit) {
 		if (field.value.length > maxlimit) {
 			countfield.innerHTML = 0;
 			countfield.innerHTML += ' caracteres restantes';
 			field.value = field.value.substring(0, maxlimit);
-		} else { 
+		} else {
 			countfield.innerHTML = maxlimit - field.value.length;
 			countfield.innerHTML += ' caracteres restantes';
 		}
-	}	
+	}
 
 	function textCounterNoLimit(field, countfield) {
 		countfield.innerHTML = field.value.length;
 		countfield.innerHTML += ' caracteres';
-	}	
-	
+	}
+
 	function dataMaior( DataUm, HoraUm, DataDois, HoraDois ){
 		var hora   = "00";
 		var minuto = "00";
@@ -447,7 +445,7 @@
 			minuto = HoraUm.substring(HoraUm.indexOf(':')+1,HoraUm.length);
 		}
 
-		var data1 = new Date(ano,mes-1,dia,hora,minuto);	
+		var data1 = new Date(ano,mes-1,dia,hora,minuto);
 
 		// Trata segunda data
 		var dia   = DataDois.substring(0,2);
@@ -458,11 +456,11 @@
 			minuto = HoraDois.substring(HoraDois.indexOf(':')+1,HoraDois.length);
 		} else {
 			hora   = "00";
-			minuto = "00";		
+			minuto = "00";
 		}
 
-		var data2 = new Date(ano,mes-1,dia,hora,minuto);	
-		
+		var data2 = new Date(ano,mes-1,dia,hora,minuto);
+
 		if (data1 <= data2){
 			return false;
 		} else {
@@ -470,7 +468,7 @@
 		}
 
 	}
-	
+
 	// Valida lista de emails
 	function validaListaEmails(listaemail){
 		var arroba;
@@ -479,41 +477,41 @@
 		var stringDepoisArroba1;
 		var stringDepoisArroba2;
 		var email = "";
-		
+
 		// verifica se foi informada uma lista de fato,
 		// neste caso pega-se o primeiro email para
-		var posPontoVirgula = listaemail.indexOf(';');		
+		var posPontoVirgula = listaemail.indexOf(';');
 		if (posPontoVirgula > -1) {
 		    email = listaemail.substring(0, posPontoVirgula);
 		    listaemail = listaemail.substring(posPontoVirgula + 1);
 		} else {
 			email = listaemail;
 		}
-		
+
 		//alert('posPontoVirgula ' + posPontoVirgula);
 		//alert('email ' + email);
 		//alert('listaemail ' + listaemail);
-		
+
 		// Enquanto houver email a ser validado
 		while (email != "") {
 			arroba = email.indexOf('@');
-			
+
 			if (arroba == -1) return false;
 			stringAntesArroba = email.substring(0,arroba);
 			if (stringAntesArroba.length <= 0){
-				return false;	
+				return false;
 			}
 			email = email.substring(arroba+1);
 			ponto = email.indexOf('.');
-			
+
 			if (ponto == -1) return false;
 			stringDepoisArroba1 = email.substring(0,ponto);
 			if (stringDepoisArroba1.length <= 0){
-				return false;	
+				return false;
 			}
 			stringDepoisArroba2 = email.substring(ponto+1);
 			if (stringDepoisArroba2.length <= 0){
-				return false;	
+				return false;
 			}
 
 			if (posPontoVirgula > -1) {
@@ -521,9 +519,9 @@
 				if (posPontoVirgula > -1) {
 				    email = listaemail.substring(0, posPontoVirgula);
 				    listaemail = listaemail.substring(posPontoVirgula + 1);
-				    
+
 				    if (listaemail == "") {
-						return false;    	
+						return false;
 				    }
 				} else {
 					email = listaemail;
@@ -533,33 +531,33 @@
 				email = "";
 			}
 		}
-		
+
 		return true;
 	}
 
-	function trocaCor(cor, caixa) {		
-		
+	function trocaCor(cor, caixa) {
+
 		var innerHtmlMsgErros = formataErro("Codigo de cor invalido.");
 
 		if (cor.value.length != 6) {
 			abreAlerta(innerHtmlMsgErros);
-			return;			
+			return;
 		}
 		cor.value = cor.value.toUpperCase();
 
 		var ok = true;
-		var c  = null; 
+		var c  = null;
 		for (var i=0; i<6; i++){
-			c = cor.value.charAt(i);			
-		    if (!( ((c >= "0") && (c <= "9")) || ((c >= "A") && (c <= "F")) ) ) { ok = false; } 
-		}	
+			c = cor.value.charAt(i);
+		    if (!( ((c >= "0") && (c <= "9")) || ((c >= "A") && (c <= "F")) ) ) { ok = false; }
+		}
 
 		if (ok) {
 			caixa.style.backgroundColor = cor.value;
 		} else {
 			abreAlerta(innerHtmlMsgErros);
 		}
-		
+
 	}
 
 // Monta mensagem de Erro
@@ -573,7 +571,7 @@
 	}
 
 
-    function temMaisDe( campo, minimo ) { 
+    function temMaisDe( campo, minimo ) {
         return campo.value && campo.value.replace(/\s*$/, "").replace(/\s*/, "").length >= minimo;
     }
 
@@ -642,8 +640,8 @@
 	           		(
 	              		caracter < "0"
 	            	||
-	              		caracter > "9" 
-	            	) 
+	              		caracter > "9"
+	            	)
 	            &&
 	            	caracter != separador
 	           )
@@ -671,13 +669,13 @@
         if ( decimais > casasDecimais ) return false;
 
 	    return true;
-	}	
+	}
 
 
 	function validaNomeDiretorio( nomeCampo, tamanho, texto )
 	{
 		var retorno = '';
-		
+
         retorno += CriticaString( nomeCampo, 3, tamanho, texto );
 		if ( !isAlfaNumerico( nomeCampo.value ) )
 		{
@@ -687,8 +685,8 @@
 	}
 
 	function retornaIndicadoresMaxData(date, agrp, add) {
-	
-		maxDate = date;
+
+		var maxDate = date;
 		if (agrp == 'd') {
 			maxDate.setDate( maxDate.getDate() + 6 );
 		} else if (agrp == 'w') {
@@ -711,7 +709,7 @@
 				maxDate.setDate(30);
 				maxDate.setMonth(5);
 				maxDate.setFullYear(maxDate.getFullYear() + 1);
-			}	
+			}
 		} else if (agrp == 'y') {
 			maxDate.setFullYear( maxDate.getFullYear() + add );
 			maxDate.setDate(1);

@@ -1,5 +1,5 @@
-/*(c) Ger Versluis 2000 version 9.10  16 November 2002 
-You may use this script on non commercial sites. 
+/*(c) Ger Versluis 2000 version 9.10  16 November 2002
+You may use this script on non commercial sites.
 For info write to menus@burmees.nl*/
 
 var AgntUsr=navigator.userAgent.toLowerCase(),AppVer=navigator.appVersion.toLowerCase();
@@ -9,12 +9,14 @@ var Nav4=NavYes&&!DomYes&&document.layers?1:0,Exp4=ExpYes&&!DomYes&&document.all
 var MacCom=(AppVer.indexOf("mac")!= -1)?1:0,MacExp4=(MacCom&&AppVer.indexOf("msie 4")!= -1)?1:0,Mac4=(MacCom&&(Nav4||Exp4))?1:0;
 var Exp5=AppVer.indexOf("msie 5")!= -1?1:0,Fltr=(AppVer.indexOf("msie 6")!= -1||AppVer.indexOf("msie 7")!= -1)?1:0,MacExp5=(MacCom&&Exp5)?1:0,PosStrt=(NavYes||ExpYes)&&!Opr?1:0;
 var RmbrNow=null,FLoc,ScLoc,DcLoc,SWinW,SWinH,FWinW,FWinH,SLdAgnWin,FColW,SColW,DColW,RLvl=0,FrstCreat=1,Ldd=0,Crtd=0,IniFlg,AcrssFrms=1,FrstCntnr=null,CurOvr=null,CloseTmr=null,CntrTxt,TxtClose,ImgStr,ShwFlg=0,M_StrtTp=StartTop,M_StrtLft=StartLeft,StaticPos=0,LftXtra=DomNav?LeftPaddng:0,TpXtra=DomNav?TopPaddng:0,FStr="",M_Hide=Nav4?"hide":"hidden",M_Show=Nav4?"show":"visible",Par=MenuUsesFrames?parent:window,Doc=Par.document,Bod=Doc.body,Trigger=NavYes?Par:Bod;
-var Ztop=100,InitLdd=0,P_X=DomYes?"ex":"";P_X_P=DomYes?"ex":""
+var Ztop=100,InitLdd=0,P_X=DomYes?"ex":"";
+var P_X_P=DomYes?"ex":"";
 var OpnTmr=null;
 
 if(PosStrt){
-	if(MacExp4||MacExp5)LdTmr=setInterval("ChckInitLd()",100);
-	else{
+	if (MacExp4 || MacExp5) {
+		var LdTmr = setInterval("ChckInitLd()",100);
+	} else {
 		if(Trigger.onload)Dummy=Trigger.onload;
 		if(DomNav)Trigger.addEventListener("load",Go,false);
 		else Trigger.onload=Go
@@ -50,7 +52,11 @@ function RePos(){
 	PosMenu(FrstCntnr,StartTop,StartLeft);
 	if(RememberStatus)StMnu()}
 
-function NavUnLdd(){Ldd=0;Crtd=0;SetMenu="0"}
+function NavUnLdd() {
+	var Ldd=0;
+	var Crtd=0;
+	var SetMenu="0";
+}
 
 function UnLdd(){
 	NavUnLdd();
@@ -92,7 +98,9 @@ function Go(){
 			if(!ScLoc){ScLoc=DcLoc;if(!ScLoc)ScLoc=DcLoc=FLoc}
 			if(!DcLoc)DcLoc=ScLoc}
 		if(FLoc==ScLoc)AcrssFrms=0;
-		if(AcrssFrms)FirstLineHorizontal=MenuFramesVertical?0:1;
+		if (AcrssFrms) {
+			var FirstLineHorizontal = MenuFramesVertical ? 0 : 1;
+		}
 		FWinW=ExpYes?FLoc.document.body.clientWidth:FLoc.innerWidth;
 		FWinH=ExpYes?FLoc.document.body.clientHeight:FLoc.innerHeight;
 		SWinW=ExpYes?ScLoc.document.body.clientWidth:ScLoc.innerWidth;
@@ -129,8 +137,8 @@ function KeepPos(){
 }
 
 function ClcRl(){
-	StartTop=M_StrtTp<1&&M_StrtTp>0?M_StrtTp*FWinH:M_StrtTp;
-	StartLeft=M_StrtLft<1&&M_StrtLft>0?M_StrtLft*FWinW:M_StrtLft}
+	var StartTop=M_StrtTp<1&&M_StrtTp>0?M_StrtTp*FWinH:M_StrtTp;
+	var StartLeft=M_StrtLft<1&&M_StrtLft>0?M_StrtLft*FWinW:M_StrtLft}
 
 function ClcJus(){
 
@@ -182,13 +190,13 @@ function PosMenu(Ct,Tp,Lt){
 
 	if(RLvl==1&&FirstLineHorizontal){Hi=1;Li=CWt-MWt-2*BRW;Ti=0}
 	else{Hi=Li=0;Ti=CHt-MHt-2*BRW}
-	
+
 	while(Mb!=null){
 		MStl.left=Li+BRW+ (RLvl==1?"px":P_X);
 		MStl.top=Ti+BRW+P_X;
 
 		if(Nav4)Mb.CLyr.moveTo(Li+BRW,Ti+BRW);
-			
+
 		if(Mb.CCn){
 			if(RightToLeft)CCw=Nav4?Mb.CCn.clip.width:parseInt(Mb.CCn.style.width);
 			if(BottomUp)CCh=Nav4?Mb.CCn.clip.height:parseInt(Mb.CCn.style.height);
@@ -196,13 +204,13 @@ function PosMenu(Ct,Tp,Lt){
 				STp=BottomUp?Ti-CCh:Ti+MHt+2*BRW;SLt=RightToLeft?Li+MWt-CCw:Li
 			}
 			else{
-				SLt=RightToLeft?Li-CCw+ChildOverlap*MWt+BRW:Li+(1-ChildOverlap)*MWt;				
+				SLt=RightToLeft?Li-CCw+ChildOverlap*MWt+BRW:Li+(1-ChildOverlap)*MWt;
 				STp=RLvl==1&&AcrssFrms?BottomUp?Ti-CCh+MHt:Ti:BottomUp?Ti-CCh+(1-ChildVerticalOverlap)*MHt+2*BRW:Ti+ChildVerticalOverlap*MHt+BRW
 			}
 			PosMenu(Mb.CCn,STp,SLt)
 		}
 		Mb=Mb.PrvMbr;
-		if(Mb){	
+		if(Mb){
 			MStl=!Nav4?Mb.style:Mb;PadL=Mb.value.indexOf("<")==-1?LftXtra:0;
 			PadT=Mb.value.indexOf("<")==-1?TpXtra:0;
 			MWt=!Nav4?parseInt(MStl.width)+PadL:MStl.clip.width;
@@ -210,8 +218,8 @@ function PosMenu(Ct,Tp,Lt){
 			Hi?Li-=BTWn?(MWt+BRW):(MWt):Ti-=BTWn?(MHt+BRW):MHt
 		}
 	}
-	
-	status="Ready";RLvl--
+
+	var status="Ready";RLvl--
 }
 
 function StMnu(){
@@ -290,12 +298,12 @@ function LowItem(P){
 		else{if(P.Arr[6]&&!P.Arr[2])P.style.backgroundColor=P.Arr[6];if(P.Arr[8])P.style.color=P.Arr[8]}}}
 
 function OpenMenu(){
-	
+
 
 	if(!Ldd||!Crtd)return;
 	if(OpnTmr)clearTimeout(OpnTmr);
 	var P=Nav4?this.LLyr:this;
-	
+
 	if(P.NofChlds&&!P.CCn){
 		RLvl=this.Lvl;
 		P.CCn=CreateMenuStructure(P.MN+"_",P.NofChlds,P);
@@ -316,38 +324,38 @@ function OpenMenu(){
 		STp=RLvl==1&&AcrssFrms?BottomUp?Ti-CCh+MHt:Ti:BottomUp?Ti-CCh+(1-ChildVerticalOverlap)*MHt+2*BRW:Ti+ChildVerticalOverlap*MHt+BRW}
 		PosMenu(P.CCn,STp,SLt);
 		RLvl=0
-	}	
-	
+	}
+
 	var CCnt=Nav4?this.LLyr.CCn:this.CCn;
 	var HP=Nav4?this.LLyr:this;
 	CurOvr=this;IniFlg=0;ClrAllChlds(this.Ctnr.FrstMbr);
 	if(!HP.Hilite)HiliteItem(HP);
 
 //	alert(CurOvr.value);
-	
+
 		if(CurOvr.value.match(/Acesso/)||CurOvr.value.match(/Resposta/)) {
-			apareceCombo();		
+			apareceCombo();
 		}else{
 			someCombo();
 		}
 
-	
+
 	if(CCnt!=null&&!CCnt.Shw)RememberStatus?Unfld():OpnTmr=setTimeout("Unfld()",UnfoldDelay);
 	status=HP.Arr[16]
-	
-		
-	
-	
+
+
+
+
 }
 function apareceCombo(){
 			var browser = new Browser();
 
 			if (browser.isIE) {
 				if (parent.window.frames[1].document.forms.length > 0){
-					
+
 					var theForm = parent.window.frames[1].document.forms[0];
-		
-				 	for(i=0; i<theForm.elements.length; i++){
+
+				 	for(var i=0; i<theForm.elements.length; i++){
 					 	if(theForm.elements[i].type == "select-one") {
 							theForm.elements[i].style.visibility = "visible";
 						}
@@ -360,7 +368,7 @@ function someCombo(){
 	var browser = new Browser();
 	if (browser.isIE) {
 		if (parent.window.frames[1].document.forms.length > 0){
-			
+
 			var theForm = parent.window.frames[1].document.forms[0];
 
 		 	for(i=0; i<theForm.elements.length; i++){
@@ -414,12 +422,12 @@ function Browser() {
 }
 
 function Unfld(){
-	
+
 	var P=CurOvr;
 	var valorLink = P.value;
 
 	someCombo();
-	
+
 	var TS=ExpYes?ScLoc.document.body.scrollTop:ScLoc.pageYOffset;
 	var LS=ExpYes?ScLoc.document.body.scrollLeft:ScLoc.pageXOffset;
 	var CCnt=Nav4?P.LLyr.CCn:P.CCn;
@@ -430,14 +438,14 @@ function Unfld(){
 
 	var SLt=AcrssFrms&&P.Lvl==1?CCnt.OrgLeft+TLt+LS:CCnt.OrgLeft+TLt;
 	var STp=AcrssFrms&&P.Lvl==1?CCnt.OrgTop+TTp+TS:CCnt.OrgTop+TTp;
-	
+
 	if(!ShwFlg){
 		ShwFlg=1;
 		BeforeFirstOpen()
 	}
-	
+
 	if(MenuWrap){
-		
+
 		if(RightToLeft){
 			if(SLt<LS)SLt=P.Lvl==1?LS:SLt+(CCW+(1-2*ChildOverlap)*TWt);
 			if(SLt+CCW>SWinW+LS)SLt=SWinW+LS-CCW}
@@ -445,7 +453,7 @@ function Unfld(){
 			if(SLt+CCW>SWinW+LS)SLt=P.Lvl==1?SWinW+LS-CCW:SLt-(CCW+(1-2*ChildOverlap)*TWt);
 			if(SLt<LS)SLt=LS
 		}
-		
+
 		if(BottomUp){
 			if(STp<TS)STp=P.Lvl==1?TS:STp+(CCH-(1-2*ChildVerticalOverlap)*THt);
 			if(STp+CCH>SWinH+TS)STp=SWinH+TS-CCH+(Nav4?4:0)
@@ -454,19 +462,19 @@ function Unfld(){
 			if(STp+CCH>TS+SWinH)STp=P.Lvl==1?STp=TS+SWinH-CCH:STp-CCH+(1-2*ChildVerticalOverlap)*THt;
 			if(STp<TS)STp=TS
 		}
-		
+
 	}
 
 	CCSt.top  = STp+"px";
 	CCSt.left = SLt+"px";
-	
+
 	if(Fltr&&MenuSlide){
-	
+
 		P.CCn.filters[0].Apply();
 		P.CCn.filters[0].play();
-		
+
 	}
-	
+
 	CCSt.visibility=M_Show
 }
 
@@ -476,9 +484,9 @@ function OpenMenuClick(){
 	IniFlg=0;ClrAllChlds(this.Ctnr.FrstMbr);HiliteItem(HP);status=HP.Arr[16]
 	someCombo();
 }
-	
-	
-	
+
+
+
 function CloseMenu(){
 
 	if(!Ldd||!Crtd)return;
@@ -500,22 +508,22 @@ function CntnrSetUp(W,H,NoOff,WMu,Mc){
 	this.OrgLeft=this.OrgTop=0;
 
 	if(Nav4){
-	
+
 //		if(x) this.bgColor=x;
-		
+
 		this.resizeTo(W,H)
 		this.visibility="hide";
 	}
 	else {
-	
+
 //		if(x) this.style.backgroundColor=x;
 		this.style.width  = W + P_X;
 		this.style.height = H + P_X;
 
 		this.style.visibility="hidden";
-	
+
 		this.style.zIndex=RLvl+Ztop;
-		
+
 		if(Fltr){
 			FStr="";
 			if(MenuSlide&&RLvl!=1)FStr=MenuSlide;
@@ -530,9 +538,9 @@ function MbrSetUp(MbC,PrMmbr,WMu,Wd,Ht,Nofs){
 	var Lctn=RLvl==1?FLoc:ScLoc,Tfld=this.Arr[0],t,T,L,W,H,S,a;
 	this.PrvMbr=PrMmbr;this.Lvl=RLvl;this.Ctnr=MbC;this.CCn=null;this.ai=null;this.Hilite=0;this.DoRmbr=0;
 	this.Clckd=0;this.OM=OpenMenu;
-	
+
 	this.style.overflow="hidden";
-	
+
 	this.MN=WMu;this.NofChlds=Nofs;
 	this.style.cursor=(this.Arr[1]||(RLvl==1&&UnfoldsOnClick))?ExpYes?"hand":"pointer":"default";this.ro=0;
 	if(Tfld.indexOf("rollover")!=-1){this.ro=1;this.ri1=Tfld.substring(Tfld.indexOf("?")+1,Tfld.lastIndexOf("?"));
@@ -555,7 +563,7 @@ function MbrSetUp(MbC,PrMmbr,WMu,Wd,Ht,Nofs){
 
 	if(this.Arr[2])
 		this.style.backgroundImage="url(\""+this.Arr[2]+"\")";
-	
+
 	var un=RLvl==1?"px":P_X;
 	if(Tfld.indexOf("<")==-1){
 		this.style.width=Wd-LftXtra+un;
@@ -568,7 +576,7 @@ function MbrSetUp(MbC,PrMmbr,WMu,Wd,Ht,Nofs){
 		this.style.height=Ht+P_X;
 	}
 
-	if(RLvl!=1)	{ 
+	if(RLvl!=1)	{
 		this.style.borderTop="1px solid black";
 		this.style.borderLeft="1px solid black";
 		this.style.borderRight="1px solid black";
@@ -579,7 +587,7 @@ function MbrSetUp(MbC,PrMmbr,WMu,Wd,Ht,Nofs){
 		t=Lctn.document.createTextNode(Tfld);
 		this.appendChild(t)
 	}
-	else 
+	else
 		this.innerHTML=Tfld;
 
 	if(this.Arr[3]){
@@ -601,10 +609,10 @@ function MbrSetUp(MbC,PrMmbr,WMu,Wd,Ht,Nofs){
 		this.onmouseover=RLvl==1&&UnfoldsOnClick?OpenMenuClick:OpenMenu;
 		this.onmouseout=CloseMenu;
 		this.onclick=RLvl==1&&UnfoldsOnClick&&this.Arr[3]?OpenMenu:GoTo
-		
+
 	}
 	else{
-		
+
 		RLvl==1&&UnfoldsOnClick?this.addEventListener("mouseover",OpenMenuClick,false):this.addEventListener("mouseover",OpenMenu,false);
 		this.addEventListener("mouseout",CloseMenu,false);
 		RLvl==1&&UnfoldsOnClick&&this.Arr[3]?this.addEventListener("click",OpenMenu,false):this.addEventListener("click",GoTo,false)
@@ -654,7 +662,7 @@ function CreateMenuStructure(MNm,No,Mcllr){
 			WMnu = MNm + eval(i);
 			W    = eval( WMnu + "[5]" )? W + eval( WMnu + "[5]" ): W + MWd;
 		}
-		
+
 		W=BTWn?W+(No+1)*BRW:W+2*BRW;
 		H=MHt+2*BRW
 	}
@@ -668,7 +676,7 @@ function CreateMenuStructure(MNm,No,Mcllr){
 			MbC.style.position="absolute";
 			MbC.style.visibility="hidden";
 			Lctn.document.body.appendChild(MbC)
-			
+
 	}
 	else{
 		if(Nav4) var MbC=new Layer(W,Lctn);
@@ -680,7 +688,7 @@ function CreateMenuStructure(MNm,No,Mcllr){
 
 	MbC.SetUp=CntnrSetUp;
 	MbC.SetUp(W,H,No,MNm+"1",Mcllr);
-	
+
 	if(Exp4){
 		MbC.InnerString="";
 		for(i=1;i<No+1;i++){
@@ -688,17 +696,17 @@ function CreateMenuStructure(MNm,No,Mcllr){
 			MbC.InnerString+="<div id=\""+WMnu+"\" style=\"position:absolute;\"><\/div>"
 		}
 		MbC.innerHTML=MbC.InnerString
-		
+
 	}
 
-	
+
 	for(i=1;i<No+1;i++){
 		WMnu=MNm+eval(i);
 		NOs=eval(WMnu+"[3]");
 		W=RLvl==1&&FirstLineHorizontal?eval(WMnu+"[5]")?eval(WMnu+"[5]"):MWd:MWd;
 		H=RLvl==1&&FirstLineHorizontal?MHt:eval(WMnu+"[4]")?eval(WMnu+"[4]"):MHt;
 		if(DomYes){
-			Mbr=Lctn.document.createElement("div");	
+			Mbr=Lctn.document.createElement("div");
 			Mbr.style.position="absolute";
 			Mbr.style.visibility="inherit";
 			MbC.appendChild(Mbr)

@@ -136,7 +136,7 @@ function installAttributesOnForm(theForm) {
 
     el = theForm.elements[i];
 
-		elTransform = el.getAttribute(TRANSFORM_ATTRIBUTE);
+		var elTransform = el.getAttribute(TRANSFORM_ATTRIBUTE);
 
     if (
       el.getAttribute(DATATYPE_ATTRIBUTE) ||

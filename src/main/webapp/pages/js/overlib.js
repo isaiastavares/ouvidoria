@@ -834,6 +834,7 @@ function ol_content_simple(text) {
 // Makes table with caption and optional close link
 function ol_content_caption(text, title, close) {
 
+	var txt = "";
 	var closing = "";
 	var closeevent = "onMouseOver";
 
@@ -907,14 +908,14 @@ function disp(statustext) {
 
 // Decides where we want the popup.
 function placeLayer() {
-	var placeX, placeY;
+	var placeX, placeY, iwidth, iheight;
 
 	// HORIZONTAL PLACEMENT
 	if (o3_fixx > -1) {
 		// Fixed position
 		placeX = o3_fixx;
 	} else {
-		winoffset = (ie4) ? o3_frame.document.body.scrollLeft : o3_frame.pageXOffset;
+		var winoffset = (ie4) ? o3_frame.document.body.scrollLeft : o3_frame.pageXOffset;
 		if (ie4) iwidth = o3_frame.document.body.clientWidth;
 		if (ns4) iwidth = o3_frame.innerWidth; // was screwed in mozilla, fixed now?
 		if (ns6) iwidth = o3_frame.outerWidth;
@@ -964,7 +965,7 @@ function placeLayer() {
 		// Fixed position
 		placeY = o3_fixy;
 	} else {
-		scrolloffset = (ie4) ? o3_frame.document.body.scrollTop : o3_frame.pageYOffset;
+		var scrolloffset = (ie4) ? o3_frame.document.body.scrollTop : o3_frame.pageYOffset;
 
 		// If VAUTO, decide what to use.
 		if (o3_vauto == 1) {
@@ -1067,9 +1068,9 @@ function layerWrite(txt) {
         } else if (ie4) {
 		o3_frame.document.all["overDiv"].innerHTML = txt
 	} else if (ns6) {
-		range = o3_frame.document.createRange();
+		var range = o3_frame.document.createRange();
 		range.setStartBefore(over);
-		domfrag = range.createContextualFragment(txt);
+		var domfrag = range.createContextualFragment(txt);
 		while (over.hasChildNodes()) {
 			over.removeChild(over.lastChild);
 		}

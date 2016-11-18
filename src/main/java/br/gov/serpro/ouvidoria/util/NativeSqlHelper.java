@@ -63,33 +63,38 @@ public class NativeSqlHelper {
         //obter a conexão da sessão do Hibernate
         Connection c = HibernateSessionFactory.getFactory().getSession().connection();
 
-        //criar o prepared statement
-        PreparedStatement ps = c.prepareStatement( sql );
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+        	//criar o prepared statement
+            ps = c.prepareStatement( sql );
 
-        //configurar os argumentos de query (se houver)
-        if ( argumentosDeQuery != null ) {
-            for ( int i = 0; i < argumentosDeQuery.size(); i++ ) {
-                Object argumento = argumentosDeQuery.get( i );
+            //configurar os argumentos de query (se houver)
+            if ( argumentosDeQuery != null ) {
+                for ( int i = 0; i < argumentosDeQuery.size(); i++ ) {
+                    Object argumento = argumentosDeQuery.get( i );
 
-                if ( argumento instanceof java.lang.String ) {
-                    ps.setString( i + 1, (String) argumento );
-                } else if ( argumento instanceof java.util.Date ) {
-                    ps.setDate( i + 1, (java.sql.Date) argumento );
-                } else if ( argumento instanceof java.lang.Integer ) {
-                    ps.setInt( i + 1, ((Integer) argumento).intValue() );
-                } else if ( argumento instanceof java.lang.Long ) {
-                    ps.setLong( i + 1, ((Long) argumento ).longValue() );
-                } else {
-                    throw new RuntimeException( "Agumentos do tipo "
-                            + argumento.getClass().getName()
-                            + " nao são suportados neste helper." );
+                    if ( argumento instanceof java.lang.String ) {
+                        ps.setString( i + 1, (String) argumento );
+                    } else if ( argumento instanceof java.util.Date ) {
+                        ps.setDate( i + 1, (java.sql.Date) argumento );
+                    } else if ( argumento instanceof java.lang.Integer ) {
+                        ps.setInt( i + 1, ((Integer) argumento).intValue() );
+                    } else if ( argumento instanceof java.lang.Long ) {
+                        ps.setLong( i + 1, ((Long) argumento ).longValue() );
+                    } else {
+                        throw new RuntimeException( "Argumentos do tipo "
+                                + argumento.getClass().getName()
+                                + " nao são suportados neste helper." );
+                    }
                 }
             }
-        }
 
-        //executar a query, guardando resultados num ResultSet
-        ResultSet rs = ps.executeQuery();
-        ps.close();
+            //executar a query, guardando resultados num ResultSet
+            rs = ps.executeQuery();
+        } finally {
+        	ps.close();
+        }
 
         return rs;
     }
