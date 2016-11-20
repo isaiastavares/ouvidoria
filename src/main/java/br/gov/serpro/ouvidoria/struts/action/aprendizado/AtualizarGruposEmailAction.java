@@ -56,7 +56,11 @@ import br.gov.serpro.ouvidoria.util.Constants;
  */
 public class AtualizarGruposEmailAction extends DispatchActionSupport {
 
-    /**
+    private static final String FAILURE = "failure";
+	private static final String SUCCESS = "success";
+	private static final String ERROR_GRUPOSEMAIL_EXCECAO = "error.gruposemail.excecao";
+
+	/**
      * Método de execução da ação. Realiza dois forwards: um em caso de sucesso
      * e outro em caso de falha
      * 
@@ -94,15 +98,15 @@ public class AtualizarGruposEmailAction extends DispatchActionSupport {
 
         } catch (DaoException e) {
             msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "error.gruposemail.excecao"));
+                    ERROR_GRUPOSEMAIL_EXCECAO));
             saveMessages(request, msgs);
         }
 
         if (msgs.isEmpty()) {
-            return (mapping.findForward("success"));
+            return (mapping.findForward(SUCCESS));
         }
 
-        return (mapping.findForward("failure"));
+        return (mapping.findForward(FAILURE));
     }
 
     /**
@@ -161,7 +165,7 @@ public class AtualizarGruposEmailAction extends DispatchActionSupport {
 
         } catch (DaoException e) {
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "error.gruposemail.excecao"));
+                    ERROR_GRUPOSEMAIL_EXCECAO));
             saveMessages(request, errors);
             if (Constants.DEBUG) {
                 System.out.println(e.getMessage());
@@ -170,10 +174,10 @@ public class AtualizarGruposEmailAction extends DispatchActionSupport {
         }
 
         if (errors.isEmpty()) {
-            return (mapping.findForward("success"));
+            return (mapping.findForward(SUCCESS));
         }
 
-        return (mapping.findForward("failure"));
+        return (mapping.findForward(FAILURE));
     }
 
     /**
@@ -210,15 +214,15 @@ public class AtualizarGruposEmailAction extends DispatchActionSupport {
 
         } catch (DaoException e) {
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "error.gruposemail.excecao"));
+                    ERROR_GRUPOSEMAIL_EXCECAO));
             saveMessages(request, errors);
         }
 
         if (errors.isEmpty()) {
-            return (mapping.findForward("success"));
+            return (mapping.findForward(SUCCESS));
         }
 
-        return (mapping.findForward("failure"));
+        return (mapping.findForward(FAILURE));
     }
 
     /**
@@ -269,14 +273,14 @@ public class AtualizarGruposEmailAction extends DispatchActionSupport {
 
         } catch (DaoException e) {
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "error.gruposemail.excecao"));
+                    ERROR_GRUPOSEMAIL_EXCECAO));
             saveMessages(request, errors);
         }
 
         if (errors.isEmpty()) {
-            return (mapping.findForward("success"));
+            return (mapping.findForward(SUCCESS));
         }
-        return (mapping.findForward("failure"));
+        return (mapping.findForward(FAILURE));
     }
 
 }

@@ -61,7 +61,9 @@ import de.laures.cewolf.storage.TransientSessionStorage;
  */
 public class AtualizarBoletimAction extends DispatchActionSupport {
 
-    public ActionForward listar(ActionMapping mapping, ActionForm form,
+    private static final String FUNCTION = "function";
+
+	public ActionForward listar(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
@@ -123,7 +125,7 @@ public class AtualizarBoletimAction extends DispatchActionSupport {
 		
         request.setAttribute("diretorio", caminho);
         request.setAttribute("object", object);
-        request.setAttribute("function", request.getParameter("function"));
+        request.setAttribute(FUNCTION, request.getParameter(FUNCTION));
 
         return mapping.findForward("exibirDetalhe");
     }
@@ -327,7 +329,7 @@ public class AtualizarBoletimAction extends DispatchActionSupport {
         request.setAttribute("diretorio", this.getOrgao(request)
                 .getConfiguracoes().getNomeDiretorioOrgao());
         request.setAttribute("object", boletim);
-        request.setAttribute("function", request.getParameter("function"));
+        request.setAttribute(FUNCTION, request.getParameter(FUNCTION));
 
         msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                 "message.atualizarBoletim.publicar"));

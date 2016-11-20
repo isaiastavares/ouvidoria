@@ -58,7 +58,13 @@ import br.gov.serpro.ouvidoria.struts.DispatchActionSupport;
  */
 public class AtualizarSolucaoAction extends DispatchActionSupport {
 
-    /**
+    private static final String ID_SOLUCAO = "idSolucao";
+	private static final String FAILURE = "failure";
+	private static final String SUCCESS = "success";
+	private static final String ERROR_SOLUCAO_EXCECAO = "error.solucao.excecao";
+	private static final String TXT_ASSUNTO = "txtAssunto";
+
+	/**
      * Método de execução da ação. Realiza dois forwards: um em caso de sucesso
      * e outro em caso de falha
      * 
@@ -80,7 +86,7 @@ public class AtualizarSolucaoAction extends DispatchActionSupport {
 
             DynaActionForm _form = (DynaActionForm) form;
 
-            String lAssunto = _form.getString("txtAssunto");
+            String lAssunto = _form.getString(TXT_ASSUNTO);
             String lChave = _form.getString("txtChave");
             String sEstadoSolucao = _form.getString("idEstadoSolucao");
             Integer codEstadoSolucao = sEstadoSolucao!=null?new Integer(sEstadoSolucao):null;
@@ -101,15 +107,15 @@ public class AtualizarSolucaoAction extends DispatchActionSupport {
 
         } catch (DaoException e) {
             errorMsgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "error.solucao.excecao"));
+                    ERROR_SOLUCAO_EXCECAO));
 
             saveMessages(request, errorMsgs);
         }
 
         if (errorMsgs.isEmpty()) {
-            return (mapping.findForward("success"));
+            return (mapping.findForward(SUCCESS));
         }
-        return (mapping.findForward("failure"));
+        return (mapping.findForward(FAILURE));
     }
 
     /**
@@ -133,10 +139,10 @@ public class AtualizarSolucaoAction extends DispatchActionSupport {
 
         DynaActionForm _form = (DynaActionForm) form;
 
-        String lAssunto = _form.getString("txtAssunto");
+        String lAssunto = _form.getString(TXT_ASSUNTO);
         String lTexto = _form.getString("txtTexto");
         String lTitulo = _form.getString("txtTitulo");
-        String id = _form.getString("idSolucao");
+        String id = _form.getString(ID_SOLUCAO);
         String lVigencia = _form.getString("txtDatVigencia");
         String lHoraVigencia = _form.getString("txtHoraVigencia");
 
@@ -199,15 +205,15 @@ public class AtualizarSolucaoAction extends DispatchActionSupport {
 
         } catch (DaoException e) {
             errorMsgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "error.solucao.excecao"));
+                    ERROR_SOLUCAO_EXCECAO));
             saveMessages(request, errorMsgs);
         }
 
 
         if (errorMsgs.isEmpty()) {
-            return (mapping.findForward("success"));
+            return (mapping.findForward(SUCCESS));
         }
-        return (mapping.findForward("failure"));
+        return (mapping.findForward(FAILURE));
 
     }
 
@@ -231,7 +237,7 @@ public class AtualizarSolucaoAction extends DispatchActionSupport {
 
         DynaActionForm _form = (DynaActionForm) form;
 
-        String id = _form.getString("idSolucao");
+        String id = _form.getString(ID_SOLUCAO);
 
         try {
             SolucaoCtrl ctrlSolucao = new SolucaoCtrl(getDaoFactory());
@@ -245,15 +251,15 @@ public class AtualizarSolucaoAction extends DispatchActionSupport {
 
         } catch (DaoException e) {
             errorMsgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "error.solucao.excecao"));
+                    ERROR_SOLUCAO_EXCECAO));
             saveMessages(request, errorMsgs);
         }
 
 
         if (errorMsgs.isEmpty()) {
-            return (mapping.findForward("success"));
+            return (mapping.findForward(SUCCESS));
         }
-        return (mapping.findForward("failure"));
+        return (mapping.findForward(FAILURE));
 
     }
 
@@ -277,10 +283,10 @@ public class AtualizarSolucaoAction extends DispatchActionSupport {
 
         DynaActionForm _form = (DynaActionForm) form;
 
-        String lAssunto = _form.getString("txtAssunto");
+        String lAssunto = _form.getString(TXT_ASSUNTO);
         String lTexto = _form.getString("txtTexto");
         String lTitulo = _form.getString("txtTitulo");
-        String id = _form.getString("idSolucao");
+        String id = _form.getString(ID_SOLUCAO);
         String lVigencia = _form.getString("txtDatVigencia");
         String lHoraVigencia = _form.getString("txtHoraVigencia");
 
@@ -329,17 +335,17 @@ public class AtualizarSolucaoAction extends DispatchActionSupport {
 
         } catch (DaoException e) {
             errorMsgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "error.solucao.excecao"));
+                    ERROR_SOLUCAO_EXCECAO));
             saveMessages(request, errorMsgs);
         }
 
         // Repassa os parâmetros do Script para a tela de confirmação
-        request.setAttribute("idSolucao", id);
+        request.setAttribute(ID_SOLUCAO, id);
 
         if (errorMsgs.isEmpty()) {
-            return (mapping.findForward("success"));
+            return (mapping.findForward(SUCCESS));
         }
-        return (mapping.findForward("failure"));
+        return (mapping.findForward(FAILURE));
 
     }
 

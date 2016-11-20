@@ -60,7 +60,10 @@ import br.gov.serpro.ouvidoria.struts.DispatchActionSupport;
 public class AtualizarLocalidadeOcorrenciaAction extends DispatchActionSupport {
 
 
-    public ActionForward listar(ActionMapping mapping, ActionForm form,
+    private static final String SUB_ORGAO_ID = "subOrgaoId";
+
+
+	public ActionForward listar(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
@@ -87,7 +90,7 @@ public class AtualizarLocalidadeOcorrenciaAction extends DispatchActionSupport {
     	ActionMessages errorMsgs = new ActionMessages();
     	
         final String id = request.getParameter("id");
-        final String subOrgaoId = request.getParameter("subOrgaoId");
+        final String subOrgaoId = request.getParameter(SUB_ORGAO_ID);
 
         try {
 	        LocalidadeOcorrencia localidadeOcorrencia = null;
@@ -100,7 +103,7 @@ public class AtualizarLocalidadeOcorrenciaAction extends DispatchActionSupport {
 	        }
 	
 	        request.setAttribute("function", request.getParameter("function"));
-	        request.setAttribute("subOrgaoId", subOrgaoId);
+	        request.setAttribute(SUB_ORGAO_ID, subOrgaoId);
 	        request.setAttribute("localidadeOcorrencia", localidadeOcorrencia);
         } catch (DaoException e) {
             errorMsgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
@@ -125,7 +128,7 @@ public class AtualizarLocalidadeOcorrenciaAction extends DispatchActionSupport {
         final String descricao = request.getParameter("descricao");
         final String dataVigencia = request.getParameter("dataVigencia");
         final String horaVigencia = request.getParameter("horaVigencia");
-        final String subOrgaoId = request.getParameter("subOrgaoId");
+        final String subOrgaoId = request.getParameter(SUB_ORGAO_ID);
 
         if (descricao == null || descricao.trim().length() == 0) {
             msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
@@ -194,7 +197,7 @@ public class AtualizarLocalidadeOcorrenciaAction extends DispatchActionSupport {
         final String dataVigencia = request.getParameter("dataVigencia");
         final String horaVigencia = request.getParameter("horaVigencia");
 
-        final String subOrgaoId = request.getParameter("subOrgaoId");
+        final String subOrgaoId = request.getParameter(SUB_ORGAO_ID);
 
         SubOrgaoCtrl subOrgaoCtrl = new SubOrgaoCtrl(getDaoFactory());
         SubOrgao subOrgao = subOrgaoCtrl.get(new Long(subOrgaoId));

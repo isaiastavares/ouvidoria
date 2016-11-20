@@ -52,6 +52,8 @@ import br.gov.serpro.ouvidoria.util.Utilitario;
  */
 public class CadastrarAcionamentoForm extends ActionForm {
 	
+	private static final String ERROR_ACIONAMENTO_CPF_INVALIDO = "error.acionamento.cpfInvalido";
+
 	private static final long serialVersionUID = 1L;
 
 	private Integer tipoMensagem;
@@ -698,7 +700,7 @@ public class CadastrarAcionamentoForm extends ActionForm {
                 if (this.cpfAcionadorPessoaFisica.compareTo("") != 0) {
                     if (!Utilitario.validaCpf(this.cpfAcionadorPessoaFisica)) {
                         erros.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                                "error.acionamento.cpfInvalido"));
+                                ERROR_ACIONAMENTO_CPF_INVALIDO));
                     }
                 }
                 
@@ -720,7 +722,7 @@ public class CadastrarAcionamentoForm extends ActionForm {
                     } else {
                         if (!Utilitario.validaCpf(this.cpfAcionadorPessoaJuridica)) {
                             erros.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                                    "error.acionamento.cpfInvalido"));
+                                    ERROR_ACIONAMENTO_CPF_INVALIDO));
                         }
                     }
                     
@@ -738,7 +740,7 @@ public class CadastrarAcionamentoForm extends ActionForm {
                             /* Valida CPF */
                             if (!Utilitario.validaCpf(this.cpfAcionadorFuncionario)) {
                                 erros.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                                        "error.acionamento.cpfInvalido"));
+                                        ERROR_ACIONAMENTO_CPF_INVALIDO));
                             }
                         }
                         

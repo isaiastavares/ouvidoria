@@ -62,6 +62,10 @@ import br.gov.serpro.ouvidoria.util.Utilitario;
  */
 public class ResponderMsgAction extends ActionSupport {
 
+	private static final String ERRO = "ERRO:::";
+	private static final String TXT_ACAO = "txtAcao";
+	private static final String ID_ACIONAMENTO = "idAcionamento";
+
 	/**
 	 * Método de execução da ação. Realiza dois forwards: um em caso de sucesso
 	 * e outro em caso de falha
@@ -84,8 +88,8 @@ public class ResponderMsgAction extends ActionSupport {
 		// Recupera parámetros da requisição
 		String lsTitulo = _form.getString("txtTitulo");
 		String lsResp = _form.getString("txtResposta");
-		String lidAcion = _form.getString("idAcionamento");
-		String lsAcao = _form.getString("txtAcao");
+		String lidAcion = _form.getString(ID_ACIONAMENTO);
+		String lsAcao = _form.getString(TXT_ACAO);
 		String lidRemetenteRedirec = _form.getString("idRemetenteRedirec");
 		String stSolucao = _form.getString("idSolucao");
         
@@ -129,8 +133,8 @@ public class ResponderMsgAction extends ActionSupport {
 				redirecionarMensagemCtrl.salvarAcionamento(acionamento);
 				ctrlAcion.save(acionamento);
 				// Repassa os parámetros para a tela de mensagem de sucesso
-				request.setAttribute("idAcionamento", lidAcion);
-				request.setAttribute("txtAcao", lsAcao);
+				request.setAttribute(ID_ACIONAMENTO, lidAcion);
+				request.setAttribute(TXT_ACAO, lsAcao);
 
 			} else {
 				Timestamp hoje = new Timestamp(System.currentTimeMillis());
@@ -182,9 +186,9 @@ public class ResponderMsgAction extends ActionSupport {
 
 					} catch (Exception e) {
 
-						log.info("ERRO:::" + e.getMessage());
-						log.info("ERRO:::" + e.getCause());
-						log.info("ERRO:::" + e.getStackTrace());
+						log.info(ERRO + e.getMessage());
+						log.info(ERRO + e.getCause());
+						log.info(ERRO + e.getStackTrace());
 						return (mapping.findForward("failure"));
 					}
 
@@ -203,8 +207,8 @@ public class ResponderMsgAction extends ActionSupport {
 			}
 
 			// Repassa os parámetros para a tela de mensagem de sucesso
-			request.setAttribute("idAcionamento", lidAcion);
-			request.setAttribute("txtAcao", lsAcao);
+			request.setAttribute(ID_ACIONAMENTO, lidAcion);
+			request.setAttribute(TXT_ACAO, lsAcao);
 			this.geraHistorico(request, acionamento);
 
 		} catch (DaoException e) {

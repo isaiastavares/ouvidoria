@@ -50,7 +50,9 @@ import br.gov.serpro.ouvidoria.struts.ActionSupport;
  */
 public class ExibirScriptPendAction extends ActionSupport {
 
-    /**
+    private static final String EXIBE_OBS = "exibeOBS";
+
+	/**
      * Método de execução da ação. Realiza dois forwards: um em caso de sucesso
      * e outro em caso de falha
      * 
@@ -71,12 +73,12 @@ public class ExibirScriptPendAction extends ActionSupport {
             ScriptCtrl ctrlScript = new ScriptCtrl(getDaoFactory());
 
             String id = request.getParameter("id");
-            String exibeOBS = request.getParameter("exibeOBS");
+            String exibeOBS = request.getParameter(EXIBE_OBS);
 
             if (exibeOBS != null) {
-                request.setAttribute("exibeOBS", "S");
+                request.setAttribute(EXIBE_OBS, "S");
             } else {
-                request.setAttribute("exibeOBS", "N");
+                request.setAttribute(EXIBE_OBS, "N");
             }
 
             // Recupera o script através do id informado

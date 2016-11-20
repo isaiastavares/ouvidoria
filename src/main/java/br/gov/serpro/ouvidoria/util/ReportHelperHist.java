@@ -61,6 +61,7 @@ import br.gov.serpro.ouvidoria.util.freechart.data.StringKit;
  */
 public class ReportHelperHist {
 
+	private static final String S_S_AS_S_TIME_I = "s/\\sAS\\sTIME,//i";
 	private final static Perl5Util p5Util = new Perl5Util();
 
 	private static final class TotalQueryFilter extends PercentColumnFilter
@@ -375,11 +376,11 @@ public class ReportHelperHist {
 													locoDotProc2)
 											: locoDotProc2,
 									p5Util.substitute(A_LOCO_DOT, p5Util
-											.substitute("s/\\sAS\\sTIME,//i",
+											.substitute(S_S_AS_S_TIME_I,
 													timeField))
 											+ "= TIME",
 									p5Util.substitute(A_LOCO_DOT2, p5Util
-											.substitute("s/\\sAS\\sTIME,//i",
+											.substitute(S_S_AS_S_TIME_I,
 													timeField))
 											+ "= TIME" });
 
@@ -417,7 +418,7 @@ public class ReportHelperHist {
 							subSelect,
 							new Object[] {
 									p5Util.substitute(A_LOCO_DOT, p5Util
-											.substitute("s/\\sAS\\sTIME,//i",
+											.substitute(S_S_AS_S_TIME_I,
 													timeField)),
 									detailed ? p5Util
 											.substitute(

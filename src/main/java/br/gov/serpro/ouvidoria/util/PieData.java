@@ -53,6 +53,18 @@ public class PieData implements DatasetProducer, PieSectionLinkGenerator,
         PieToolTipGenerator, Serializable {
 
 
+	private static final String SEL_AGRUPAMENTO = "sel_agrupamento";
+
+	private static final String TXT_PERIODO_F = "txt_periodo_f";
+
+	private static final String TXT_PERIODO_I = "txt_periodo_i";
+
+	private static final String ORGAO = "orgao";
+
+	private static final String H_LOCAIS = "h_locais";
+
+	private static final String SEL_TIPO_GRAFICO = "sel_tipo_grafico";
+
 	private static final long serialVersionUID = 1L;
 
 	private static final Log logger = LogFactory.getLog(PieData.class);
@@ -86,22 +98,22 @@ public class PieData implements DatasetProducer, PieSectionLinkGenerator,
             if ("int".equals(indicador))
                 return ReportHelperInt.getDataSet((String) params
                         .get("sel_tabela"), (String) params
-                        .get("sel_tipo_grafico"), detailed, table_on_x_axis,
+                        .get(SEL_TIPO_GRAFICO), detailed, table_on_x_axis,
                         (Object[]) params.get("ii_itens_tabela"),
                         (String[]) params.get("sel_itens_tabela"),
-                        (String) params.get("h_locais"), (Orgao) params
-                                .get("orgao"), (String) params
-                                .get("txt_periodo_i"), (String) params
-                                .get("txt_periodo_f"));
+                        (String) params.get(H_LOCAIS), (Orgao) params
+                                .get(ORGAO), (String) params
+                                .get(TXT_PERIODO_I), (String) params
+                                .get(TXT_PERIODO_F));
 
             if ("ext".equals(indicador))
                 return ReportHelperExt.getDataSet((String) params
                         .get("sel_indicador"), (String) params
-                        .get("sel_tipo_grafico"), detailed, (String) params
-                        .get("sel_agrupamento"), (String) params
-                        .get("h_locais"), (Orgao) params.get("orgao"),
-                        (String) params.get("txt_periodo_i"), (String) params
-                                .get("txt_periodo_f"), (String) params
+                        .get(SEL_TIPO_GRAFICO), detailed, (String) params
+                        .get(SEL_AGRUPAMENTO), (String) params
+                        .get(H_LOCAIS), (Orgao) params.get(ORGAO),
+                        (String) params.get(TXT_PERIODO_I), (String) params
+                                .get(TXT_PERIODO_F), (String) params
                                 .get("col_names"), (String) params
                                 .get("extra_rows"));
 
@@ -109,21 +121,21 @@ public class PieData implements DatasetProducer, PieSectionLinkGenerator,
                 return ReportHelperHist.getDataSet((String) params
                         .get("sel_indicador"), (String[]) params
                         .get("sel_meio_envio"), (String) params
-                        .get("sel_tipo_grafico"), detailed, (String) params
-                        .get("sel_agrupamento"), (String) params
-                        .get("h_locais"), (Orgao) params.get("orgao"),
-                        (String) params.get("txt_periodo_i"), (String) params
-                                .get("txt_periodo_f"), (String) params
+                        .get(SEL_TIPO_GRAFICO), detailed, (String) params
+                        .get(SEL_AGRUPAMENTO), (String) params
+                        .get(H_LOCAIS), (Orgao) params.get(ORGAO),
+                        (String) params.get(TXT_PERIODO_I), (String) params
+                                .get(TXT_PERIODO_F), (String) params
                                 .get("i_local"));
 
             if ("formula".equals(indicador))
                 return ReportHelperFormula.getDataSet((String) params
                         .get("h_formula"), (String) params
-                        .get("sel_tipo_grafico"), detailed, (String) params
-                        .get("sel_agrupamento"), (String) params
-                        .get("h_locais"), (Orgao) params.get("orgao"),
-                        (String) params.get("txt_periodo_i"), (String) params
-                                .get("txt_periodo_f"));
+                        .get(SEL_TIPO_GRAFICO), detailed, (String) params
+                        .get(SEL_AGRUPAMENTO), (String) params
+                        .get(H_LOCAIS), (Orgao) params.get(ORGAO),
+                        (String) params.get(TXT_PERIODO_I), (String) params
+                                .get(TXT_PERIODO_F));
 
             return null;
 

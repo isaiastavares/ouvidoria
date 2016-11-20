@@ -72,6 +72,8 @@ import de.laures.cewolf.ChartPostProcessor;
  */
 public class PlotEnhancer implements ChartPostProcessor, Serializable {
 
+	private static final String SUPRESS_LABELS = "supressLabels";
+
 	private static final long serialVersionUID = 1L;
 
 	static final String NO_DATA_FOUND = "*** NENHUM DADO ENCONTRADO ***";
@@ -132,7 +134,7 @@ public class PlotEnhancer implements ChartPostProcessor, Serializable {
         }
 
         plot.setLabelGenerator("true".equalsIgnoreCase((String) params
-                .get("supressLabels")) ? null : spilg);
+                .get(SUPRESS_LABELS)) ? null : spilg);
         setSectionPaints(COLORS, plot);
 
     }
@@ -201,9 +203,9 @@ public class PlotEnhancer implements ChartPostProcessor, Serializable {
         }
 
         renderer.setLabelGenerator("true".equalsIgnoreCase((String) params
-                .get("supressLabels")) ? null : clg);
+                .get(SUPRESS_LABELS)) ? null : clg);
         renderer.setItemLabelsVisible(!"true".equalsIgnoreCase((String) params
-                .get("supressLabels")));
+                .get(SUPRESS_LABELS)));
 
 
         ItemLabelPosition ilb_out = new ItemLabelPosition(

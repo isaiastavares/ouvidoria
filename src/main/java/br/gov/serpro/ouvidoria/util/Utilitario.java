@@ -60,7 +60,10 @@ import br.gov.serpro.ouvidoria.model.ParametrosGerais;
  */
 public final class Utilitario {
 
-    private Utilitario() {
+    private static final String CIPHER_ERROR_2 = "Cipher Error";
+	private static final String CIPHER_ERROR = "Cipher Error: ";
+
+	private Utilitario() {
     }
 
     /**
@@ -366,17 +369,17 @@ public final class Utilitario {
 
             return byteToHex(cipher.doFinal(data.getBytes()));
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Cipher Error: ", e);
+            throw new RuntimeException(CIPHER_ERROR, e);
         } catch (NoSuchPaddingException e) {
-            throw new RuntimeException("Cipher Error: ", e);
+            throw new RuntimeException(CIPHER_ERROR, e);
         } catch (InvalidKeyException e) {
-            throw new RuntimeException("Cipher Error: ", e);
+            throw new RuntimeException(CIPHER_ERROR, e);
         } catch (IllegalStateException e) {
-            throw new RuntimeException("Cipher Error: ", e);
+            throw new RuntimeException(CIPHER_ERROR, e);
         } catch (IllegalBlockSizeException e) {
-            throw new RuntimeException("Cipher Error: ", e);
+            throw new RuntimeException(CIPHER_ERROR, e);
         } catch (BadPaddingException e) {
-            throw new RuntimeException("Cipher Error: ", e);
+            throw new RuntimeException(CIPHER_ERROR, e);
         }
     }
 
@@ -397,17 +400,17 @@ public final class Utilitario {
 
             return cipher.doFinal(hexToByte(data));
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Cipher Error", e);
+            throw new RuntimeException(CIPHER_ERROR_2, e);
         } catch (NoSuchPaddingException e) {
-            throw new RuntimeException("Cipher Error", e);
+            throw new RuntimeException(CIPHER_ERROR_2, e);
         } catch (InvalidKeyException e) {
-            throw new RuntimeException("Cipher Error", e);
+            throw new RuntimeException(CIPHER_ERROR_2, e);
         } catch (IllegalStateException e) {
-            throw new RuntimeException("Cipher Error", e);
+            throw new RuntimeException(CIPHER_ERROR_2, e);
         } catch (IllegalBlockSizeException e) {
-            throw new RuntimeException("Cipher Error", e);
+            throw new RuntimeException(CIPHER_ERROR_2, e);
         } catch (BadPaddingException e) {
-            throw new RuntimeException("Cipher Error", e);
+            throw new RuntimeException(CIPHER_ERROR_2, e);
         }
 
     }

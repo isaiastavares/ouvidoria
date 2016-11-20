@@ -56,7 +56,11 @@ import br.gov.serpro.ouvidoria.struts.DispatchActionSupport;
 public class AtualizarOrgaoAction extends DispatchActionSupport {
 
 
-    public ActionForward listar(ActionMapping mapping, ActionForm form,
+    private static final String ERROR_ATUALIZAR_ORGAO_INVALIDA = "error.atualizarOrgao.invalida";
+	private static final String ERROR_ATUALIZAR_ORGAO_MASC = "error.atualizarOrgao.masc";
+
+
+	public ActionForward listar(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
@@ -165,21 +169,21 @@ public class AtualizarOrgaoAction extends DispatchActionSupport {
             if (gestorResponsavel == null
                     || gestorResponsavel.trim().length() == 0) {
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarOrgao.masc", "Responsável"));
+                        ERROR_ATUALIZAR_ORGAO_MASC, "Responsável"));
             }
 
             // DDI telefone de contato
             if (codigoPaisTelefoneResponsavel == null
                     || codigoPaisTelefoneResponsavel.trim().length() == 0) {
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarOrgao.masc", "DDI para Telefone de contato"));
+                        ERROR_ATUALIZAR_ORGAO_MASC, "DDI para Telefone de contato"));
             }
 
             // DDD telefone de contato
             if (codigoCidadeTelefoneResponsavel == null
                     || codigoCidadeTelefoneResponsavel.trim().length() == 0) {
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarOrgao.masc", "DDD para Telefone de contato"));
+                        ERROR_ATUALIZAR_ORGAO_MASC, "DDD para Telefone de contato"));
             }
 
             
@@ -187,7 +191,7 @@ public class AtualizarOrgaoAction extends DispatchActionSupport {
             if (telefoneContatoGestor == null
                     || telefoneContatoGestor.trim().length() == 0) {
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarOrgao.masc", "Telefone de contato"));
+                        ERROR_ATUALIZAR_ORGAO_MASC, "Telefone de contato"));
             }
 
             // situação
@@ -197,7 +201,7 @@ public class AtualizarOrgaoAction extends DispatchActionSupport {
             if (statusOrgao.compareTo(Orgao.ATIVO) != 0
                     && statusOrgao.compareTo(Orgao.INATIVO) != 0) {
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarOrgao.invalida", "Situação"));
+                        ERROR_ATUALIZAR_ORGAO_INVALIDA, "Situação"));
             }
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm",
@@ -211,7 +215,7 @@ public class AtualizarOrgaoAction extends DispatchActionSupport {
                                         + horaInicioCadastramento).getTime());
             } catch (ParseException e) {
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarOrgao.invalida",
+                        ERROR_ATUALIZAR_ORGAO_INVALIDA,
                         "Data inicio de cadastramento"));
             }
 
@@ -222,7 +226,7 @@ public class AtualizarOrgaoAction extends DispatchActionSupport {
                         .getTime());
             } catch (ParseException e) {
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarOrgao.invalida",
+                        ERROR_ATUALIZAR_ORGAO_INVALIDA,
                         "Data fim de cadastramento"));
             }
 
@@ -233,7 +237,7 @@ public class AtualizarOrgaoAction extends DispatchActionSupport {
                         .getTime());
             } catch (ParseException e) {
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarOrgao.invalida",
+                        ERROR_ATUALIZAR_ORGAO_INVALIDA,
                         "Data início de operação"));
             }
 
@@ -243,7 +247,7 @@ public class AtualizarOrgaoAction extends DispatchActionSupport {
                         dataFimOperacao + " " + horaFimOperacao).getTime());
             } catch (ParseException e) {
                 msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("error.atualizarOrgao.invalida",
+                        new ActionMessage(ERROR_ATUALIZAR_ORGAO_INVALIDA,
                                 "Data fim de operação"));
             }
 
@@ -254,7 +258,7 @@ public class AtualizarOrgaoAction extends DispatchActionSupport {
                         .getTime());
             } catch (ParseException e) {
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarOrgao.invalida",
+                        ERROR_ATUALIZAR_ORGAO_INVALIDA,
                         "Data início de acionamento"));
             }
 
@@ -265,7 +269,7 @@ public class AtualizarOrgaoAction extends DispatchActionSupport {
                         .getTime());
             } catch (ParseException e) {
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarOrgao.invalida",
+                        ERROR_ATUALIZAR_ORGAO_INVALIDA,
                         "Data fim de acionamento"));
             }
 
@@ -276,7 +280,7 @@ public class AtualizarOrgaoAction extends DispatchActionSupport {
                                 + horaInicioConsultaResposta).getTime());
             } catch (ParseException e) {
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarOrgao.invalida",
+                        ERROR_ATUALIZAR_ORGAO_INVALIDA,
                         "Data início de consulta de resposta"));
             }
 
@@ -288,7 +292,7 @@ public class AtualizarOrgaoAction extends DispatchActionSupport {
                                         + horaFimConsultaResposta).getTime());
             } catch (ParseException e) {
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarOrgao.invalida",
+                        ERROR_ATUALIZAR_ORGAO_INVALIDA,
                         "Data fim de consulta de resposta"));
             }
 

@@ -50,9 +50,9 @@ import br.gov.serpro.ouvidoria.model.SubOrgao;
  */
 public class LocalidadeOcorrenciaCtrl {
 
-	private static final String SUB_ORGAO_NÃO_PODE_SER_NULO = "SubOrgao não pode ser nulo.";
+	private static final String SUB_ORGAO_NAO_PODE_SER_NULO = "SubOrgao não pode ser nulo.";
 
-	private static final String ID_DO_OBJETO_NÃO_PODE_SER_NULO = "ID do Objeto não pode ser nulo.";
+	private static final String ID_DO_OBJETO_NAO_PODE_SER_NULO = "ID do Objeto não pode ser nulo.";
 
 	private Dao subOrgaoDao;
 
@@ -77,7 +77,7 @@ public class LocalidadeOcorrenciaCtrl {
 	 */
 	public LocalidadeOcorrencia get(final Long id) throws DaoException {
 		if (id == null) {
-			throw new DaoException(ID_DO_OBJETO_NÃO_PODE_SER_NULO);
+			throw new DaoException(ID_DO_OBJETO_NAO_PODE_SER_NULO);
 		}
 		return (LocalidadeOcorrencia) localidadeOcorrenciaDao.get(id);
 	}
@@ -93,7 +93,7 @@ public class LocalidadeOcorrenciaCtrl {
 			throws DaoException {
 
 		if (subOrgao == null) {
-			throw new DaoException(SUB_ORGAO_NÃO_PODE_SER_NULO);
+			throw new DaoException(SUB_ORGAO_NAO_PODE_SER_NULO);
 		}
 
 		if (localidadeOcorrencia == null) {
@@ -146,11 +146,11 @@ public class LocalidadeOcorrenciaCtrl {
 			throws DaoException {
 
 		if (subOrgao == null) {
-			throw new DaoException(SUB_ORGAO_NÃO_PODE_SER_NULO);
+			throw new DaoException(SUB_ORGAO_NAO_PODE_SER_NULO);
 		}
 
 		if (id == null) {
-			throw new DaoException(ID_DO_OBJETO_NÃO_PODE_SER_NULO);
+			throw new DaoException(ID_DO_OBJETO_NAO_PODE_SER_NULO);
 		}
 
 		LocalidadeOcorrencia localidadeOcorrencia = get(new Long(id));
@@ -172,11 +172,11 @@ public class LocalidadeOcorrenciaCtrl {
 			final Timestamp dataVigencia) throws DaoException {
 
 		if (subOrgao == null) {
-			throw new DaoException(SUB_ORGAO_NÃO_PODE_SER_NULO);
+			throw new DaoException(SUB_ORGAO_NAO_PODE_SER_NULO);
 		}
 
 		if (id == null) {
-			throw new DaoException(ID_DO_OBJETO_NÃO_PODE_SER_NULO);
+			throw new DaoException(ID_DO_OBJETO_NAO_PODE_SER_NULO);
 		}
 
 		LocalidadeOcorrencia localidadeOcorrencia = get(new Long(id));

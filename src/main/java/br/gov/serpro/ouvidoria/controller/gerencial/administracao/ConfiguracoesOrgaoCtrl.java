@@ -62,7 +62,7 @@ import br.gov.serpro.ouvidoria.util.Utilitario;
  */
 public class ConfiguracoesOrgaoCtrl {
 
-    private static final String ID_DO_OBJETO_NÃO_PODE_SER_NULO = "ID do Objeto não pode ser nulo.";
+    private static final String ID_DO_OBJETO_NAO_PODE_SER_NULO = "ID do Objeto não pode ser nulo.";
 
 	private Dao orgaoDao;
 
@@ -103,7 +103,7 @@ public class ConfiguracoesOrgaoCtrl {
 
     public ConfiguracoesOrgao get(final Long id) throws DaoException {
         if (id == null) {
-            throw new DaoException(ID_DO_OBJETO_NÃO_PODE_SER_NULO);
+            throw new DaoException(ID_DO_OBJETO_NAO_PODE_SER_NULO);
         }
         return (ConfiguracoesOrgao) configuracoesOrgaoDao.get(id);
     }
@@ -111,7 +111,7 @@ public class ConfiguracoesOrgaoCtrl {
     public MeioEnvioResposta getMeioEnvioResposta(final Long id)
             throws DaoException {
         if (id == null) {
-            throw new DaoException(ID_DO_OBJETO_NÃO_PODE_SER_NULO);
+            throw new DaoException(ID_DO_OBJETO_NAO_PODE_SER_NULO);
         }
         return (MeioEnvioResposta) meioEnvioRespostaDao.get(id);
     }
@@ -323,7 +323,7 @@ public class ConfiguracoesOrgaoCtrl {
             final String textoNotificacaoAtrasoCritico) throws DaoException {
 
         if (id == null) {
-            throw new DaoException(ID_DO_OBJETO_NÃO_PODE_SER_NULO);
+            throw new DaoException(ID_DO_OBJETO_NAO_PODE_SER_NULO);
         }
 
         ConfiguracoesOrgao configuracoesOrgao = get(new Long(id));

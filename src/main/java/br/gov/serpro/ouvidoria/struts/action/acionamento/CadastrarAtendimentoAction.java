@@ -55,7 +55,9 @@ import br.gov.serpro.ouvidoria.util.Constants;
  */
 public class CadastrarAtendimentoAction extends ActionSupport {
 
-    /**
+    private static final String ID_SCRIPT = "idScript";
+
+	/**
      * Método de execução da ação. Realiza dois forwards: um em caso de sucesso
 	 * e outro em caso de falha
 	 * 
@@ -75,8 +77,8 @@ public class CadastrarAtendimentoAction extends ActionSupport {
         try {
             DynaActionForm _form = (DynaActionForm) form;
 
-            if ((_form.get("idScript") == null)
-                    || (_form.get("idScript") == "")) {
+            if ((_form.get(ID_SCRIPT) == null)
+                    || (_form.get(ID_SCRIPT) == "")) {
                 throw new NullPointerException(
                         "ID do script não pode ser nulo.");
             }
@@ -84,7 +86,7 @@ public class CadastrarAtendimentoAction extends ActionSupport {
             ConsultarScriptCtrl consultarScriptCtrl = new ConsultarScriptCtrl(
                     getDaoFactory());
 
-            Long idScript = new Long(_form.get("idScript").toString());
+            Long idScript = new Long(_form.get(ID_SCRIPT).toString());
 
             // Recupera o script
             Script script = consultarScriptCtrl.get(idScript);

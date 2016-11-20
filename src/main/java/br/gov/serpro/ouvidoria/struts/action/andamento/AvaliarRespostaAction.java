@@ -53,6 +53,9 @@ import br.gov.serpro.ouvidoria.struts.ActionSupport;
  */
 public class AvaliarRespostaAction extends ActionSupport {
 
+	private static final String TIPO_AVALIACAO_RESPOSTA = "tipoAvaliacaoResposta";
+	private static final String NUMERO_PROTOCOLO = "numeroProtocolo";
+
 	/**
 	 * Método de execução da ação. Realiza dois forwards: um em caso de sucesso
 	 * e outro em caso de falha
@@ -73,14 +76,14 @@ public class AvaliarRespostaAction extends ActionSupport {
 		try {
 			DynaActionForm _form = (DynaActionForm) form;
 
-			if ((_form.get("numeroProtocolo") == null)
-					|| (_form.get("numeroProtocolo") == "")) {
+			if ((_form.get(NUMERO_PROTOCOLO) == null)
+					|| (_form.get(NUMERO_PROTOCOLO) == "")) {
 				throw new NullPointerException(
 						"Número do protocolo não pode ser nulo.");
 			}
 
-			if ((_form.get("tipoAvaliacaoResposta") == null)
-					|| (_form.get("tipoAvaliacaoResposta") == "")) {
+			if ((_form.get(TIPO_AVALIACAO_RESPOSTA) == null)
+					|| (_form.get(TIPO_AVALIACAO_RESPOSTA) == "")) {
 				errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
 						"error.resposta.tipoAvaliacaoResposta"));
 			}
@@ -91,8 +94,8 @@ public class AvaliarRespostaAction extends ActionSupport {
 			AvaliarRespostaCtrl avaliarRespostaCtrl = new AvaliarRespostaCtrl(
 					getDaoFactory());
 
-			Integer numeroProtocolo = (Integer) _form.get("numeroProtocolo");
-			Long idTipoAvaliacao = new Long(_form.get("tipoAvaliacaoResposta")
+			Integer numeroProtocolo = (Integer) _form.get(NUMERO_PROTOCOLO);
+			Long idTipoAvaliacao = new Long(_form.get(TIPO_AVALIACAO_RESPOSTA)
 					.toString());
 
 			Acionamento acionamento = acionamentoCtrl

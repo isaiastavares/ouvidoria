@@ -51,6 +51,10 @@ import br.gov.serpro.ouvidoria.model.Orgao;
  */
 public class TipoAssuntoCtrl {
 
+	private static final String ORGAO_NAO_PODE_SER_NULO = "Órgão não pode ser nulo.";
+
+	private static final String ID_DO_OBJETO_NAO_PODE_SER_NULO = "ID do Objeto não pode ser nulo.";
+
 	private Dao orgaoDao;
 
 	private Dao defaultDao;
@@ -67,7 +71,7 @@ public class TipoAssuntoCtrl {
 
 	public Assunto get(final Long id) throws DaoException {
 		if (id == null) {
-			throw new DaoException("ID do Objeto não pode ser nulo.");
+			throw new DaoException(ID_DO_OBJETO_NAO_PODE_SER_NULO);
 		}
 		return (Assunto) defaultDao.get(id);
 	}
@@ -76,7 +80,7 @@ public class TipoAssuntoCtrl {
 			throws DaoException {
 
 		if (orgao == null) {
-			throw new DaoException("Órgão não pode ser nulo.");
+			throw new DaoException(ORGAO_NAO_PODE_SER_NULO);
 		}
 
 		if (instituicao == null) {
@@ -117,7 +121,7 @@ public class TipoAssuntoCtrl {
 			final Timestamp vigencia) throws DaoException {
 
 		if (instituicao == null) {
-			throw new DaoException("Órgão não pode ser nulo.");
+			throw new DaoException(ORGAO_NAO_PODE_SER_NULO);
 		}
 
 		Assunto object = new Assunto();
@@ -153,11 +157,11 @@ public class TipoAssuntoCtrl {
 			final Timestamp vigencia) throws DaoException {
 
 		if (instituicao == null) {
-			throw new DaoException("Órgão não pode ser nulo.");
+			throw new DaoException(ORGAO_NAO_PODE_SER_NULO);
 		}
 
 		if (id == null) {
-			throw new DaoException("ID do Objeto não pode ser nulo.");
+			throw new DaoException(ID_DO_OBJETO_NAO_PODE_SER_NULO);
 		}
 
 		Assunto object = get(new Long(id));
@@ -183,11 +187,11 @@ public class TipoAssuntoCtrl {
 			final Timestamp dataVigencia) throws DaoException {
 
 		if (instituicao == null) {
-			throw new DaoException("Órgão não pode ser nulo.");
+			throw new DaoException(ORGAO_NAO_PODE_SER_NULO);
 		}
 
 		if (id == null) {
-			throw new DaoException("ID do Objeto não pode ser nulo.");
+			throw new DaoException(ID_DO_OBJETO_NAO_PODE_SER_NULO);
 		}
 
 		Assunto object = get(new Long(id));

@@ -71,6 +71,9 @@ import br.gov.serpro.ouvidoria.util.Utilitario;
  */
 public class EnviarMensagemWebAction extends ActionSupport {
 
+	private static final String TRUE = "true";
+	private static final String FALSE = "false";
+
 	/**
      * Método de execução da ação. Realiza dois forwards: um em caso de sucesso
 	 * e outro em caso de falha
@@ -96,18 +99,18 @@ public class EnviarMensagemWebAction extends ActionSupport {
         
         if ((_form.getArquivoAnexo() != null)
         && (!_form.getArquivoAnexo().getFileName().equals(""))) {
-            request.setAttribute("anexoSelecionado", "true");
+            request.setAttribute("anexoSelecionado", TRUE);
         } else {
-            request.setAttribute("anexoSelecionado", "false");
+            request.setAttribute("anexoSelecionado", FALSE);
         }
         if ((_form.getMensagemDigitalizada() != null)
         && (!_form.getMensagemDigitalizada().getFileName().equals(""))) {
-            request.setAttribute("msgDigitalizadaSelecionada", "true");
+            request.setAttribute("msgDigitalizadaSelecionada", TRUE);
         } else {
-            request.setAttribute("msgDigitalizadaSelecionada", "false");
+            request.setAttribute("msgDigitalizadaSelecionada", FALSE);
         }
         
-        request.setAttribute("flagPesquisaFuncionario", "false");
+        request.setAttribute("flagPesquisaFuncionario", FALSE);
         request.setAttribute("dscArqAnexo", "");
         request.setAttribute("dscMsgDigitalizada", "");
         
@@ -115,7 +118,7 @@ public class EnviarMensagemWebAction extends ActionSupport {
         if ((this.getOrgao(request).getConfiguracoes().getUrlBaseFuncionarios() != null)
         && (this.getOrgao(request).getConfiguracoes()
         .getUrlBaseFuncionarios().length() > 0)) {
-            request.setAttribute("flagPermitePesquisaFuncionario", "true");
+            request.setAttribute("flagPermitePesquisaFuncionario", TRUE);
             
             String resultadoBuscaFunc = "";
             
@@ -320,7 +323,7 @@ public class EnviarMensagemWebAction extends ActionSupport {
                     } finally {
                         method.releaseConnection();
                     }
-                    request.setAttribute("flagPesquisaFuncionario", "true");
+                    request.setAttribute("flagPesquisaFuncionario", TRUE);
                 }
             }
             
@@ -386,7 +389,7 @@ public class EnviarMensagemWebAction extends ActionSupport {
                 .getListaAssuntoLocalidadeOcorrencia(this.getOrgao(request)));
         
         if (funcionario != null) {
-            request.setAttribute("usuarioLogado", "true");
+            request.setAttribute("usuarioLogado", TRUE);
         }
         
         request.setAttribute("possuiCodigoAcesso", this.getOrgao(request)

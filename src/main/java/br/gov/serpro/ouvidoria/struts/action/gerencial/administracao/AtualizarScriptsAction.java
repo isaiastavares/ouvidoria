@@ -61,7 +61,12 @@ import br.gov.serpro.ouvidoria.util.Constants;
  */
 public class AtualizarScriptsAction extends DispatchActionSupport {
 
-    /**
+    private static final String FAILURE = "failure";
+	private static final String SUCCESS = "success";
+	private static final String ERROR_SCRIPT_EXCECAO = "error.script.excecao";
+	private static final String TXT_ASSUNTO = "txtAssunto";
+
+	/**
      * Método de execução da ação. Realiza dois forwards: um em caso de sucesso
      * e outro em caso de falha
      * 
@@ -84,7 +89,7 @@ public class AtualizarScriptsAction extends DispatchActionSupport {
 
             DynaActionForm _form = (DynaActionForm) form;
 
-            String lAssunto = _form.getString("txtAssunto");            
+            String lAssunto = _form.getString(TXT_ASSUNTO);            
             String lChave = _form.getString("txtChave");
             String lEstado = _form.getString("txtEstado");
                        
@@ -108,7 +113,7 @@ public class AtualizarScriptsAction extends DispatchActionSupport {
 
         } catch (DaoException e) {
             errorMsgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "error.script.excecao"));
+                    ERROR_SCRIPT_EXCECAO));
 
             saveMessages(request, errorMsgs);
             if (Constants.DEBUG) {
@@ -118,10 +123,10 @@ public class AtualizarScriptsAction extends DispatchActionSupport {
         }
 
         if (errorMsgs.isEmpty()) {
-            return (mapping.findForward("success"));
+            return (mapping.findForward(SUCCESS));
         }
 
-        return (mapping.findForward("failure"));
+        return (mapping.findForward(FAILURE));
     }
 
     /**
@@ -144,7 +149,7 @@ public class AtualizarScriptsAction extends DispatchActionSupport {
 
         DynaActionForm _form = (DynaActionForm) form;
 
-        String lAssunto = _form.getString("txtAssunto");
+        String lAssunto = _form.getString(TXT_ASSUNTO);
         String lTexto = _form.getString("txtTexto");
         String lTitulo = _form.getString("txtTitulo");
         String id = _form.getString("idScript");
@@ -190,15 +195,15 @@ public class AtualizarScriptsAction extends DispatchActionSupport {
 
         } catch (DaoException e) {
             errorMsgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "error.script.excecao"));
+                    ERROR_SCRIPT_EXCECAO));
             saveMessages(request, errorMsgs);
         }
 
         if (errorMsgs.isEmpty()) {
-            return (mapping.findForward("success"));
+            return (mapping.findForward(SUCCESS));
         }
 
-        return (mapping.findForward("failure"));
+        return (mapping.findForward(FAILURE));
     }
 
     /**
@@ -251,15 +256,15 @@ public class AtualizarScriptsAction extends DispatchActionSupport {
 
         } catch (DaoException e) {
             errorMsgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "error.script.excecao"));
+                    ERROR_SCRIPT_EXCECAO));
             saveMessages(request, errorMsgs);
         }
 
         if (errorMsgs.isEmpty()) {
-            return (mapping.findForward("success"));
+            return (mapping.findForward(SUCCESS));
         }
 
-        return (mapping.findForward("failure"));
+        return (mapping.findForward(FAILURE));
     }
 
     /**
@@ -282,7 +287,7 @@ public class AtualizarScriptsAction extends DispatchActionSupport {
 
         DynaActionForm _form = (DynaActionForm) form;
 
-        String lAssunto = _form.getString("txtAssunto");
+        String lAssunto = _form.getString(TXT_ASSUNTO);
         String lTexto = _form.getString("txtTexto");
         String lTitulo = _form.getString("txtTitulo");
         try {
@@ -313,14 +318,14 @@ public class AtualizarScriptsAction extends DispatchActionSupport {
 
         } catch (DaoException e) {
             errorMsgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "error.script.excecao"));
+                    ERROR_SCRIPT_EXCECAO));
             saveMessages(request, errorMsgs);
         }
 
         if (errorMsgs.isEmpty()) {
-            return (mapping.findForward("success"));
+            return (mapping.findForward(SUCCESS));
         }
-        return (mapping.findForward("failure"));
+        return (mapping.findForward(FAILURE));
 
     }
 

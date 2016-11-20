@@ -63,6 +63,8 @@ import br.gov.serpro.ouvidoria.util.Constants;
 public class AtualizarSubOrgaoAction extends DispatchActionSupport {
 
 
+	private static final String ERROR_ATUALIZAR_SUB_ORGAO_DATA_VIGENCIA = "error.atualizarSubOrgao.dataVigencia";
+
 	public ActionForward listar(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
@@ -151,7 +153,7 @@ public class AtualizarSubOrgaoAction extends DispatchActionSupport {
 						.getTime());
 			} catch (ParseException e) {
 				msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-						"error.atualizarSubOrgao.dataVigencia"));
+						ERROR_ATUALIZAR_SUB_ORGAO_DATA_VIGENCIA));
 			}
 		} else {
 			if (dataInicioVigencia != null
@@ -162,7 +164,7 @@ public class AtualizarSubOrgaoAction extends DispatchActionSupport {
 							.getTime());
 				} catch (ParseException e) {
 					msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-							"error.atualizarSubOrgao.dataVigencia"));
+							ERROR_ATUALIZAR_SUB_ORGAO_DATA_VIGENCIA));
 				}
 			}
 
@@ -175,7 +177,7 @@ public class AtualizarSubOrgaoAction extends DispatchActionSupport {
 						dataFimVigencia + " " + horaFimVigencia).getTime());
 			} catch (ParseException e) {
 				msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-						"error.atualizarSubOrgao.dataVigencia"));
+						ERROR_ATUALIZAR_SUB_ORGAO_DATA_VIGENCIA));
 			}
 		}
 
@@ -231,7 +233,7 @@ public class AtualizarSubOrgaoAction extends DispatchActionSupport {
 			subOrgaoCtrl.delete(getOrgao(request), id, vigencia);
 			message = "message.atualizarSubOrgao.excluir";
 		} catch (ParseException e) {
-			message = "error.atualizarSubOrgao.dataVigencia";
+			message = ERROR_ATUALIZAR_SUB_ORGAO_DATA_VIGENCIA;
 		}
 
 		msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message));

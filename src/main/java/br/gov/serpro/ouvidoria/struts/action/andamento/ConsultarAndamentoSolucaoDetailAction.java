@@ -57,6 +57,8 @@ import br.gov.serpro.ouvidoria.util.Utilitario;
  */
 public class ConsultarAndamentoSolucaoDetailAction extends ActionSupport {
 
+	private static final String ACIONADOR = "acionador";
+
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
@@ -85,31 +87,31 @@ public class ConsultarAndamentoSolucaoDetailAction extends ActionSupport {
 				
 				AcionadorPessoaFisica acionador= null;
 				acionador = (AcionadorPessoaFisica) getDaoFactory().create(AcionadorPessoaFisica.class).get(idAcionador);
-				request.setAttribute("acionador", acionador);
+				request.setAttribute(ACIONADOR, acionador);
 			
 			} else if (acionamento.getAcionador().getTipoAcionador().equals(TipoAcionador.PESSOA_JURIDICA)) {
 				
 				AcionadorPessoaJuridica acionador= null;
 				acionador = (AcionadorPessoaJuridica) getDaoFactory().create(AcionadorPessoaJuridica.class).get(idAcionador);
-				request.setAttribute("acionador", acionador);
+				request.setAttribute(ACIONADOR, acionador);
 				
 			} else if (acionamento.getAcionador().getTipoAcionador().equals(TipoAcionador.FUNCIONARIO)) {
 				
 				AcionadorFuncionario acionador = null;
 				acionador = (AcionadorFuncionario) getDaoFactory().create(AcionadorFuncionario.class).get(idAcionador);
-				request.setAttribute("acionador", acionador);
+				request.setAttribute(ACIONADOR, acionador);
 			
 			}else{
 				
 				Acionador acionador = null;
 				acionador = (Acionador) getDaoFactory().create(Acionador.class).get(idAcionador);
-				request.setAttribute("acionador", acionador);
+				request.setAttribute(ACIONADOR, acionador);
 				
 			}
 
 			if (acionamento == null) {
 				request.setAttribute("cas_detail", null);
-				request.setAttribute("acionador", null);
+				request.setAttribute(ACIONADOR, null);
 				errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
 						"error.solucao.notFound"));
 

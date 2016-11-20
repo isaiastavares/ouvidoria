@@ -59,6 +59,10 @@ import br.gov.serpro.ouvidoria.util.Utilitario;
  */
 public class AtualizarHistoricoEnvioAction extends DispatchActionSupport {
 
+	private static final String FUNCTION = "function";
+	private static final String LISTAR = "listar";
+	private static final String ID_BOLETIM = "idBoletim";
+
 	public ActionForward listar(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
@@ -66,11 +70,11 @@ public class AtualizarHistoricoEnvioAction extends DispatchActionSupport {
 		BoletimCtrl boletimCtrl = new BoletimCtrl(getDaoFactory());
 
 		Boletim boletim = boletimCtrl.get(new Long(request
-				.getParameter("idBoletim")));
+				.getParameter(ID_BOLETIM)));
 
 		if (boletim == null) {
 			request.setAttribute("zero", "true");
-			return mapping.findForward("listar");
+			return mapping.findForward(LISTAR);
 		}
 
 		HistoricoEnvioCtrl defaultCtrl = new HistoricoEnvioCtrl(getDaoFactory());
@@ -82,9 +86,9 @@ public class AtualizarHistoricoEnvioAction extends DispatchActionSupport {
 		}
 
 		request.setAttribute("boletim", boletim);
-		request.setAttribute("listar", results);
+		request.setAttribute(LISTAR, results);
 
-		return mapping.findForward("listar");
+		return mapping.findForward(LISTAR);
 	}
 
 	public ActionForward telaDistribuir(ActionMapping mapping, ActionForm form,
@@ -116,7 +120,7 @@ public class AtualizarHistoricoEnvioAction extends DispatchActionSupport {
 		Funcionario funcionario = (Funcionario) funcionarioCtrl
 				.get(funcionarioId);
 		Boletim boletim = boletimCtrl.get(new Long(request
-				.getParameter("idBoletim")));
+				.getParameter(ID_BOLETIM)));
 
 		itemHistorico.setListaEmails(request.getParameter("listaEmails"));
 		itemHistorico.setFuncionario(funcionario);
@@ -138,7 +142,7 @@ public class AtualizarHistoricoEnvioAction extends DispatchActionSupport {
 				+ this.getOrgao(request).getConfiguracoes()
 						.getNomeDiretorioOrgao()
 				+ "/boletins/boletim_"
-				+ request.getParameter("idBoletim") + ".html";
+				+ request.getParameter(ID_BOLETIM) + ".html";
 
 		String domain = request.getScheme() + "://" + request.getServerName()
 				+ ":" + request.getServerPort() + "/";
@@ -146,7 +150,7 @@ public class AtualizarHistoricoEnvioAction extends DispatchActionSupport {
 		String urlBoletim = domain
 				+ this.getOrgao(request).getConfiguracoes()
 						.getNomeDiretorioOrgao() + "/boletins/boletim_"
-				+ request.getParameter("idBoletim") + ".html";
+				+ request.getParameter(ID_BOLETIM) + ".html";
 
 		String htmlText = "<p>Caso n&atilde;o consiga vizualizar o boletim, utilize o endere&ccedil;o: <a href=\""
 				+ urlBoletim
@@ -211,7 +215,7 @@ public class AtualizarHistoricoEnvioAction extends DispatchActionSupport {
 		}
 
 		request.setAttribute("object", object);
-		request.setAttribute("function", request.getParameter("function"));
+		request.setAttribute(FUNCTION, request.getParameter(FUNCTION));
 
 		return mapping.findForward("exibir");
 	}
@@ -232,7 +236,7 @@ public class AtualizarHistoricoEnvioAction extends DispatchActionSupport {
 		}
 
 		request.setAttribute("object", object);
-		request.setAttribute("function", request.getParameter("function"));
+		request.setAttribute(FUNCTION, request.getParameter(FUNCTION));
 
 		return mapping.findForward("exibirDetalhe");
 	}

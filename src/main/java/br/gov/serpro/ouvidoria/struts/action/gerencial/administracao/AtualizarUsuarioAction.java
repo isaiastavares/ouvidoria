@@ -73,6 +73,7 @@ import br.gov.serpro.ouvidoria.util.Constants;
  */
 public class AtualizarUsuarioAction extends DispatchActionSupport {
 
+	private static final String FUNCTION = "function";
 	/**
 	 * Representa a string que é retornada da página quando o a opção
 	 * "Consultor?" é marcada na tela.
@@ -235,7 +236,7 @@ public class AtualizarUsuarioAction extends DispatchActionSupport {
 		tipoMesagemList.addAll(tipoMensagemCtrl.list(getOrgao(request)));
 
 		request.setAttribute("object", object);
-		request.setAttribute("function", request.getParameter("function"));
+		request.setAttribute(FUNCTION, request.getParameter(FUNCTION));
 
 		request.setAttribute("listarPerfil", perfilList);
 		request.setAttribute("listarTipoAssunto", tipoAssuntoList);
@@ -452,7 +453,7 @@ public class AtualizarUsuarioAction extends DispatchActionSupport {
 			tipoMesagemList.addAll(tipoMensagemCtrl.list(getOrgao(request)));
 
 			request.setAttribute("object", object);
-			request.setAttribute("function", request.getParameter("function"));
+			request.setAttribute(FUNCTION, request.getParameter(FUNCTION));
 
 			request.setAttribute("listarPerfil", perfilList);
 			request.setAttribute("listarTipoAssunto", tipoAssuntoList);

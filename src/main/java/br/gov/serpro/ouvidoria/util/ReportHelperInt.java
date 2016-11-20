@@ -55,12 +55,15 @@ import br.gov.serpro.ouvidoria.util.freechart.data.StringKit;
  */
 public class ReportHelperInt {
 
+	private static final String II_CASE_FIELD_CONS = "ii.case_field.cons.";
+
 	public final static class ReportDynaActionForm extends DynaActionForm {
 
+		private static final String SEL_ITENS_TABELA = "sel_itens_tabela";
 		private static final long serialVersionUID = 1L;
 
 		public void reset(ActionMapping mapping, HttpServletRequest request) {
-			this.set("sel_itens_tabela", new String[0]);
+			this.set(SEL_ITENS_TABELA, new String[0]);
 		}
 	}
 
@@ -261,7 +264,7 @@ public class ReportHelperInt {
 					firstFields,
 					new Object[] {
 							ReportKit.getConfig().getString(
-									"ii.case_field.cons." + index),
+									II_CASE_FIELD_CONS + index),
 							getCaseForTableItems(ii_itens_tabela,
 									sel_itens_tabela) });
 		}
@@ -368,7 +371,7 @@ public class ReportHelperInt {
 		StringBuffer sb = new StringBuffer(1024);
 		sb.append(" AND "
 				+ ReportKit.getConfig()
-						.getString("ii.case_field.cons." + index) + " in (");
+						.getString(II_CASE_FIELD_CONS + index) + " in (");
 		int itemCount = 0;
 
 		for (int i = 0; i < ii_itens_tabela.length; i++) {
@@ -414,7 +417,7 @@ public class ReportHelperInt {
 		}
 
 		final String fieldName = ReportKit.getConfig().getString(
-				"ii.case_field.cons." + index);
+				II_CASE_FIELD_CONS + index);
 
 		String result = fieldName + " IN ("
 				+ StringKit.join(list.toArray(), sep, sep, ",") + ")";

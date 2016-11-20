@@ -1,27 +1,27 @@
 /*
  * Sistema de Ouvidoria: um canal através do qual os usuários
  * podem encaminhar suas reclamações, elogios e sugestões.
- * 
+ *
  * Copyright (C) 2011 SERPRO
- * 
+ *
  * Este programa é software livre; você pode redistribuí-lo e/ou
  * modificá-lo sob os termos da Licença Pública Geral GNU, conforme
  * publicada pela Free Software Foundation; tanto a versão 2 da
  * Licença como (a seu critério) qualquer versão mais nova.
- * 
+ *
  * Este programa é distribuído na expectativa de ser útil, mas SEM
  * QUALQUER GARANTIA; sem mesmo a garantia implícita de
  * COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM
  * PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais
  * detalhes.
- * 
+ *
  * Você deve ter recebido uma cópia da Licença Pública Geral GNU,
  * sob o título "LICENCA.txt", junto com esse programa. Se não,
  * acesse o Portal do Software Público Brasileiro no endereço
  * http://www.softwarepublico.gov.br/ ou escreva para a Fundação do
  * Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02111-1301, USA.
- * 
+ *
  * Contatos através do seguinte endereço internet:
  * http://www.serpro.gov.br/sistemaouvidoria/
  */
@@ -51,14 +51,16 @@ import br.gov.serpro.ouvidoria.util.freechart.data.QueryKit;
 import br.gov.serpro.ouvidoria.util.freechart.data.StringKit;
 
 /**
- * 
+ *
  * @author SERPRO
  * @version $Revision: 1.1.2.6 $, $Date: 2011/11/07 12:42:44 $
  * @version 0.1, Date: 2005/01/28
  */
 public final class ReportKit {
-	
-	static final Log log = LogFactory.getLog(ReportKit.class); 
+
+	private static final String HORA_23_59_59 = " 23:59:59'";
+
+	static final Log log = LogFactory.getLog(ReportKit.class);
 
 	static final String CHART_COLORS = "chart.colors";
 
@@ -134,12 +136,12 @@ public final class ReportKit {
 					+ DateKit.convertPtBr2ISO8601Date(txt_periodo_i, "/", "-")
 					+ "' AND '"
 					+ DateKit.convertPtBr2ISO8601Date(txt_periodo_f, "/", "-")
-					+ " 23:59:59'";
+					+ HORA_23_59_59;
 
 		if (isNullI)
 			return " AND a.DAT_ACNMNT <= '"
 					+ DateKit.convertPtBr2ISO8601Date(txt_periodo_f, "/", "-")
-					+ " 23:59:59'";
+					+ HORA_23_59_59;
 
 		return " AND a.DAT_ACNMNT >= '"
 				+ DateKit.convertPtBr2ISO8601Date(txt_periodo_i, "/", "-")
@@ -160,12 +162,12 @@ public final class ReportKit {
 					+ DateKit.convertPtBr2ISO8601Date(txt_periodo_i, "/", "-")
 					+ "' AND '"
 					+ DateKit.convertPtBr2ISO8601Date(txt_periodo_f, "/", "-")
-					+ " 23:59:59'";
+					+ HORA_23_59_59;
 
 		if (isNullI)
 			return " atend.DAT_ATEND <= '"
 					+ DateKit.convertPtBr2ISO8601Date(txt_periodo_f, "/", "-")
-					+ " 23:59:59'";
+					+ HORA_23_59_59;
 
 		return " atend.DAT_ATEND >= '"
 				+ DateKit.convertPtBr2ISO8601Date(txt_periodo_i, "/", "-")

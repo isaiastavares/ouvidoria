@@ -50,9 +50,9 @@ import br.gov.serpro.ouvidoria.model.TipoMensagem;
  */
 public class TipoMensagemCtrl {
 
-	private static final String ORGAO_NÃO_PODE_SER_NULO = "Orgao não pode ser nulo.";
+	private static final String ORGAO_NAO_PODE_SER_NULO = "Orgao não pode ser nulo.";
 
-	private static final String ID_DO_OBJETO_NÃO_PODE_SER_NULO = "ID do Objeto não pode ser nulo.";
+	private static final String ID_DO_OBJETO_NAO_PODE_SER_NULO = "ID do Objeto não pode ser nulo.";
 
 	private Dao orgaoDao;
 
@@ -77,7 +77,7 @@ public class TipoMensagemCtrl {
 	 */
 	public TipoMensagem get(final Long id) throws DaoException {
 		if (id == null) {
-			throw new DaoException(ID_DO_OBJETO_NÃO_PODE_SER_NULO);
+			throw new DaoException(ID_DO_OBJETO_NAO_PODE_SER_NULO);
 		}
 		return (TipoMensagem) defaultDao.get(id);
 	}
@@ -93,7 +93,7 @@ public class TipoMensagemCtrl {
 			throws DaoException {
 
 		if (orgao == null) {
-			throw new DaoException(ORGAO_NÃO_PODE_SER_NULO);
+			throw new DaoException(ORGAO_NAO_PODE_SER_NULO);
 		}
 
 		if (object == null) {
@@ -159,11 +159,11 @@ public class TipoMensagemCtrl {
 			throws DaoException {
 
 		if (orgao == null) {
-			throw new DaoException(ORGAO_NÃO_PODE_SER_NULO);
+			throw new DaoException(ORGAO_NAO_PODE_SER_NULO);
 		}
 
 		if (id == null) {
-			throw new DaoException(ID_DO_OBJETO_NÃO_PODE_SER_NULO);
+			throw new DaoException(ID_DO_OBJETO_NAO_PODE_SER_NULO);
 		}
 
 		TipoMensagem object = get(new Long(id));
@@ -188,11 +188,11 @@ public class TipoMensagemCtrl {
 			final Timestamp dataVigencia) throws DaoException {
 
 		if (orgao == null) {
-			throw new DaoException(ORGAO_NÃO_PODE_SER_NULO);
+			throw new DaoException(ORGAO_NAO_PODE_SER_NULO);
 		}
 
 		if (id == null) {
-			throw new DaoException(ID_DO_OBJETO_NÃO_PODE_SER_NULO);
+			throw new DaoException(ID_DO_OBJETO_NAO_PODE_SER_NULO);
 		}
 
 		TipoMensagem object = get(new Long(id));

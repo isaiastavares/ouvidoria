@@ -64,6 +64,9 @@ import br.gov.serpro.ouvidoria.util.Constants;
  */
 public class AtualizarConfiguracoesOrgaoAction extends DispatchActionSupport {
 
+	private static final String ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_FEM = "error.atualizarConfiguracoesOrgao.fem";
+	private static final String TAMANHO_MÁXIMO_PARA_CARTA_DIGITALIZADA = "Tamanho máximo para carta digitalizada";
+	private static final String ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC = "error.atualizarConfiguracoesOrgao.masc";
 	private static Logger logger;
 	private static String horaAgendadaAntiga = null;
 
@@ -286,7 +289,7 @@ public class AtualizarConfiguracoesOrgaoAction extends DispatchActionSupport {
 
             if (idOrgao == null || idOrgao.trim().length() == 0)
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarConfiguracoesOrgao.masc", "Orgão"));
+                        ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC, "Orgão"));
 
             if (strPermiteMsgDigitalizadaAcionamento != null) {
                 permiteMsgDigitalizadaAcionamento = Boolean.TRUE;
@@ -295,8 +298,8 @@ public class AtualizarConfiguracoesOrgaoAction extends DispatchActionSupport {
                         || strTamanhoMaxArquivoCartaDigitalizada.trim()
                         .length() == 0) {
                     msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                            "error.atualizarConfiguracoesOrgao.masc",
-                            "Tamanho máximo para carta digitalizada"));
+                            ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
+                            TAMANHO_MÁXIMO_PARA_CARTA_DIGITALIZADA));
                 } else {
                 	try {
                 		tamanhoMaxArquivoCartaDigitalizada = new Integer(
@@ -304,7 +307,7 @@ public class AtualizarConfiguracoesOrgaoAction extends DispatchActionSupport {
 					} catch (NumberFormatException nfe) {
 						msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
 	                            "error.atualizarConfiguracoesOrgao.valorInvalido",
-	                            "Tamanho máximo para carta digitalizada"));
+	                            TAMANHO_MÁXIMO_PARA_CARTA_DIGITALIZADA));
 					}
                 }
             } else {
@@ -318,7 +321,7 @@ public class AtualizarConfiguracoesOrgaoAction extends DispatchActionSupport {
                 if (strTamanhoMaxArquivoAnexo == null
                         || strTamanhoMaxArquivoAnexo.trim().length() == 0) {
                     msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                            "error.atualizarConfiguracoesOrgao.masc",
+                            ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                             "Tamanho máximo para arquivos anexos"));
                 } else {
                 	try {
@@ -327,7 +330,7 @@ public class AtualizarConfiguracoesOrgaoAction extends DispatchActionSupport {
 					} catch (NumberFormatException nfe) {
 						msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
 	                            "error.atualizarConfiguracoesOrgao.valorInvalido",
-	                            "Tamanho máximo para carta digitalizada"));
+	                            TAMANHO_MÁXIMO_PARA_CARTA_DIGITALIZADA));
 					}
                 }
             } else {
@@ -350,7 +353,7 @@ public class AtualizarConfiguracoesOrgaoAction extends DispatchActionSupport {
                             .add(
                                 ActionMessages.GLOBAL_MESSAGE,
                                 new ActionMessage(
-                                "error.atualizarConfiguracoesOrgao.masc",
+                                ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                                 "Tempo de bloqueio pelo código de acesso"));
                     else
                         tempoBloqueioProtocoloPeloCodigo = new Integer(
@@ -363,7 +366,7 @@ public class AtualizarConfiguracoesOrgaoAction extends DispatchActionSupport {
                             .add(
                                 ActionMessages.GLOBAL_MESSAGE,
                                 new ActionMessage(
-                                "error.atualizarConfiguracoesOrgao.masc",
+                                ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                                 "Número máximo de falhas no código de acesso"));
                     else
                         qtdeTentativasPossiveisCodigoAcesso = new Integer(
@@ -385,7 +388,7 @@ public class AtualizarConfiguracoesOrgaoAction extends DispatchActionSupport {
                             .add(
                                 ActionMessages.GLOBAL_MESSAGE,
                                 new ActionMessage(
-                                "error.atualizarConfiguracoesOrgao.masc",
+                                ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                                 "Tempo de bloqueio pela pergunta"));
                     else
                         tempoBloqueioProtocoloPelaPergunta = new Integer(
@@ -398,7 +401,7 @@ public class AtualizarConfiguracoesOrgaoAction extends DispatchActionSupport {
                             .add(
                                 ActionMessages.GLOBAL_MESSAGE,
                                 new ActionMessage(
-                                "error.atualizarConfiguracoesOrgao.masc",
+                                ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                                 "Número máximo de falhas na pergunta"));
                     else
                         qtdeTentativasPossiveisPergunta = new Integer(
@@ -437,61 +440,61 @@ public class AtualizarConfiguracoesOrgaoAction extends DispatchActionSupport {
             if (textoApresentacaoOuvidoria == null
                     || textoApresentacaoOuvidoria.trim().length() == 0)
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarConfiguracoesOrgao.masc",
+                        ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                         "Texto de apresentação da ouvidoria"));
 
             if (textoRespostaAcionamento == null
                     || textoRespostaAcionamento.trim().length() == 0)
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarConfiguracoesOrgao.masc",
+                        ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                         "Texto de resposta no momento do acionamento"));
 
             if (textoApresentacaoResposta == null
                     || textoApresentacaoResposta.trim().length() == 0)
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarConfiguracoesOrgao.masc",
+                        ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                         "Texto de apresentação da resposta"));
 
             if (textoInformacaoOuvidoria == null
                     || textoInformacaoOuvidoria.trim().length() == 0)
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarConfiguracoesOrgao.masc",
+                        ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                         "Texto com informações sobre a ouvidoria"));
 
             if (textoConsultaRespostaNoPrazo == null
                     || textoConsultaRespostaNoPrazo.trim().length() == 0)
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarConfiguracoesOrgao.masc",
+                        ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                         "Texto de consulta de resposta no prazo"));
 
             if (textoConsultaRespostaSemPrazo == null
                     || textoConsultaRespostaSemPrazo.trim().length() == 0)
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarConfiguracoesOrgao.masc",
+                        ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                         "Texto de consulta de resposta sem prazo"));
 
             if (textoConsultaRespostaEmAtraso == null
                     || textoConsultaRespostaEmAtraso.trim().length() == 0)
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarConfiguracoesOrgao.masc",
+                        ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                         "Texto de consulta de resposta em atraso"));
 
             if (textoAvaliacaoResposta == null
                     || textoAvaliacaoResposta.trim().length() == 0)
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarConfiguracoesOrgao.masc",
+                        ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                         "Texto de avaliação da resposta"));
 
             if (esquemaCoresLayout == null
                     || esquemaCoresLayout.trim().length() == 0)
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarConfiguracoesOrgao.masc",
+                        ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                         "Diretório de esquema de cores"));
 
             if (nomeExibicaoOrgao == null
                     || nomeExibicaoOrgao.trim().length() == 0)
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarConfiguracoesOrgao.masc",
+                        ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                         "Nome do órgão para exibição"));
 
             if (id == null || id.trim().length() == 0) {
@@ -499,7 +502,7 @@ public class AtualizarConfiguracoesOrgaoAction extends DispatchActionSupport {
                 if (nomeDiretorioOrgao == null
                         || nomeDiretorioOrgao.trim().length() == 0)
                     msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                            "error.atualizarConfiguracoesOrgao.masc",
+                            ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                             "Nome do diretório do órgão"));
             }
 
@@ -508,25 +511,25 @@ public class AtualizarConfiguracoesOrgaoAction extends DispatchActionSupport {
                     .add(
                         ActionMessages.GLOBAL_MESSAGE,
                         new ActionMessage(
-                        "error.atualizarConfiguracoesOrgao.masc",
+                        ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_MASC,
                         "Remetente dos emails que serão enviados pela aplicação"));
 
             if (corCabecalhoLogo == null
                     || corCabecalhoLogo.trim().length() == 0)
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarConfiguracoesOrgao.fem",
+                        ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_FEM,
                         "Cor referente a página do logo"));
 
             if (corCabecalhoBanner == null
                     || corCabecalhoBanner.trim().length() == 0)
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarConfiguracoesOrgao.fem",
+                        ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_FEM,
                         "Cor referente a página do banner"));
 
             if (urlSuporteUsuario == null
                     || urlSuporteUsuario.trim().length() == 0)
                 msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                        "error.atualizarConfiguracoesOrgao.fem",
+                        ERROR_ATUALIZAR_CONFIGURACOES_ORGAO_FEM,
                         "URL de suporte ao usuário"));
 
             Collection listaTipoAcionador = new ArrayList();

@@ -58,6 +58,11 @@ import br.gov.serpro.ouvidoria.util.Constants;
  */
 public class ListarMsgPorResponsAction extends ActionSupport {
 
+	private static final String CHKCRITICO = "chkcritico";
+	private static final String CHKATRASO = "chkatraso";
+	private static final String CHKAND = "chkand";
+	private static final String CHKPEND = "chkpend";
+
 	/**
 	 * Método de execução da ação. Realiza dois forwards: um em caso de sucesso
 	 * e outro em caso de falha
@@ -82,10 +87,10 @@ public class ListarMsgPorResponsAction extends ActionSupport {
 			DynaActionForm _form = (DynaActionForm) form;
 
 			// Recupera parâmetros informados para a consulta
-			String lsChkPend = _form.getString("chkpend");
-			String lsChkAnd = _form.getString("chkand");
-			String lsChkAtraso = _form.getString("chkatraso");
-			String lsChkCritico = _form.getString("chkcritico");
+			String lsChkPend = _form.getString(CHKPEND);
+			String lsChkAnd = _form.getString(CHKAND);
+			String lsChkAtraso = _form.getString(CHKATRASO);
+			String lsChkCritico = _form.getString(CHKCRITICO);
 			String lsDatIni = _form.getString("txtDatIni");
 			String lsDatFim = _form.getString("txtDatFim");
 			String lsTipoMsg = _form.getString("txtTipoMsg");
@@ -97,19 +102,19 @@ public class ListarMsgPorResponsAction extends ActionSupport {
 			// mensagem
 			if (lsChkPend != null && !lsChkPend.equals("")) {
 				HttpSession session = request.getSession(true);
-				session.setAttribute("chkpend", "S");
+				session.setAttribute(CHKPEND, "S");
 			}
 			if (lsChkAnd != null && !lsChkAnd.equals("")) {
 				HttpSession session = request.getSession(true);
-				session.setAttribute("chkand", "S");
+				session.setAttribute(CHKAND, "S");
 			}
 			if (lsChkAtraso != null && !lsChkAtraso.equals("")) {
 				HttpSession session = request.getSession(true);
-				session.setAttribute("chkatraso", "S");
+				session.setAttribute(CHKATRASO, "S");
 			}
 			if (lsChkCritico != null && !lsChkCritico.equals("")) {
 				HttpSession session = request.getSession(true);
-				session.setAttribute("chkcritico", "S");
+				session.setAttribute(CHKCRITICO, "S");
 			}
 
 			if ((lsChkPend == null || (lsChkPend != null && lsChkPend
@@ -122,20 +127,20 @@ public class ListarMsgPorResponsAction extends ActionSupport {
 							.equals("")))) {
 
 				lsChkPend = (String) (request.getSession().getAttribute(
-						"chkpend") != null ? request.getSession().getAttribute(
-						"chkpend") : "");
+						CHKPEND) != null ? request.getSession().getAttribute(
+						CHKPEND) : "");
 
 				lsChkAnd = (String) (request.getSession()
-						.getAttribute("chkand") != null ? request.getSession()
-						.getAttribute("chkand") : "");
+						.getAttribute(CHKAND) != null ? request.getSession()
+						.getAttribute(CHKAND) : "");
 
 				lsChkAtraso = (String) (request.getSession().getAttribute(
-						"chkatraso") != null ? request.getSession()
-						.getAttribute("chkatraso") : "");
+						CHKATRASO) != null ? request.getSession()
+						.getAttribute(CHKATRASO) : "");
 
 				lsChkCritico = (String) (request.getSession().getAttribute(
-						"chkcritico") != null ? request.getSession()
-						.getAttribute("chkcritico") : "");
+						CHKCRITICO) != null ? request.getSession()
+						.getAttribute(CHKCRITICO) : "");
 			}
 
 			// Recupera o Funcionário logado
@@ -156,10 +161,10 @@ public class ListarMsgPorResponsAction extends ActionSupport {
 
 			HttpSession session = request.getSession(true);
 
-			session.setAttribute("chkpend", lsChkPend);
-			session.setAttribute("chkand", lsChkAnd);
-			session.setAttribute("chkatraso", lsChkAtraso);
-			session.setAttribute("chkcritico", lsChkCritico);
+			session.setAttribute(CHKPEND, lsChkPend);
+			session.setAttribute(CHKAND, lsChkAnd);
+			session.setAttribute(CHKATRASO, lsChkAtraso);
+			session.setAttribute(CHKCRITICO, lsChkCritico);
 			session.setAttribute("txtDatIni", lsDatIni);
 			session.setAttribute("txtDatFim", lsDatFim);
 			session.setAttribute("txtTipoMsg", lsTipoMsg);

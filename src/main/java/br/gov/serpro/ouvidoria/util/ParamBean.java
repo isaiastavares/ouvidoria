@@ -35,6 +35,8 @@ package br.gov.serpro.ouvidoria.util;
  */
  public class ParamBean implements java.io.Serializable {
 
+	private static final String BRANCO = "#FFFFFF";
+
 	private static final long serialVersionUID = 1L;
 
 	private int width = 300;
@@ -51,17 +53,17 @@ package br.gov.serpro.ouvidoria.util;
 
     private int maxVal = 100;
 
-    private String colorColor = "#FFFFFF";
+    private String colorColor = BRANCO;
 
     private String paint = "color";
 
-    private String gradientColor1 = "#FFFFFF";
+    private String gradientColor1 = BRANCO;
 
     private int gradientX1;
 
     private int gradientX2;
 
-    private String gradientColor2 = "#FFFFFF";
+    private String gradientColor2 = BRANCO;
 
     private int gradientY2;
 

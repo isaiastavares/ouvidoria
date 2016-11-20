@@ -55,7 +55,7 @@ public class RecuperarCodigoAcessoCtrl {
 
 	private static final String B_BR_BR = "</b><br><br>";
 
-	private static final String CIDADÃO = "cidadão";
+	private static final String CIDADAO = "cidadão";
 
 	private Dao acionamentoDao;
 
@@ -254,13 +254,13 @@ public class RecuperarCodigoAcessoCtrl {
 			} else if (acionamento.getAcionador().getSexo().equals("M")){
 				lsTopo = "Prezado";
 				if (acionamento.getAcionador().checarAcionadorAnonimo()) {
-					lsNome = CIDADÃO;
+					lsNome = CIDADAO;
 				}
 
 			} else{
 				lsTopo = "Prezado(a)";
 				if (acionamento.getAcionador().checarAcionadorAnonimo()) {
-					lsNome = CIDADÃO;
+					lsNome = CIDADAO;
 				}
 			}
 
@@ -333,7 +333,7 @@ public class RecuperarCodigoAcessoCtrl {
 			} else {
 				lsTopo = "Prezado";
 				if (acionamento.getAcionador().checarAcionadorAnonimo()) {
-					lsNome = CIDADÃO;
+					lsNome = CIDADAO;
 				}
 			}
 

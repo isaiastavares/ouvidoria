@@ -1,27 +1,27 @@
 /*
  * Sistema de Ouvidoria: um canal através do qual os usuários
  * podem encaminhar suas reclamações, elogios e sugestões.
- * 
+ *
  * Copyright (C) 2011 SERPRO
- * 
+ *
  * Este programa é software livre; você pode redistribuí-lo e/ou
  * modificá-lo sob os termos da Licença Pública Geral GNU, conforme
  * publicada pela Free Software Foundation; tanto a versão 2 da
  * Licença como (a seu critério) qualquer versão mais nova.
- * 
+ *
  * Este programa é distribuído na expectativa de ser útil, mas SEM
  * QUALQUER GARANTIA; sem mesmo a garantia implícita de
  * COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM
  * PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais
  * detalhes.
- * 
+ *
  * Você deve ter recebido uma cópia da Licença Pública Geral GNU,
  * sob o título "LICENCA.txt", junto com esse programa. Se não,
  * acesse o Portal do Software Público Brasileiro no endereço
  * http://www.softwarepublico.gov.br/ ou escreva para a Fundação do
  * Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02111-1301, USA.
- * 
+ *
  * Contatos através do seguinte endereço internet:
  * http://www.serpro.gov.br/sistemaouvidoria/
  */
@@ -42,7 +42,7 @@ import br.gov.serpro.ouvidoria.util.Utilitario;
 /**
  * Funcionario Esta classe representa os funcionários que são usuários do
  * sistema.
- * 
+ *
  * @author SERPRO
  * @version $Revision: 1.1.2.3 $, $Date: 2011/10/20 17:07:44 $
  * @version 0.1, Date: 2004/11/19
@@ -122,7 +122,7 @@ public class Funcionario extends PersistentObject {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see br.gov.serpro.ouvidoria.model.Identifiable#getId()
 	 */
 	public Long getId() {
@@ -235,13 +235,17 @@ public class Funcionario extends PersistentObject {
 		if (situacao == null || situacao.length() == 0) {
 			throw new NullPointerException();
 		}
-		if ((situacao != null) && (situacao.length() > 0)
-				&& (situacao.compareTo(Funcionario.ATIVO) != 0)
-				&& (situacao.compareTo(Funcionario.INATIVO) != 0)
-				&& (situacao.compareTo(Funcionario.SUSPENSO) != 0)) {
+		if (situacaoInvalida()) {
 			throw new IllegalArgumentException();
 		}
 		this.situacao = situacao;
+	}
+
+	private boolean situacaoInvalida() {
+		return ((situacao != null) && (situacao.length() > 0)
+		&& (situacao.compareTo(Funcionario.ATIVO) != 0)
+		&& (situacao.compareTo(Funcionario.INATIVO) != 0)
+		&& (situacao.compareTo(Funcionario.SUSPENSO) != 0));
 	}
 
 	/**
@@ -285,7 +289,7 @@ public class Funcionario extends PersistentObject {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param listaLocalidadeOcorrencia
 	 */
 	public void setListaLocalidadeOcorrencia(
@@ -312,7 +316,7 @@ public class Funcionario extends PersistentObject {
 	/**
 	 * Este método é responsável por adicionar um tipo de mensagem na lista de
 	 * tipos de mensagem sob responsabilidade do funcionário
-	 * 
+	 *
 	 * @param tipoMensagem
 	 *            tipoMensagem a ser incluído
 	 */
@@ -323,7 +327,7 @@ public class Funcionario extends PersistentObject {
 	/**
 	 * Este método é responsável por remover um tipo de mensagem da lista de
 	 * tipos de mensagem sob responsabilidade do funcionário
-	 * 
+	 *
 	 * @param tipoMensagem
 	 *            tipoMensagem a ser removido
 	 */
@@ -349,7 +353,7 @@ public class Funcionario extends PersistentObject {
 	/**
 	 * Este método é responsável por adicionar um assunto na lista de assuntos
 	 * sob responsabilidade do funcionário
-	 * 
+	 *
 	 * @param assunto
 	 *            assunto a ser incluído
 	 */
@@ -360,7 +364,7 @@ public class Funcionario extends PersistentObject {
 	/**
 	 * Este método é responsável por remover um assunto da lista de assuntos sob
 	 * responsabilidade do funcionário
-	 * 
+	 *
 	 * @param assunto
 	 *            assunto a ser removido
 	 */
@@ -378,7 +382,7 @@ public class Funcionario extends PersistentObject {
 
 	/**
 	 * @return Retorna lista de instituições dentro da vigência.
-	 * 
+	 *
 	 */
 	public Collection getListaSubOrgaosAtivos() {
 		Collection lista = new ArrayList();
@@ -404,7 +408,7 @@ public class Funcionario extends PersistentObject {
 
 	/**
 	 * @return Retorna lista de instituições independente da vigência.
-	 * 
+	 *
 	 */
 	public Collection getListaTodosSubOrgaos() {
 		Collection lista = new ArrayList();
@@ -435,7 +439,7 @@ public class Funcionario extends PersistentObject {
 	/**
 	 * Este método é responsável por adicionar uma instituição na lista de
 	 * instituições as quais o funcionário está alocado.
-	 * 
+	 *
 	 * @param instituicao
 	 *            instituicao a ser incluída
 	 */
@@ -446,7 +450,7 @@ public class Funcionario extends PersistentObject {
 	/**
 	 * Este método é responsável por remover uma instituição da lista de
 	 * instituições as quais o funcionário está alocado
-	 * 
+	 *
 	 * @param instituicao
 	 *            instituicao a ser removida
 	 */
@@ -472,7 +476,7 @@ public class Funcionario extends PersistentObject {
 	/**
 	 * Este método é responsável por adicionar um acionamento na lista de
 	 * acionamentos sob responsabilidade do funcionário.
-	 * 
+	 *
 	 * @param acionamento
 	 *            acionamento a ser incluído
 	 */
@@ -483,7 +487,7 @@ public class Funcionario extends PersistentObject {
 	/**
 	 * Este método é responsável por remover um acionamento da lista de
 	 * acionamentos sob responsabilidade do funcionário.
-	 * 
+	 *
 	 * @param acionamento
 	 *            acionamento a ser removido
 	 */
@@ -513,7 +517,7 @@ public class Funcionario extends PersistentObject {
 
 	/**
 	 * Este método testa se o funcionário tem responsabilidade sobre um assunto
-	 * 
+	 *
 	 * @param assunto
 	 *            Assunto o qual se deseja testar a responsabilidade do
 	 *            funcionário
@@ -528,7 +532,7 @@ public class Funcionario extends PersistentObject {
 
 	/**
 	 * Este método testa se um funcionário está alocado a um sub órgão
-	 * 
+	 *
 	 * @param subOrgao
 	 *            SubOrgao que se deseja testar se o funcionario esta alocado
 	 * @return True se o funcionario esta alocado ao suborgao, false caso
@@ -543,7 +547,7 @@ public class Funcionario extends PersistentObject {
 
 	/**
 	 * Este método testa se um funcionário esté responsável por uma localidade
-	 * 
+	 *
 	 * @param localidadeOcorrencia
 	 *            localidade que se deseja testar se o funcionário tem
 	 *            responsabilidade sobre ela.
@@ -583,12 +587,12 @@ public class Funcionario extends PersistentObject {
 	/**
 	 * Recupera todos os assuntos nos quais o funcionario atua, seja através de
 	 * algum órgão ou sub-órgão
-	 * 
+	 *
 	 * @param situacao
 	 *            "Ativo" - retorna os assuntos ativos "Inativo" - retorna os
 	 *            assuntos inativos "Ambos" - retorna os assuntos ativos e
 	 *            inativos
-	 * 
+	 *
 	 * @return Retorna listaAssunto.
 	 */
 	public List getListaAssuntosComAtuacao(String situacao) {
@@ -658,7 +662,7 @@ public class Funcionario extends PersistentObject {
 
 	/**
 	 * Retorna o nível de atuação do funcionario
-	 * 
+	 *
 	 * @return 0 para órgão, 1 para Sub-órgão
 	 */
 	public int getNivelAtuacao() {
@@ -727,7 +731,7 @@ public class Funcionario extends PersistentObject {
 	/**
 	 * Este método verifica se um login está bloqueado e se já pode ser
 	 * desbloqueado.
-	 * 
+	 *
 	 * @return <code>true</code> se o funcionário estiver bloqueado,
 	 *         <code>false</code> caso contrário.
 	 */
@@ -763,7 +767,7 @@ public class Funcionario extends PersistentObject {
 
 	/**
 	 * Este método atribui o tempo limite de bloqueio.
-	 * 
+	 *
 	 * @param tempoBloqueio
 	 *            Tempo de bloqueio (em minutos)
 	 */

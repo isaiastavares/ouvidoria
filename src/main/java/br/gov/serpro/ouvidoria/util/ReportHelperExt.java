@@ -58,6 +58,30 @@ import br.gov.serpro.ouvidoria.util.freechart.data.persistence.DelimitedStringRe
  */
 public class ReportHelperExt {
 
+	private static final String AS_B = " ) as b ";
+
+	private static final String WHERE_1_1 = " where 1=1";
+
+	private static final String COUNT_A_COD_ACNMNT_AS_COUNT = " COUNT(a.COD_ACNMNT) AS COUNT ";
+
+	private static final String SELECT = " SELECT ";
+
+	private static final String AS_A = " ) as a, ";
+
+	private static final String TD_CLASS_TD_HEADER3_ALIGN_MIDDLE_LABEL_TABINDEX = "<TD class='tdHeader3' align='middle'><label tabindex=";
+
+	private static final String COUNT = "count";
+
+	private static final String SCRIPT_WITH_BARRA_N = "</script>\n";
+
+	private static final String SCRIPT = "<script>";
+
+	private static final String TD_ALIGN_MIDDLE_LABEL_TABINDEX = "<TD align='middle'><label tabindex=";
+
+	private static final String LABEL_TD = "</label></TD>\n";
+
+	private static final String TR = "\n</TR>";
+
 	private final static Perl5Util p5Util = new Perl5Util();
 
 	public static List getRecordList(HttpServletRequest request)
@@ -149,7 +173,7 @@ public class ReportHelperExt {
 					.append(orgao.getDescricao()).append("</label></TH>\n\n");
 		}
 
-		sb.append("\n</TR>");
+		sb.append(TR);
 
 		// Header end
 		int tabindex = 9;
@@ -158,7 +182,7 @@ public class ReportHelperExt {
 			tabindex += col;
 			// Agrupamento
 			sb.append("<TD><label tabindex=" + tabindex + ">")
-					.append(colNames[col]).append("</label></TD>\n");
+					.append(colNames[col]).append(LABEL_TD);
 
 			// Digitado pelo usuário
 			for (int row = 0; row < extraRows.length; row++) {
@@ -166,15 +190,15 @@ public class ReportHelperExt {
 
 				tabindex += row;
 				sb.append(
-						"<TD align='middle'><label tabindex=" + tabindex + ">")
+						TD_ALIGN_MIDDLE_LABEL_TABINDEX + tabindex + ">")
 						.append(formatNumber(Float.parseFloat(valueStr),
 								isTempoAtendimento))
 						.append(("1".equals(index) || "4".equals(index) ? " %"
-								: "")).append("</label></TD>\n");
-				sb.append("<script>");
+								: "")).append(LABEL_TD);
+				sb.append(SCRIPT);
 				sb.append("adder.add('COUNT-USER-" + row + "', " + valueStr
 						+ ");");
-				sb.append("</script>\n");
+				sb.append(SCRIPT_WITH_BARRA_N);
 
 			}
 
@@ -191,7 +215,7 @@ public class ReportHelperExt {
 								getLocalName(locaisTable, locais[i]),
 								"count_in", isTempoAtendimento);
 						cvalDe = getByTimeAndLocal(origList, colNames[col],
-								null, "count", isTempoAtendimento);
+								null, COUNT, isTempoAtendimento);
 
 						cvalS = (cval.toString().length() == 0 ? "0,00" : cval)
 								+ " %";
@@ -199,7 +223,7 @@ public class ReportHelperExt {
 					} else {
 						cval = getByTimeAndLocal(origList, colNames[col],
 								getLocalName(locaisTable, locais[i]),
-								"2".equals(index) ? "media_dias" : "count",
+								"2".equals(index) ? "media_dias" : COUNT,
 								isTempoAtendimento);
 
 						cvalS = (cval.toString().length() == 0 ? (isTempoAtendimento ? "0,00"
@@ -210,18 +234,18 @@ public class ReportHelperExt {
 					}
 
 					sb.append(
-							"<TD align='middle'><label tabindex=" + tabindex
+							TD_ALIGN_MIDDLE_LABEL_TABINDEX + tabindex
 									+ ">").append(cvalS)
-							.append("</label></TD>\n");
+							.append(LABEL_TD);
 
-					sb.append("<script>");
+					sb.append(SCRIPT);
 					sb.append("adder.add('COUNT-DB-" + i + "', "
 							+ (cval.toString().length() == 0 ? "0" : cval)
 							+ ");");
 					sb.append("adder.add('COUNT-DB-" + i + "-DE', "
 							+ (cvalDe.toString().length() == 0 ? "0" : cvalDe)
 							+ ");");
-					sb.append("</script>\n");
+					sb.append(SCRIPT_WITH_BARRA_N);
 
 				}
 
@@ -234,7 +258,7 @@ public class ReportHelperExt {
 					cval = getByTimeAndLocal(origList, colNames[col], null,
 							"count_in", isTempoAtendimento);
 					cvalDe = getByTimeAndLocal(origList, colNames[col], null,
-							"count", isTempoAtendimento);
+							COUNT, isTempoAtendimento);
 
 					cvalS = (cval.toString().length() == 0 ? "0,00" : cval)
 							+ " %";
@@ -242,7 +266,7 @@ public class ReportHelperExt {
 				} else {
 
 					cval = getByTimeAndLocal(origList, colNames[col], null,
-							"2".equals(index) ? "media_dias" : "count",
+							"2".equals(index) ? "media_dias" : COUNT,
 							isTempoAtendimento);
 
 					cvalS = (cval.toString().length() == 0 ? (isTempoAtendimento ? "0,00"
@@ -252,20 +276,20 @@ public class ReportHelperExt {
 									: "");
 				}
 				sb.append(
-						"<TD align='middle'><label tabindex=" + tabindex + ">")
-						.append(cvalS).append("</label></TD>\n");
+						TD_ALIGN_MIDDLE_LABEL_TABINDEX + tabindex + ">")
+						.append(cvalS).append(LABEL_TD);
 
-				sb.append("<script>");
+				sb.append(SCRIPT);
 				sb.append("adder.add('COUNT-DB-CONS', "
 						+ (cval.toString().length() == 0 ? "0" : cval) + ");");
 				sb.append("adder.add('COUNT-DB-CONS-DE', "
 						+ (cvalDe.toString().length() == 0 ? "0" : cvalDe)
 						+ ");");
-				sb.append("</script>\n");
+				sb.append(SCRIPT_WITH_BARRA_N);
 
 			}
 
-			sb.append("\n</TR>");
+			sb.append(TR);
 
 		}
 
@@ -279,18 +303,18 @@ public class ReportHelperExt {
 
 		// Agrupamento
 		sb.append("<TD class='tdHeader3'><label tabindex=" + tabindex + ">")
-				.append("Total").append("</label></TD>\n");
+				.append("Total").append(LABEL_TD);
 
 		// Digitado pelo usuário
 		for (int row = 0; row < extraRows.length; row++) {
 			valueStr = extraRows[row][col + 1];
 
 			sb.append(
-					"<TD class='tdHeader3' align='middle'><label tabindex="
+					TD_CLASS_TD_HEADER3_ALIGN_MIDDLE_LABEL_TABINDEX
 							+ tabindex + ">")
 					.append("<script>writeRounded(adder.getSum('COUNT-USER-"
 							+ row + "'), 0, 6);</script>")
-					.append("</label></TD>\n");
+					.append(LABEL_TD);
 
 		}
 
@@ -299,22 +323,22 @@ public class ReportHelperExt {
 		if (detailed) {
 			for (int i = 0; i < locais.length; i++) {
 				sb.append(
-						"<TD class='tdHeader3' align='middle'><label tabindex="
+						TD_CLASS_TD_HEADER3_ALIGN_MIDDLE_LABEL_TABINDEX
 								+ tabindex + ">")
 						.append("<script>writeExtRounded('COUNT-DB-" + i
-								+ "');</script>").append("</label></TD>\n");
+								+ "');</script>").append(LABEL_TD);
 			}
 
 		} else {
 			sb.append(
-					"<TD class='tdHeader3' align='middle'><label tabindex="
+					TD_CLASS_TD_HEADER3_ALIGN_MIDDLE_LABEL_TABINDEX
 							+ tabindex + ">")
 					.append("<script>writeExtRounded('COUNT-DB-CONS');</script>")
-					.append("</label></TD>\n");
+					.append(LABEL_TD);
 
 		}
 
-		sb.append("\n</TR>");
+		sb.append(TR);
 
 		return sb.toString();
 	}
@@ -588,32 +612,32 @@ public class ReportHelperExt {
 			if (detailed) {
 				query = " select a.time AS TIME, a.DSC_LOCAL_OCORR, round( (a.count / b.count) * 100, 2 ) AS COUNT from ( "
 						+ query
-						+ " ) as a, "
+						+ AS_A
 						+ " ( "
-						+ " SELECT "
+						+ SELECT
 						+ firstFields
-						+ " COUNT(a.COD_ACNMNT) AS COUNT "
+						+ COUNT_A_COD_ACNMNT_AS_COUNT
 						+ " FROM acionamento a LEFT JOIN localidadeocorrencia loco ON a.COD_LOCAL_OCORR = loco.COD_LOCAL_OCORR "
-						+ " where 1=1"
+						+ WHERE_1_1
 						+ dateCrit
 						+ locCrit
 						+ " GROUP BY TIME, loco.DSC_LOCAL_OCORR"
-						+ " ) as b "
+						+ AS_B
 						+ " where a.time = b.time and a.DSC_LOCAL_OCORR = b.DSC_LOCAL_OCORR";
 			} else {
 				query = " select a.time AS TIME, round( (a.count / b.count) * 100, 2 ) AS COUNT from ( "
 						+ query
-						+ " ) as a, "
+						+ AS_A
 						+ " ( "
-						+ " SELECT "
+						+ SELECT
 						+ firstFields
-						+ " COUNT(a.COD_ACNMNT) AS COUNT "
+						+ COUNT_A_COD_ACNMNT_AS_COUNT
 						+ " FROM acionamento a "
-						+ " where 1=1"
+						+ WHERE_1_1
 						+ dateCrit
 						+ locCrit
 						+ " GROUP BY TIME "
-						+ " ) as b "
+						+ AS_B
 						+ " where a.time = b.time ";
 			}
 
@@ -622,33 +646,33 @@ public class ReportHelperExt {
 			if (detailed) {
 				query = " select a.time AS TIME, a.DSC_LOCAL_OCORR, round( (a.count_in / b.count) * 100, 2 ) AS COUNT_IN, b.count as COUNT from ( "
 						+ query
-						+ " ) as a, "
+						+ AS_A
 						+ " ( "
-						+ " SELECT "
+						+ SELECT
 						+ firstFields
-						+ " COUNT(a.COD_ACNMNT) AS COUNT "
+						+ COUNT_A_COD_ACNMNT_AS_COUNT
 						+ " FROM acionamento a LEFT JOIN localidadeocorrencia loco ON a.COD_LOCAL_OCORR = loco.COD_LOCAL_OCORR "
-						+ " where 1=1"
+						+ WHERE_1_1
 						+ dateCrit
 						+ locCrit
 						+ " GROUP BY TIME, loco.DSC_LOCAL_OCORR "
-						+ " ) as b "
+						+ AS_B
 						+ " where a.time = b.time and a.DSC_LOCAL_OCORR = b.DSC_LOCAL_OCORR";
 
 			} else {
 				query = " select a.time AS TIME, b.count as COUNT, round( (a.count_in / b.count) * 100, 2 ) AS COUNT_IN from ( "
 						+ query
-						+ " ) as a, "
+						+ AS_A
 						+ " ( "
-						+ " SELECT "
+						+ SELECT
 						+ firstFields
-						+ " COUNT(a.COD_ACNMNT) AS COUNT "
+						+ COUNT_A_COD_ACNMNT_AS_COUNT
 						+ " FROM acionamento a "
-						+ " where 1=1"
+						+ WHERE_1_1
 						+ dateCrit
 						+ locCrit
 						+ " GROUP BY TIME "
-						+ " ) as b "
+						+ AS_B
 						+ " where a.time = b.time ";
 			}
 

@@ -1,27 +1,27 @@
 /*
  * Sistema de Ouvidoria: um canal através do qual os usuários
  * podem encaminhar suas reclamações, elogios e sugestões.
- * 
+ *
  * Copyright (C) 2011 SERPRO
- * 
+ *
  * Este programa é software livre; você pode redistribuí-lo e/ou
  * modificá-lo sob os termos da Licença Pública Geral GNU, conforme
  * publicada pela Free Software Foundation; tanto a versão 2 da
  * Licença como (a seu critério) qualquer versão mais nova.
- * 
+ *
  * Este programa é distribuído na expectativa de ser útil, mas SEM
  * QUALQUER GARANTIA; sem mesmo a garantia implícita de
  * COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM
  * PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais
  * detalhes.
- * 
+ *
  * Você deve ter recebido uma cópia da Licença Pública Geral GNU,
  * sob o título "LICENCA.txt", junto com esse programa. Se não,
  * acesse o Portal do Software Público Brasileiro no endereço
  * http://www.softwarepublico.gov.br/ ou escreva para a Fundação do
  * Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA 02111-1301, USA.
- * 
+ *
  * Contatos através do seguinte endereço internet:
  * http://www.serpro.gov.br/sistemaouvidoria/
  */
@@ -47,15 +47,18 @@ import br.gov.serpro.ouvidoria.struts.DispatchActionSupport;
 
 /**
  * Objetivo: Interface para a recuperação do do Código de Acesso do Acionador
- * 
+ *
  * @author SERPRO
  * @version $Revision: 1.1.2.3 $, $Date: 2011/10/18 17:57:03 $
  * @version 0.1, 2004/12/03
  */
 public class RecuperarCodigoAcessoAction extends DispatchActionSupport {
 
-    /**
-     * 
+    private static final String CAMPO_VALIDACAO = "campoValidacao";
+	private static final String NUMERO_PROTOCOLO = "numeroProtocolo";
+
+	/**
+     *
      * @param mapping
      * @param form
      * @param request
@@ -71,7 +74,7 @@ public class RecuperarCodigoAcessoAction extends DispatchActionSupport {
 
         DynaActionForm _form = (DynaActionForm) form;
 
-        Integer numeroProtocolo = (Integer) _form.get("numeroProtocolo");
+        Integer numeroProtocolo = (Integer) _form.get(NUMERO_PROTOCOLO);
 
         AcionamentoCtrl acionamentoCtrl = new AcionamentoCtrl(getDaoFactory());
 
@@ -103,7 +106,7 @@ public class RecuperarCodigoAcessoAction extends DispatchActionSupport {
 
                     final String campoValidacao = recuperarCodigoAcessoCtrl
                             .getCampoValidacao(numeroProtocolo);
-                    request.setAttribute("campoValidacao", campoValidacao);
+                    request.setAttribute(CAMPO_VALIDACAO, campoValidacao);
 
                     final String perguntaUsuario = recuperarCodigoAcessoCtrl
                             .getPergunta(numeroProtocolo);
@@ -118,7 +121,7 @@ public class RecuperarCodigoAcessoAction extends DispatchActionSupport {
                     resposta += 2;
                 }
 
-                request.setAttribute("numeroProtocolo", numeroProtocolo);
+                request.setAttribute(NUMERO_PROTOCOLO, numeroProtocolo);
                 request.setAttribute("opcao", String.valueOf(resposta));
             }
         }
@@ -133,7 +136,7 @@ public class RecuperarCodigoAcessoAction extends DispatchActionSupport {
     }
 
     /**
-     * 
+     *
      * @param mapping
      * @param form
      * @param request
@@ -152,7 +155,7 @@ public class RecuperarCodigoAcessoAction extends DispatchActionSupport {
         ActionErrors errors = new ActionErrors();
 
         DynaActionForm _form = (DynaActionForm) form;
-        Integer numeroProtocolo = (Integer) _form.get("numeroProtocolo");
+        Integer numeroProtocolo = (Integer) _form.get(NUMERO_PROTOCOLO);
         Integer formaRecuperacao = (Integer) _form.get("formaRecuperacao");
         String action = (String) _form.get("action");
 
@@ -177,9 +180,9 @@ public class RecuperarCodigoAcessoAction extends DispatchActionSupport {
                     this.getOrgao(request), numeroProtocolo, formaRecuperacao);
 
             /////////////////////////////////////
-            // 
+            //
             // Códigos de retorno:
-            //        	
+            //
             //  ERRO = 0
             //  PROTOCOLO_ESTA_BLOQUEADO = 1
             //  ACIONADOR_ANONIMO = 3
@@ -212,10 +215,10 @@ public class RecuperarCodigoAcessoAction extends DispatchActionSupport {
                         .getCampoValidacao(numeroProtocolo);
                 perguntaUsuario = recuperarCodigoAcessoCtrl
                         .getPergunta(numeroProtocolo);
-                request.setAttribute("campoValidacao", campoValidacao);
+                request.setAttribute(CAMPO_VALIDACAO, campoValidacao);
                 request.setAttribute("perguntaUsuario", perguntaUsuario);
-                request.setAttribute("numeroProtocolo", numeroProtocolo);
-                return (mapping.findForward("campoValidacao"));
+                request.setAttribute(NUMERO_PROTOCOLO, numeroProtocolo);
+                return (mapping.findForward(CAMPO_VALIDACAO));
             case 10:
                 errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                         "error.envioEmail"));
@@ -223,6 +226,8 @@ public class RecuperarCodigoAcessoAction extends DispatchActionSupport {
             case 0: // ERRO
                 errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                         "error.recuperarCodigoAcesso"));
+                break;
+            default:
                 break;
             }
 
