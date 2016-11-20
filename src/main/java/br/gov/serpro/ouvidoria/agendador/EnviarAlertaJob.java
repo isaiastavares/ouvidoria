@@ -62,6 +62,11 @@ import br.gov.serpro.ouvidoria.util.Utilitario;
  *
  * @author Bill Kratzer
  */
+
+/**
+ * @refatorado gilmar.junior
+ * @since 2016.11.20
+ * */
 public class EnviarAlertaJob implements Job {
 
 	private static final Log LOG = LogFactory.getLog(EnviarAlertaJob.class);
@@ -122,12 +127,12 @@ public class EnviarAlertaJob implements Job {
 					+ new Date() + "\n");
 
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
 
 	}
 
+	@SuppressWarnings("rawtypes")
 	public boolean enviarAlertaViaEmail(Orgao orgao, EstadoAcionamento estado)
 			throws DaoException {
 
@@ -136,12 +141,8 @@ public class EnviarAlertaJob implements Job {
 				daoFactory);
 
 		String lsServidorSMTP = "";
-		String lsDe = "";
-		String lsPara = "";
-		String lsAssunto = "";
-		String lsTexto = "";
 		String lsTextoParametrizado = "";
-
+		
 		List listaParametrosGerais = parametrosCtrl.list();
 
 		ConfiguracoesOrgao configuracoes = orgao.getConfiguracoes();
@@ -152,150 +153,100 @@ public class EnviarAlertaJob implements Job {
 					.getServidorSMTP();
 		}
 
-		lsDe = orgao.getConfiguracoes().getRemetenteEmail();
+		String lsDe = orgao.getConfiguracoes().getRemetenteEmail();
 
-		lsAssunto = "Ouvidoria - " + orgao.getDescricao();
+		String lsAssunto = "Ouvidoria - ".concat(orgao.getDescricao());
 
-		Iterator listaAcionamentos = acionamentoCtrl
-				.listaAcionamentosPorEstado(estado.getId()).iterator();
-
-		/* Dados do acionamento */
-		Acionamento acionamento = null;
-		String enderecoUrlAcionamento = null;
-		String estadoAcionamento = null;
-		Timestamp dataAcionamento = null;
-		Integer numeroProtocolo = null;
-		String assunto = null;
-
-		SimpleDateFormat data = null;
-		String dataFormatada = null;
-
-		String nomeFuncionarioResponsavel = null;
-		String nomeOrgao = null;
-
-		Funcionario funcionario = null;
+		Iterator listaAcionamentos = acionamentoCtrl.listaAcionamentosPorEstado(estado.getId()).iterator();
 
 		// Recupera o nome do acionador
 		while (listaAcionamentos.hasNext()) {
 
-			acionamento = (Acionamento) listaAcionamentos.next();
+			Acionamento acionamento = (Acionamento) listaAcionamentos.next();
 
-			funcionario = acionamento.getFuncionario();
+			Funcionario funcionario = acionamento.getFuncionario();
 
-			enderecoUrlAcionamento = urlDetalhamento(acionamento, orgao);
-			estadoAcionamento = acionamento.getEstadoAcionamento()
-					.getDescricao();
-			dataAcionamento = acionamento.getDataAcionamento();
-			numeroProtocolo = acionamento.getNumeroProtocolo();
-			assunto = acionamento.getMensagem().getAssunto().getDescricao();
+			String enderecoUrlAcionamento = urlDetalhamento(acionamento, orgao);
+			String estadoAcionamento = acionamento.getEstadoAcionamento().getDescricao();
+			Timestamp dataAcionamento = acionamento.getDataAcionamento();
+			Integer numeroProtocolo = acionamento.getNumeroProtocolo();
+			String assunto = acionamento.getMensagem().getAssunto().getDescricao();
 
-			data = new SimpleDateFormat("dd/MM/yyyy");
-			dataFormatada = data.format(dataAcionamento);
+			SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
+			String dataFormatada = data.format(dataAcionamento);
 
-			nomeFuncionarioResponsavel = funcionario.getNome();
-			lsPara = funcionario.getEmail();
+			String nomeFuncionarioResponsavel = funcionario.getNome();
+			String lsPara = funcionario.getEmail();
 
-			nomeOrgao = orgao.getDescricao();
+			String nomeOrgao = orgao.getDescricao();
 
-			if (lsPara != null && !lsPara.equals("")) {
+			if (lsPara != null && !lsPara.isEmpty()) {
 
-				lsAssunto = "Ouvidoria - Notificação de Mensagem - Protocolo: "
-						+ numeroProtocolo + " - Situação: " + estadoAcionamento;
+				StringBuilder sbAssunto = new StringBuilder();
+				sbAssunto.append("Ouvidoria - Notificação de Mensagem - Protocolo: ").append(numeroProtocolo).append(" - Situação: ").append(estadoAcionamento);
+				lsAssunto = sbAssunto.toString();
 
 				if (estado.getId() == EstadoAcionamento.PENDENTE.getId()) {
-					lsTextoParametrizado = configuracoes
-							.getTextoNotificacaoPendencia();
+					lsTextoParametrizado = configuracoes.getTextoNotificacaoPendencia();
 
-				} else if (estado.getId().equals(
-						EstadoAcionamento.ATRASO.getId())) {
-					lsTextoParametrizado = configuracoes
-							.getTextoNotificacaoPendencia();
+				} else if (estado.getId().equals(EstadoAcionamento.ATRASO.getId())) {
+					lsTextoParametrizado = configuracoes.getTextoNotificacaoPendencia();
 
-				} else if (estado.getId().equals(
-						EstadoAcionamento.CRITICO.getId())) {
-					lsTextoParametrizado = configuracoes
-							.getTextoNotificacaoPendencia();
+				} else if (estado.getId().equals(EstadoAcionamento.CRITICO.getId())) {
+					lsTextoParametrizado = configuracoes.getTextoNotificacaoPendencia();
 				}
 
-				lsTexto = null;
-				lsTexto = "<p>" + nomeFuncionarioResponsavel + "</b>,<br><br>"
+				StringBuilder lsTexto = new StringBuilder();
+				lsTexto.append("<p>").append(nomeFuncionarioResponsavel).append("</b>,<br><br>");
+				lsTexto.append("<b>").append(lsTextoParametrizado).append("</b>");
+				lsTexto.append("<br><br><br>");
+				lsTexto.append("</p>");
+				lsTexto.append("<table  cellpadding='3' cellspacing='2' width='80%' border='0' bgcolor='#A9A9A9'>");
 
-				+ "<b>" + lsTextoParametrizado + "</b>"
+				lsTexto.append("<tr style=' color: #0000FF; font-family:Verdana; font-size:10pt; font-weight:bold ;'>");
+				lsTexto.append("	 <td bgcolor='#DCDCDC'>Status</td>");
+				lsTexto.append("	  <td bgcolor='#DCDCDC'>Assunto </td>");
+				lsTexto.append("	  <td bgcolor='#DCDCDC'>N&uacute;mero </td>");
+				lsTexto.append("	  <td bgcolor='#DCDCDC'>Data Acionamento</td>");
+				lsTexto.append("	  <td bgcolor='#DCDCDC'>Respons&aacute;vel </td>");
+				lsTexto.append("</tr>");
 
-				+ "<br><br><br>";
+				lsTexto.append("<tr style=' color: #0000FF; font-family:Verdana; font-size:10pt; font-weight:bold ;text-decoration: none;'>");
+				lsTexto.append(BG_COLOR_FFFFFF);
+				lsTexto.append("<a href='").append(enderecoUrlAcionamento).append(TARGET_BLANK).append(estadoAcionamento).append("</a>");
+				lsTexto.append("     </td>");
 
-				lsTexto = lsTexto + "</p>";
+				lsTexto.append(BG_COLOR_FFFFFF).append("    	<a href='").append(enderecoUrlAcionamento).append(TARGET_BLANK);
+				lsTexto.append(assunto).append("</a></td>");
+				lsTexto.append(BG_COLOR_FFFFFF).append("         <a href='").append(urlDetalhamento(acionamento, orgao)).append(TARGET_BLANK);
+				lsTexto.append(numeroProtocolo).append("</a>");
+				lsTexto.append("      </td>");
+				lsTexto.append(BG_COLOR_FFFFFF).append("			<a href='").append(enderecoUrlAcionamento).append(TARGET_BLANK).append(getClass());
+				lsTexto.append(dataFormatada).append("</a> </td>");
+				lsTexto.append(BG_COLOR_FFFFFF).append("			<a href='").append(enderecoUrlAcionamento).append(TARGET_BLANK);
+				lsTexto.append(nomeFuncionarioResponsavel).append("</a> </td>");
+				lsTexto.append("</tr>");
+				lsTexto.append("</table>");
+				lsTexto.append("<br><br>");
+				lsTexto.append("Atenciosamente,<br><br>");
+				lsTexto.append("Ouvidoria - <b>").append(nomeOrgao).append("</b><br><br><br>");
+				lsTexto.append(orgao.getConfiguracoes().getUrlSuporteUsuario());
 
-				lsTexto += "<table  cellpadding='3' cellspacing='2' width='80%' border='0' bgcolor='#A9A9A9'>";
-
-				lsTexto += "<tr style=' color: #0000FF; font-family:Verdana; font-size:10pt; font-weight:bold ;'>";
-				lsTexto += "	 <td bgcolor='#DCDCDC'>Status</td>";
-				lsTexto += "	  <td bgcolor='#DCDCDC'>Assunto </td>";
-				lsTexto += "	  <td bgcolor='#DCDCDC'>N&uacute;mero </td>";
-				lsTexto += "	  <td bgcolor='#DCDCDC'>Data Acionamento</td>";
-				lsTexto += "	  <td bgcolor='#DCDCDC'>Respons&aacute;vel </td>";
-				lsTexto += "</tr>";
-
-				lsTexto += "<tr style=' color: #0000FF; font-family:Verdana; font-size:10pt; font-weight:bold ;text-decoration: none;'>";
-				lsTexto += BG_COLOR_FFFFFF;
-				lsTexto += "<a href='" + enderecoUrlAcionamento
-						+ TARGET_BLANK + estadoAcionamento + "</a>";
-				lsTexto += "     </td>";
-
-				lsTexto += BG_COLOR_FFFFFF + "    	<a href='"
-						+ enderecoUrlAcionamento + TARGET_BLANK
-						+ assunto + "</a></td>";
-				lsTexto += BG_COLOR_FFFFFF + "         <a href='"
-						+ urlDetalhamento(acionamento, orgao)
-						+ TARGET_BLANK + numeroProtocolo + "</a>"
-						+ "      </td>";
-				lsTexto += BG_COLOR_FFFFFF + "			<a href='"
-						+ enderecoUrlAcionamento + TARGET_BLANK
-						+ dataFormatada + "</a>" + "       </td>";
-				lsTexto += BG_COLOR_FFFFFF + "			<a href='"
-						+ enderecoUrlAcionamento + TARGET_BLANK
-						+ nomeFuncionarioResponsavel + "</a>" + "       </td>";
-				lsTexto += "</tr>";
-
-				lsTexto += "</table>";
-
-				lsTexto += "<br><br>";
-
-				lsTexto += "Atenciosamente,<br><br>";
-				lsTexto += "Ouvidoria - <b>" + nomeOrgao + "</b><br><br><br>";
-
-				lsTexto += orgao.getConfiguracoes().getUrlSuporteUsuario();
-
-				LOG.info("\n\nURL :" + enderecoUrlAcionamento + "\n");
-				LOG.info("\nNumero protocolo :" + numeroProtocolo + "\n");
-				LOG.info("\n>>>Responsavel :" + nomeFuncionarioResponsavel
-						+ "\n");
-				LOG.info("\n>>>Email de Destino :" + lsPara + "\n");
-				LOG.info("\n>>>EstadoAcionamento :" + estadoAcionamento
-						+ "\n\n");
+				//criando String de log
+				StringBuilder logInfo = new StringBuilder();
+				logInfo.append("\n\nURL :").append(enderecoUrlAcionamento).append("\n");
+				logInfo.append("\nNumero protocolo :").append(numeroProtocolo).append("\n");
+				logInfo.append("\n>>>Responsavel :").append(nomeFuncionarioResponsavel).append("\n");
+				logInfo.append("\n>>>Email de Destino :").append(lsPara).append("\n");
+				logInfo.append("\n>>>EstadoAcionamento :").append(estadoAcionamento).append("\n\n");
 
 				/* Eviar nota de alerta */
 				Utilitario.enviarEmail(lsServidorSMTP, lsDe, lsPara, "", "",
-						lsAssunto, lsTexto);
+						lsAssunto, lsTexto.toString());
 
-				LOG.info("\n>>>Enviado email para responsável pelo protocolo :"
-						+ numeroProtocolo + "\n");
-
-				acionamento = null;
-				enderecoUrlAcionamento = null;
-				estadoAcionamento = null;
-				dataAcionamento = null;
-				numeroProtocolo = null;
-				assunto = null;
-
-				data = null;
-				dataFormatada = null;
-
-				nomeFuncionarioResponsavel = null;
-				lsPara = null;
-				nomeOrgao = null;
-
-				funcionario = null;
+				logInfo.append("\n>>>Enviado email para responsável pelo protocolo :").append(numeroProtocolo).append("\n");
+				
+				LOG.info(logInfo.toString());
 			}
 
 		}
@@ -305,17 +256,14 @@ public class EnviarAlertaJob implements Job {
 	}
 
 	private String urlDetalhamento(Acionamento acionamento, Orgao orgao) {
+		StringBuilder sbLsEnderecoUrl = new StringBuilder();
+		sbLsEnderecoUrl.append(enderecoUrl);
 
-		String lsEnderecoUrl = enderecoUrl;
+		String enc = Utilitario.encrypt(Constants.DES_KEY, orgao.getId().toString());
 
-		String enc = Utilitario.encrypt(Constants.DES_KEY, orgao.getId()
-				.toString());
+		sbLsEnderecoUrl.append("/MainIntranet.do?path=/andamento/ExibeMsgPorRespons&id=").append(acionamento.getId());
+		sbLsEnderecoUrl.append("&osessionid=".concat(enc));
 
-		lsEnderecoUrl = lsEnderecoUrl
-				+ "/MainIntranet.do?path=/andamento/ExibeMsgPorRespons&id="
-				+ acionamento.getId();
-		lsEnderecoUrl = lsEnderecoUrl + "&osessionid=".concat(enc);
-
-		return lsEnderecoUrl;
+		return sbLsEnderecoUrl.toString();
 	}
 }
