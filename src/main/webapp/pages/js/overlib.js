@@ -858,7 +858,7 @@ function ol_content_caption(text, title, close) {
 // Sets the background picture, padding and lots more. :)
 function ol_content_background(text, picture, hasfullhtml) {
 	if (hasfullhtml) {
-		txt = text;
+		var txt = text;
 	} else {
 		if (o3_css == CSSCLASS) txt = "<TABLE WIDTH="+o3_width+o3_widthunit+" BORDER=0 CELLPADDING=0 CELLSPACING=0 HEIGHT="+o3_height+o3_heightunit+"><TR><TD COLSPAN=3 HEIGHT="+o3_padyt+o3_padunit+"></TD></TR><TR><TD WIDTH="+o3_padxl+o3_padunit+"></TD><TD VALIGN=TOP WIDTH="+(o3_width-o3_padxl-o3_padxr)+o3_padunit+"><FONT class=\""+o3_textfontclass+"\">"+text+"</FONT></TD><TD WIDTH="+o3_padxr+o3_padunit+"></TD></TR><TR><TD COLSPAN=3 HEIGHT="+o3_padyb+o3_padunit+"></TD></TR></TABLE>";
 		if (o3_css == CSSSTYLE) txt = "<TABLE WIDTH="+o3_width+o3_widthunit+" BORDER=0 CELLPADDING=0 CELLSPACING=0 HEIGHT="+o3_height+o3_heightunit+"><TR><TD COLSPAN=3 HEIGHT="+o3_padyt+o3_padunit+"></TD></TR><TR><TD WIDTH="+o3_padxl+o3_padunit+"></TD><TD VALIGN=TOP WIDTH="+(o3_width-o3_padxl-o3_padxr)+o3_padunit+"><FONT style=\"font-family: "+o3_textfont+"; color: "+o3_textcolor+"; font-size: "+o3_textsize+o3_textsizeunit+";\">"+text+"</FONT></TD><TD WIDTH="+o3_padxr+o3_padunit+"></TD></TR><TR><TD COLSPAN=3 HEIGHT="+o3_padyb+o3_padunit+"></TD></TR></TABLE>";

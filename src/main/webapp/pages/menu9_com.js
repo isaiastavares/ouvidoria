@@ -144,9 +144,10 @@ function ClcJus(){
 
 	var a=BorderBtwnMain?NoOffFirstLineMenus+1:2,Sz=Math.round((PartOfWindow*FWinW-a*BorderWidthMain)/NoOffFirstLineMenus),i,j;
 	for(i=1;i<NoOffFirstLineMenus+1;i++){j=eval("Menu"+i);j[5]=Sz}
-	StartLeft=0}
+	var StartLeft=0}
 
 function ClcTrgt(){
+	var StartTop = 0;
 	var TLoc=Nav4?FLoc.document.layers[TargetLoc]:DomYes?FLoc.document.getElementById(TargetLoc):FLoc.document.all[TargetLoc];
 	if(DomYes){while(TLoc){StartTop+=TLoc.offsetTop;StartLeft+=TLoc.offsetLeft;TLoc=TLoc.offsetParent}}
 	else{StartTop+=Nav4?TLoc.pageY:TLoc.offsetTop;StartLeft+=Nav4?TLoc.pageX:TLoc.offsetLeft}}
@@ -278,7 +279,7 @@ while(Pntr!=null){Pntr.DoRmbr=x;Pntr=Nav4?Pntr.CLyr.Ctnr.Cllr:Pntr.Ctnr.Cllr}}
 function GoTo(){
 
 	var HP=Nav4?this.LLyr:this;
-	if(HP.Arr[1]){status="";LowItem(HP);IniFlg=1;Initiate();
+	if(HP.Arr[1]){var status="";LowItem(HP);IniFlg=1;Initiate();
 		HP.Arr[1].indexOf("javascript:")!=-1?eval(HP.Arr[1]):DcLoc.location.href=BaseHref+HP.Arr[1]}}
 
 function HiliteItem(P){
@@ -371,7 +372,7 @@ function someCombo(){
 
 			var theForm = parent.window.frames[1].document.forms[0];
 
-		 	for(i=0; i<theForm.elements.length; i++){
+		 	for(var i=0; i<theForm.elements.length; i++){
 			 	if(theForm.elements[i].type == "select-one") {
 					theForm.elements[i].style.visibility = "hidden";
 				}
